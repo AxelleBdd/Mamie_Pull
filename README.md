@@ -6,7 +6,7 @@
 
 ># 📚 Used stack
 >
->🔝 Vue.js(Nuxt) CSS(Tailwind) HTML
+>🔝 Vue.js(Nuxt) CSS(Tailwind) HTML<br>
 >🔙 Pyhton (Django) PostgreSQL
 >
 
