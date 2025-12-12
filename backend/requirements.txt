@@ -1,0 +1,16 @@
+# Framework Django
+asgiref==3.10.0
+Django==5.2.8
+sqlparse==0.5.3
+
+# API REST
+djangorestframework==3.16.1
+
+# CORS
+django-cors-headers==4.9.0
+
+# Database
+psycopg2-binary==2.9.11
+
+# .env
+python-decouple==3.8
