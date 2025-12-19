@@ -4,10 +4,11 @@ from models.category import Category
 class Product (models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    category_id = models.CharField(max_length=100)
-    #image = models.ImageField(upload_to="products/", blank=True, null=True)
-
-    categories = models.ManyToManyField(Category, related_name="products")
+    category = models.ForeignKey(
+        Category, 
+        on_delete=models.PROTECT, #prevent deleting category if it's used by at least one product
+        related_name="products")
+    #image = models.ImageField(upload_to="products/")
 
     def __str__(self):
         return self.title
