@@ -12,6 +12,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 SECRET_KEY = config('SECRET_KEY')
@@ -79,7 +81,6 @@ AUTH_USER_MODEL = "users.User"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-# ✅ Excellente configuration avec python-decouple !
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -108,6 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = "static/"
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 LANGUAGE_CODE = 'en-us'
@@ -115,18 +119,14 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# REST Framework Configuration (OPTIONNEL mais recommandé)
+# REST Framework Configuration
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',  # En dev, à restreindre en prod
+        'rest_framework.permissions.AllowAny',  # To update for deployment
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
