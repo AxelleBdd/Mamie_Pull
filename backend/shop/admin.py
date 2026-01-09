@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from .models import Category, Product, News, Favorite
 
 @admin.register(Category)
