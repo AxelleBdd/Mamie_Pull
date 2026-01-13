@@ -2,11 +2,12 @@ import json
 
 from .models import Product
 from django.http import HttpResponseNotAllowed, JsonResponse
+from .serializers import ProductSerializer
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser
 
-def product_api(request, product_id=None):
+def products_api(request, product_id=None):
     if request.method == "GET":
         if product_id is None:
             return get_products()
@@ -29,49 +30,34 @@ def product_api(request, product_id=None):
 #GET all products
 def get_products():
     products = Product.objects.all()
-    data = [
-        {
-            "id": product.id,
-            "title": product.title,
-            "description": product.description,
-            "category": product.category,
-            "image": product.image
-        }
-        for product in products
-    ]
-    return JsonResponse(data, safe=False)
+    serializer = ProductSerializer(products, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 #GET product by id
 def get_product(product_id):
     try:
         product = Product.objects.get(id=product_id)
+        serializer = ProductSerializer(product)
+        return JsonResponse(serializer.data)
     except Product.DoesNotExist:
         return JsonResponse({"error": "Not found"}, status=404)
-    
-    return JsonResponse({
-        "id": product.id,
-        "title": product.title,
-        "description": product.description,
-        "category": product.category,
-        "image": product.image
-    })
 
 # POST product
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def create_product(body):
     product = Product.objects.create(
-        name=body.get("name")
+        title=body.get("title"),
+        description=body.get("description"),
+        category_id=body.get("category"),
+        image=body.get("image")
     )
-    return JsonResponse({
-        "id": product.id,
-        "title": product.title,
-        "description": product.description,
-        "category": product.category,
-        "image": product.image
-    }, status=201)
+    serializer = ProductSerializer(product)
+    return JsonResponse(serializer.data, status=201)
 
 #PUT product
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
 def update_product(product_id, body):
     if product_id is None:
         return JsonResponse(
@@ -90,15 +76,12 @@ def update_product(product_id, body):
     product.image = body.get("image", product.image)
     product.save()
     
-    return JsonResponse({
-        "id": product.id,
-        "title": product.title,
-        "description": product.description,
-        "category": product.category,
-        "image": product.image
-    })
+    serializer = ProductSerializer(product)
+    return JsonResponse(serializer.data)
 
 #DELETE product
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
 def delete_product(product_id):
     if product_id is None:
         return JsonResponse(
