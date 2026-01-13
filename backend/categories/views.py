@@ -1,10 +1,9 @@
 import json
-from django.http import JsonResponse, HttpResponseNotAllowed
-from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseNotAllowed, JsonResponse
+from django.shortcuts import render
 from .models import Category
 
 #Category views
-@csrf_exempt
 def category_api(request, category_id=None):
     if request.method == "GET":
         if category_id is None:
@@ -72,3 +71,5 @@ def category_api(request, category_id=None):
         return JsonResponse({}, status=204)
 
     return HttpResponseNotAllowed(["GET", "POST", "PUT", "DELETE"])
+
+# Create your views here.

@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'corsheaders',
     
     'users',
-    'shop',
+    'products',
+    'categories',
+    'news',
+    'favorites',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +129,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # REST Framework Configuration
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',  # To update for deployment
+        'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
