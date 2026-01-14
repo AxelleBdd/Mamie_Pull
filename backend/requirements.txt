@@ -6,6 +6,7 @@ Pillow==12.1.0
 
 # API REST
 djangorestframework==3.16.1
+djangorestframework-simplejwt
 
 # CORS
 django-cors-headers==4.9.0
