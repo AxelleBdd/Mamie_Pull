@@ -1,8 +1,8 @@
 <template>
-  <div class="max-w-[1400px] mx-auto px-4 py-8 bg-white-purple-100">
+  <div class="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 py-8 bg-white-purple-100">
     <!-- Header -->
     <header class="text-center mb-12">
-      <h1 class="text-4xl font-bold font-heading text-dark-purple-700 font-heading mb-2">
+      <h1 class="text-6xl font-bold font-heading text-dark-purple-700 mb-2">
         Catalogue de produits
       </h1>
       <p class="text-lg text-dark-purple-700 font-body">
@@ -106,7 +106,7 @@ const loading = ref(true);
 const error = ref(null);
 const selectedCategory = ref(null);
 
-// Récupérer les catégories uniques des produits
+// Get categories from products
 const categories = computed(() => {
   const uniqueCategories = new Map();
   products.value.forEach(product => {

@@ -1,19 +1,39 @@
 <template>
-  <div id="app">
-    <nav class="navbar">
-      <div class="nav-container">
-        <router-link to="/" class="logo">
+  <div id="app" class="min-h-screen flex flex-col font-body bg-[var(--color-white-purple-100)] text-[var(--color-dark-purple-700)]">
+    
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm">
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-4
+               md:flex-row md:items-center md:justify-between"
+      >
+        <!-- Logo TODO: Change logo-->
+        <router-link
+          to="/"
+          class="font-heading text-2xl md:text-3xl text-[var(--color-highlight-purple-500)] hover:opacity-80 transition"
+        >
           🧶 MamiePull
         </router-link>
-        
-        <ul class="nav-menu">
+
+        <!-- Menu TODO: Change menus when on smaller screens -->
+        <ul class="flex gap-4 md:gap-6">
           <li>
-            <router-link to="/" class="nav-link">
+            <router-link
+              to="/"
+              class="px-4 py-2 rounded-md text-sm md:text-base
+                     hover:bg-[var(--color-grey-purple-400)]
+                     transition"
+            >
               Accueil
             </router-link>
           </li>
           <li>
-            <router-link to="/products" class="nav-link">
+            <router-link
+              to="/products"
+              class="px-4 py-2 rounded-md text-sm md:text-base
+                     hover:bg-[var(--color-grey-purple-400)]
+                     transition"
+            >
               Catalogue
             </router-link>
           </li>
@@ -21,56 +41,24 @@
       </div>
     </nav>
 
-    <main class="main-content">
+    <!-- Main -->
+    <main class="flex-1 py-8 md:py-12">
       <router-view />
     </main>
 
-    <footer class="footer">
-      <div class="footer-container">
-        <p>&copy; 2025 MamiePull - Produits faits main avec amour</p>
+    <!-- Footer TODO: Change footer to match design -->
+    <footer class="bg-white border-t">
+      <div
+        class="max-w-7xl mx-auto px-6 py-6 text-center text-sm md:text-base"
+      >
+        <p>
+          &copy; 2025 MamiePull – Produits faits main avec amour 💜
+        </p>
       </div>
     </footer>
+
   </div>
 </template>
 
 <script setup>
-
 </script>
-
-<style>
-/* General Styles */
-
-/* Responsive */
-@media (max-width: 768px) {
-  .nav-container {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .nav-menu {
-    gap: 1rem;
-  }
-
-  .nav-link {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
-  }
-
-  .logo {
-    font-size: 1.25rem;
-  }
-
-  .main-content {
-    padding: 1rem 0;
-  }
-
-  .footer-container {
-    padding: 1.5rem 1rem;
-  }
-
-  .footer p {
-    font-size: 0.875rem;
-  }
-}
-</style>

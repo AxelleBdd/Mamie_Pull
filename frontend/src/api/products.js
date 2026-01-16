@@ -1,10 +1,8 @@
-// Service pour gérer les appels API liés aux produits
-
 const API_BASE_URL = 'http://localhost:8000/api';
 
 /**
- * Récupère tous les produits depuis le backend
- * @returns {Promise<Array>} Liste des produits
+ * Get all products from the API
+ * @returns {Promise<Array>} Products list
  */
 export const getAllProducts = async () => {
   try {
@@ -29,9 +27,9 @@ export const getAllProducts = async () => {
 };
 
 /**
- * Récupère un produit par son ID
- * @param {number} id - ID du produit
- * @returns {Promise<Object>} Détails du produit
+ * Get product details by ID
+ * @param {number} id - Product ID
+ * @returns {Promise<Object>} - Product details
  */
 export const getProductById = async (id) => {
   try {
@@ -56,9 +54,10 @@ export const getProductById = async (id) => {
 };
 
 /**
- * Récupère les produits filtrés par catégorie
- * @param {number} categoryId - ID de la catégorie
- * @returns {Promise<Array>} Liste des produits filtrés
+ * Get products by category ID
+ * @param {number} categoryId - Category ID
+ * @returns {Promise<Array>} Filtered products list
+ * (?) Is this route needed (?)
  */
 export const getProductsByCategory = async (categoryId) => {
   try {
