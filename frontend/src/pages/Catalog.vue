@@ -1,11 +1,11 @@
 <template>
-  <div class="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 py-8 bg-white-purple-100">
+  <div class="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple-100">
     <!-- Header -->
-    <header class="text-center mb-12">
-      <h1 class="text-6xl font-bold font-heading text-dark-purple-700 mb-2">
+    <header class="text-center mb-4">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-dark-purple-700 mb-2">
         Catalogue de produits
       </h1>
-      <p class="text-lg text-dark-purple-700 font-body">
+      <p class="text-base sm:text-lg md:text-xl font-body text-dark-purple-700">
         Découvrez notre collection de produits faits main avec amour
       </p>
     </header>
@@ -13,16 +13,20 @@
     <!-- Filters -->
     <div
       v-if="categories.length > 0"
-      class="flex flex-wrap justify-center gap-3 mb-10 p-6 bg-white-purple-100 rounded-xl"
+      class="flex flex-wrap justify-center gap-3 mb-4 p-6 bg-white-purple-100 rounded-xl"
     >
       <button
         @click="filterByCategory(null)"
-        class="px-5 py-2 rounded-full border-2 text-sm transition
-          border-dark-purple-700 text-dark-purple-700
-          hover:border-highlight-purple-500 hover:text-highlight-purple-500"
-        :class="selectedCategory === null
-          ? 'bg-dark-purple-700 border-dark-purple-700 text-white'
-          : 'bg-white'"
+        class="px-5 py-2 rounded-full border-2 text-sm md:text-base font-medium transition
+          border-dark-purple-700 hover:cursor-pointer"
+        :class="{
+          'bg-dark-purple-700 text-white hover:text-grey-purple-400':
+            selectedCategory === null,
+          'bg-white-purple-100 text-dark-purple-700 hover:text-dark-purple-700 hover:bg-grey-purple-400':
+            selectedCategory !== null
+        }"
+        aria-label="Afficher tous les produits"
+        :aria-pressed="selectedCategory === null"
       >
         Tous les produits ({{ products.length }})
       </button>
@@ -31,12 +35,16 @@
         v-for="category in categories"
         :key="category.id"
         @click="filterByCategory(category.id)"
-        class="px-5 py-2 rounded-full border-2 text-sm font-medium transition
-          border-dark-purple-700 text-dark-purple-700
-          hover:border-dark-purple-700 hover:text-highlight-purple-500"
-        :class="selectedCategory === category.id
-          ? 'bg-dark-purple-700 border-dark-purple-700 text-white-purple-100'
-          : 'bg-white'"
+        class="px-5 py-2 rounded-full border-2 text-sm md:text-base font-medium transition
+          border-dark-purple-700 hover:cursor-pointer"
+        :class="{
+          'bg-dark-purple-700 text-white-purple-100 hover:text-grey-purple-400':
+            selectedCategory === category.id,
+          'bg-white-purple-100 text-dark-purple-700 hover:text-dark-purple-700 hover:bg-grey-purple-400':
+            selectedCategory !== category.id
+        }"
+        :aria-label="`Filtrer par la catégorie ${category.name}`"
+        :aria-pressed="selectedCategory === category.id"
       >
         {{ category.name }} ({{ getCategoryCount(category.id) }})
       </button>
