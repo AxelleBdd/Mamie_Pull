@@ -1,9 +1,6 @@
 const API_BASE_URL = 'http://localhost:8000/api';
 
-/**
- * Get all products from the API
- * @returns {Promise<Array>} Products list
- */
+// Get all products
 export const getAllProducts = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/products/`, {
@@ -26,11 +23,7 @@ export const getAllProducts = async () => {
   }
 };
 
-/**
- * Get product details by ID
- * @param {number} id - Product ID
- * @returns {Promise<Object>} - Product details
- */
+// Get product details
 export const getProductById = async (id) => {
   try {
     const response = await fetch(`${API_BASE_URL}/products/${id}/`, {
@@ -53,12 +46,7 @@ export const getProductById = async (id) => {
   }
 };
 
-/**
- * Get products by category ID
- * @param {number} categoryId - Category ID
- * @returns {Promise<Array>} Filtered products list
- * (?) Is this route needed (?)
- */
+ // Get products by category
 export const getProductsByCategory = async (categoryId) => {
   try {
     const response = await fetch(`${API_BASE_URL}/products/?category=${categoryId}`, {
