@@ -1,10 +1,10 @@
 <template>
   <div
-    :class="['flex h-full flex-col rounded-xl shadow-sm border-dark-purple-700 border-1 transition hover:-translate-y-1 hover:shadow-lg', isCardClickable ? 'cursor-pointer' : '']"
+    :class="['flex h-full flex-col rounded-xl shadow-sm border-dark-purple-700 border-1 overflow-hidden transition hover:-translate-y-1 hover:shadow-lg', isCardClickable ? 'cursor-pointer' : '']"
     @click="handleCardClick"
   >
     <!-- Image -->
-    <div class="relative h-48 w-full bg-grey-purple-400 flex items-center rounded-xl justify-center overflow-hidden">
+    <div class="relative h-48 w-full bg-grey-purple-400 flex items-center justify-center overflow-hidden">
       <img
         v-if="product.image"
         :src="product.image"

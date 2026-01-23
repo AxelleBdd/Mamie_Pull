@@ -1,11 +1,8 @@
 <template>
   <div id="app" class="min-h-screen flex flex-col font-body bg-white-purple-100 text-dark-purple-700">
     <header class="bg-white-purple-100 shadow-sm border-b border-grey-purple-300">
-      <!-- Conteneur principal du header -->
       <div class="max-w-7xl mx-auto px-6 py-4">
-        <!-- Logo + Navigation -->
         <div class="flex items-center justify-between gap-8">
-          <!-- Logo -->
           <div class="flex-shrink-0">
             <img 
               src="./assets/Logos/Logo-rectangle.png" 
@@ -14,76 +11,38 @@
             >
           </div>
 
-          <!-- Navigation principale - Desktop -->
+          <!-- Desktop navigation -->
           <nav class="hidden md:flex items-center gap-2 flex-1 ml-8">
             <router-link
               to="/"
-              class="px-4 py-2 rounded-md text-base md:text-lg
-                    hover:bg-grey-purple-400
-                    transition"
-            >
+              class="px-4 py-2 rounded-md text-base md:text-lg hover:bg-grey-purple-400 transition">
               Accueil
             </router-link>
             <router-link
               to="/products"
-              class="px-4 py-2 rounded-md text-base md:text-lg
-                    hover:bg-grey-purple-400
-                    transition"
-            >
+              class="px-4 py-2 rounded-md text-base md:text-lg hover:bg-grey-purple-400 transition">
               Catalogue
-            </router-link>
-            <router-link
-              to="/categories/pulls"
-              class="px-4 py-2 rounded-md text-base md:text-lg
-                    hover:bg-grey-purple-400
-                    transition"
-            >
-              Pulls
-            </router-link>
-            <router-link
-              to="/categories/echarpes"
-              class="px-4 py-2 rounded-md text-base md:text-lg
-                    hover:bg-grey-purple-400
-                    transition"
-            >
-              Écharpes
-            </router-link>
-            <router-link
-              to="/categories/bonnets"
-              class="px-4 py-2 rounded-md text-base md:text-lg
-                    hover:bg-grey-purple-400
-                    transition"
-            >
-              Bonnets
             </router-link>
           </nav>
 
-          <!-- Menu utilisateur - Desktop (aligné à droite) -->
+          <!-- User menu - Desktop -->
           <div class="hidden md:flex items-center gap-2">
             <router-link
               to="/profil"
-              class="px-4 py-2 rounded-md text-base md:text-lg
-                    hover:bg-grey-purple-400
-                    transition"
-            >
+              class="px-4 py-2 rounded-md text-base md:text-lg hover:bg-grey-purple-400 transition">
               Mon Profil
             </router-link>
             <router-link
               to="/favoris"
-              class="px-4 py-2 rounded-md text-base md:text-lg
-                    hover:bg-grey-purple-400
-                    transition"
-            >
+              class="px-4 py-2 rounded-md text-base md:text-lg hover:bg-grey-purple-400 transition">
               Favoris
             </router-link>
           </div>
 
-          <!-- Bouton menu burger - Mobile -->
+          <!-- Mobile - Burger menu -->
           <button 
             @click="mobileMenuOpen = !mobileMenuOpen"
-            class="md:hidden p-2 rounded-md hover:bg-grey-purple-400 transition"
-            aria-label="Menu"
-          >
+            class="md:hidden p-2 rounded-md hover:bg-grey-purple-400 transition" aria-label="Menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path 
                 v-if="!mobileMenuOpen"
@@ -103,12 +62,11 @@
           </button>
         </div>
 
-        <!-- Menu mobile -->
+        <!-- Mobile menu -->
         <div 
           v-if="mobileMenuOpen"
           class="md:hidden mt-4 pt-4 border-t border-grey-purple-300"
         >
-          <!-- Navigation principale -->
           <div class="mb-4">
             <p class="text-sm font-semibold text-dark-purple-500 mb-2 px-4">Navigation</p>
             <ul class="flex flex-col gap-1">
@@ -134,43 +92,10 @@
                   Catalogue
                 </router-link>
               </li>
-              <li>
-                <router-link
-                  to="/categories/pulls"
-                  class="block px-4 py-2 rounded-md text-base
-                        hover:bg-grey-purple-400
-                        transition"
-                  @click="mobileMenuOpen = false"
-                >
-                  Pulls
-                </router-link>
-              </li>
-              <li>
-                <router-link
-                  to="/categories/echarpes"
-                  class="block px-4 py-2 rounded-md text-base
-                        hover:bg-grey-purple-400
-                        transition"
-                  @click="mobileMenuOpen = false"
-                >
-                  Écharpes
-                </router-link>
-              </li>
-              <li>
-                <router-link
-                  to="/categories/bonnets"
-                  class="block px-4 py-2 rounded-md text-base
-                        hover:bg-grey-purple-400
-                        transition"
-                  @click="mobileMenuOpen = false"
-                >
-                  Bonnets
-                </router-link>
-              </li>
             </ul>
           </div>
 
-          <!-- Navigation utilisateur -->
+          <!-- User menu -->
           <div>
             <p class="text-sm font-semibold text-dark-purple-500 mb-2 px-4">Mon compte</p>
             <ul class="flex flex-col gap-1">
@@ -202,7 +127,7 @@
       </div>
     </header>
 
-    <!-- Barre de recherche (conditionnelle selon la route) -->
+    <!-- Search bar (display depending on route) -->
     <div 
       v-if="showSearchBar"
       class="bg-white-purple-100"
@@ -213,7 +138,7 @@
             type="search"
             placeholder="Rechercher un produit..."
             class="w-full px-4 py-2 pr-10 rounded-md border border-grey-purple-300 
-                   focus:outline-none focus:ring-2 focus:ring-[var(--color-highlight-purple-500)]
+                   focus:outline-none focus:ring-2 focus:ring-highlight-purple-500
                    bg-white transition"
           >
           <svg 
