@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="min-h-screen flex flex-col font-body bg-white-purple-100 text-dark-purple-700">
     <header class="bg-white-purple-100 shadow-sm border-b border-grey-purple-300">
-      <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="max-w-7xl mx-auto px-6 py-2">
         <div class="flex items-center justify-between gap-8">
           <div class="flex-shrink-0">
             <img 
@@ -10,31 +10,30 @@
               class="h-12 md:h-16 w-auto"
             >
           </div>
-
           <!-- Desktop navigation -->
-          <nav class="hidden md:flex items-center gap-2 flex-1 ml-8">
+          <nav class="hidden md:flex items-center gap-2 lg:gap-4 xl:gap-6 flex-1 ml-10 lg:ml-16 xl:ml-20">
             <router-link
               to="/"
-              class="px-4 py-2 rounded-md text-base md:text-lg hover:bg-grey-purple-400 transition">
+              class="px-4 py-2 rounded-md text-base md:text-xl hover:bg-grey-purple-400 transition">
               Accueil
             </router-link>
             <router-link
               to="/products"
-              class="px-4 py-2 rounded-md text-base md:text-lg hover:bg-grey-purple-400 transition">
-              Catalogue
+              class="px-4 py-2 rounded-md text-base md:text-xl hover:bg-grey-purple-400 transition">
+              Nos produits
             </router-link>
           </nav>
 
           <!-- User menu - Desktop -->
-          <div class="hidden md:flex items-center gap-2">
+          <div class="hidden md:flex items-center gap-2 lg:gap-4 xl:gap-6">
             <router-link
               to="/profil"
-              class="px-4 py-2 rounded-md text-base md:text-lg hover:bg-grey-purple-400 transition">
-              Mon Profil
+              class="px-4 py-2 rounded-md text-base md:text-xl hover:bg-grey-purple-400 transition">
+              Mon profil
             </router-link>
             <router-link
               to="/favoris"
-              class="px-4 py-2 rounded-md text-base md:text-lg hover:bg-grey-purple-400 transition">
+              class="px-4 py-2 rounded-md text-base md:text-xl hover:bg-grey-purple-400 transition">
               Favoris
             </router-link>
           </div>
@@ -68,7 +67,7 @@
           class="md:hidden mt-4 pt-4 border-t border-grey-purple-300"
         >
           <div class="mb-4">
-            <p class="text-sm font-semibold text-dark-purple-500 mb-2 px-4">Navigation</p>
+            <p class="text-lg font-semibold text-dark-purple-500 mb-2 px-4">Navigation</p>
             <ul class="flex flex-col gap-1">
               <li>
                 <router-link
@@ -89,7 +88,7 @@
                         transition"
                   @click="mobileMenuOpen = false"
                 >
-                  Catalogue
+                  Nos produits
                 </router-link>
               </li>
             </ul>
@@ -97,7 +96,7 @@
 
           <!-- User menu -->
           <div>
-            <p class="text-sm font-semibold text-dark-purple-500 mb-2 px-4">Mon compte</p>
+            <p class="text-lg font-semibold text-dark-purple-500 mb-2 px-4">Mon compte</p>
             <ul class="flex flex-col gap-1">
               <li>
                 <router-link
@@ -107,7 +106,7 @@
                         transition"
                   @click="mobileMenuOpen = false"
                 >
-                  Mon Profil
+                  Mon profil
                 </router-link>
               </li>
               <li>
@@ -159,14 +158,14 @@
     </div>
 
     <!-- Main -->
-    <main class="flex-1 py-8 md:py-12">
+    <main class="flex-1">
       <router-view />
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white-purple-100 border-t border-grey-purple-300">
-      <div class="max-w-7xl mx-auto px-6 py-6 text-center text-sm md:text-base">
-        <p>&copy; 2025 MamiePull – Produits faits main avec amour 💜</p>
+    <footer class="bg-dark-purple-700 border-t border-grey-purple-300">
+      <div class="max-w-7xl mx-auto px-6 py-6 text-center text-white-purple-100 text-sm md:text-base">
+        <p>2025 MamiePull &copy; – Produits faits main avec amour 💜</p>
       </div>
     </footer>
   </div>
