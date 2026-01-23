@@ -2,6 +2,7 @@ import json
 
 from .models import Category
 from django.http import HttpResponseNotAllowed, JsonResponse
+from .serializers import CategorySerializer
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser
@@ -27,23 +28,17 @@ def category_api(request, category_id=None):
 #GET all categories
 def get_categories():
     categories = Category.objects.all()
-    data = [
-        {"id": category.id, "name": category.name}
-        for category in categories
-    ]
-    return JsonResponse(data, safe=False)
+    serializer = CategorySerializer(categories, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 #GET category by id
 def get_category(category_id):
     try:
         category = Category.objects.get(id=category_id)
+        serializer = CategorySerializer(category)
+        return JsonResponse(serializer.data)
     except Category.DoesNotExist:
         return JsonResponse({"error": "Not found"}, status=404)
-    
-    return JsonResponse({
-        "id": category.id,
-        "name": category.name
-    })
 
 # POST category
 @api_view(['POST'])
@@ -53,12 +48,10 @@ def create_category(request):
     category = Category.objects.create(
         name=body.get("name")
     )
-    return JsonResponse({
-        "id": category.id,
-        "name": category.name
-    }, status=201)
+    serializer = CategorySerializer(category)
+    return JsonResponse(serializer.data, status=201)
 
-#PUT catgory
+#PUT category
 @api_view(['PUT'])
 @permission_classes([IsAdminUser])
 def update_category(request, category_id):
@@ -77,10 +70,8 @@ def update_category(request, category_id):
     category.name = body.get("name", category.name)
     category.save()
     
-    return JsonResponse({
-        "id": category.id,
-        "name": category.name
-    })
+    serializer = CategorySerializer(category)
+    return JsonResponse(serializer.data, status=201)
 
 #DELETE category
 @api_view(['DELETE'])
