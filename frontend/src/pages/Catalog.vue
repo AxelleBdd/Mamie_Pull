@@ -94,10 +94,10 @@
     <!-- Empty -->
     <div v-else class="text-center py-16">
       <span class="text-6xl mb-4 block opacity-50">📦</span>
-      <h3 class="text-2xl font-semibold text-purple-700 mb-2">
+      <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
         Aucun produit trouvé
       </h3>
-      <p class="text-purple-300">
+      <p class="text-highlight-purple-500">
         Il n'y a pas encore de produits dans cette catégorie.
       </p>
     </div>
