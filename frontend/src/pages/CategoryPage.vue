@@ -11,38 +11,35 @@
     </header>
 
     <!-- Breadcrumb -->
-    <nav class="mb-6 flex items-center gap-2 text-sm text-dark-purple-700">
+    <nav aria-label="Fil d'Ariane" class="mb-6 flex items-center gap-2 sm:text-lg md:text-xl font-body text-dark-purple-700">
       <router-link to="/" class="hover:underline">Accueil</router-link>
-      <span> > </span>
+      <span aria-hidden="true"> > </span>
       <router-link to="/products" class="hover:underline">Produits</router-link>
-      <span> > </span>
-      <span class="font-medium">{{ currentCategory?.name }}</span>
+      <span aria-hidden="true"> > </span>
+      <span aria-current="page" class="font-medium">{{ currentCategory?.name }}</span>
     </nav>
 
     <!-- Loading -->
-    <div v-if="loading" class="text-center py-16">
-      <div
-        class="mx-auto mb-4 h-12 w-12 rounded-full border-4 border-purple-200 border-t-purple-500 animate-spin"
-      ></div>
-      <p class="text-lg text-purple-300">
+    <div v-if="loading" role="status" class="text-center py-16">
+      <p class="text-lg text-light-purple-300">
         Chargement des produits...
       </p>
     </div>
 
     <!-- Error -->
-    <div v-else-if="error" class="text-center py-16">
-      <span class="text-6xl mb-4 block">⚠️</span>
-      <h3 class="text-2xl font-semibold text-purple-900 mb-2">
+    <div v-else-if="error" role="alert" class="text-center py-16">
+      <span aria-hidden="true" class="text-6xl mb-4 block">⚠️</span>
+      <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
         Erreur de chargement
       </h3>
-      <p class="text-purple-300 mb-6">
+      <p class="text-light-purple-300 mb-6">
         {{ error }}
       </p>
     </div>
 
     <!-- Category not found -->
-    <div v-else-if="!currentCategory" class="text-center py-16">
-      <span class="text-6xl mb-4 block">🔍</span>
+    <div v-else-if="!currentCategory" role="alert" class="text-center py-16">
+      <span aria-hidden="true" class="text-6xl mb-4 block">🔍</span>
       <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
         Catégorie introuvable
       </h3>
@@ -51,7 +48,8 @@
       </p>
       <router-link
         to="/products"
-        class="inline-block px-8 py-3 rounded-lg font-medium text-white bg-dark-purple-700
+        aria-label="Retourner à la page de tous les produits"
+        class="inline-block px-8 py-3 rounded-lg font-medium text-white-purple-100 bg-dark-purple-700
                hover:bg-purple-700 transition"
       >
         Voir tous les produits
@@ -61,6 +59,7 @@
     <!-- Products -->
     <div
       v-else-if="products.length > 0"
+      role="list" aria-label="Liste des produits de la catégorie" 
       class="grid gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
     >
       <ProductCard
@@ -68,12 +67,13 @@
         :key="product.id"
         :product="product"
         @view-details="viewProductDetails"
+        role="listitem"
       />
     </div>
 
     <!-- Empty -->
     <div v-else class="text-center py-16">
-      <span class="text-6xl mb-4 block opacity-50">📦</span>
+      <span aria-hidden="true" class="text-6xl mb-4 block opacity-50">📦</span>
       <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
         Aucun produit trouvé
       </h3>
@@ -82,7 +82,8 @@
       </p>
       <router-link
         to="/products"
-        class="inline-block px-8 py-3 rounded-lg font-medium text-white bg-dark-purple-700
+        aria-label="Retourner à la page de tous les produits"
+        class="inline-block px-8 py-3 rounded-lg font-medium text-white-purple-100 bg-dark-purple-700
                hover:bg-purple-700 transition"
       >
         Voir tous les produits
