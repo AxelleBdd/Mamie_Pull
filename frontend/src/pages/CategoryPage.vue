@@ -98,13 +98,15 @@
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import ProductCard from '../components/ProductCard.vue'
+import { useRoute } from 'vue-router' // Read route info
+import { useRouter } from 'vue-router' // For navigation
 import { getProductsByCategory } from '../api/products.js'
 import { useCategoryStore } from '../stores/categoryStore'
+import ProductCard from '../components/ProductCard.vue'
 
-const route = useRoute()
-const categoryStore = useCategoryStore()
+const router = useRouter();
+const route = useRoute();
+const categoryStore = useCategoryStore();
 
 const products = ref([])
 const loading = ref(true)
@@ -138,10 +140,8 @@ const loadCategoryProducts = async () => {
 
 // See product details
 const viewProductDetails = (productId) => {
-  console.log('Voir les détails du produit:', productId)
-  // TODO: Add navigation to product details page
-  // router.push(`/products/${productId}`);
-}
+  router.push(`/products/${productId}`);
+};
 
 // Watch for route changes (when navigating between categories)
 watch(

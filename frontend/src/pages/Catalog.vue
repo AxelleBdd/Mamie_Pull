@@ -182,10 +182,8 @@ const loadProducts = async () => {
 
 // See product details
 const viewProductDetails = (productId) => {
-  console.log('Voir les détails du produit:', productId)
-  // TODO: Add navigation to product details page
-  // router.push(`/products/${productId}`);
-}
+  router.push(`/products/${productId}`);
+};
 
 // Load products on component mount
 onMounted(() => {
