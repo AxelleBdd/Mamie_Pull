@@ -61,6 +61,7 @@ The project uses:
 
 - A global `.env` file
 - A frontend-specific `.env` file
+
 See the .env.example to make your own .env files
 
 ### Run the project
