@@ -10,6 +10,13 @@
       </p>
     </header>
 
+    <!-- Breadcrumb -->
+    <nav class="mb-6 flex items-center gap-2 text-sm text-dark-purple-700">
+      <router-link to="/" class="hover:underline">Accueil</router-link>
+      <span> > </span>
+      <span class="font-medium">Produits</span>
+    </nav>
+    
     <!-- Filters -->
     <div
       v-if="categories.length > 0"
