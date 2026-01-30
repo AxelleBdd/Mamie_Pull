@@ -29,7 +29,7 @@
                   v-for="category in validCategories"
                   :key="category.id"
                   :to="`/categories/${category.slug}`"
-                  class="px-4 py-2 rounded-md text-xl hover:bg-grey-purple-400 transition"
+                  class="block px-4 py-2 hover:bg-white-purple-100 transition"
                 >
                   {{ category.name }}
                 </router-link>
