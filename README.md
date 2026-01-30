@@ -1,16 +1,111 @@
-># 👥 Individual project
->
->💻 Create a website for a family member<br>
->🎓 Project for my RNCP title <br>
->
+# 🧶 MamiePull
 
-># 📚 Used stack
->
->🔝 Vue.js(Nuxt) CSS(Tailwind) HTML<br>
->🔙 Pyhton (Django) PostgreSQL
->
+👥 Individual project  
+💻 Website created for a family member  
+🎓 Project for my RNCP professional title  
 
-># 🚦 Status
->
->🟢 Starting again with my new skills
->
+MamiePull is a web application designed to showcase handmade knitted clothing for babies, children and baby dolls.  
+The project provides an online showcase for handcrafted creations, allowing visitors to discover products, models, and get in touch easily.
+
+🚧 **Status:** Work in progress
+
+## 📚 Project Context
+
+To find a fulfilling activity during retirement, the client wants to sell handmade knitted clothes for babies and young children.  
+MamiePull aims to highlight handmade products while keeping a personal and human approach.
+
+## 🎯 Project Objectives
+
+- Display the latest knitted creations
+- Showcase the different available models
+- Display customer feedback and testimonials
+- List markets and events where the creator is present
+- Provide an easy contact solution for customers
+
+### Constraints
+
+- ❌ No online payment system  
+  (Items are handmade on demand and adapted to each customer)
+- ✅ Contact section or form to improve customer experience
+
+## 🛠️ Used Stack
+
+### Frontend
+
+- Vue.js 3
+- Pinia
+- HTML / CSS Tailwind
+- Vite
+
+### Backend
+
+- Python
+- Django
+- PostgreSQL
+
+### Tools
+
+- Docker
+
+## ⚙️ Installation & Setup
+
+This project uses **Docker** for local development.
+
+### Prerequisites
+
+- Docker
+
+### Environment Variables
+
+The project uses:
+
+- A global `.env` file
+- A frontend-specific `.env` file
+See the .env.example to make your own .env files
+
+### Run the project
+
+```bash
+docker-compose up --build 
+```
+
+## 🚀 Usage
+
+At this stage:
+
+- The homepage is displayed
+- Products generated from the backend are fetched and shown
+
+🔧 API documentation and endpoints will be added later.
+
+## ✨ Features
+
+### Existing Features
+
+- Homepage layout
+- Display of products from the backend
+
+### Planned Features
+
+#### User Features
+
+- View site news and updates
+- Browse products by category
+- View product details
+- User authentication (sign up / sign in)
+- Manage favorite products
+
+#### Admin Features
+
+- Add, edit, and delete products
+- Manage news and updates
+
+## 🧪 Tests
+
+🚧 No tests implemented yet.  
+Tests will be added in a future development phase.
+
+## 🤝 Contribution
+
+This is a **private project** developed for a professional certification.  
+External contributions are **not accepted**.
