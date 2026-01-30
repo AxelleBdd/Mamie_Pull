@@ -10,6 +10,13 @@
       </p>
     </header>
 
+    <!-- Breadcrumb -->
+    <nav aria-label="Fil d'Ariane" class="mb-6 flex items-center gap-2 sm:text-lg md:text-xl text-dark-purple-700">
+      <router-link to="/" class="hover:underline">Accueil</router-link>
+      <span aria-hidden="true"> > </span>
+      <span aria-current="page" class="font-medium">Produits</span>
+    </nav>
+    
     <!-- Filters -->
     <div
       v-if="categories.length > 0"
@@ -61,12 +68,12 @@
     </div>
 
     <!-- Error -->
-    <div v-else-if="error" class="text-center py-16">
-      <span class="text-6xl mb-4 block">⚠️</span>
-      <h3 class="text-2xl font-semibold text-purple-900 mb-2">
+    <div v-else-if="error" role="alert" class="text-center py-16">
+      <span aria-hidden="true" class="text-6xl mb-4 block">⚠️</span>
+      <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
         Erreur de chargement
       </h3>
-      <p class="text-purple-300 mb-6">
+      <p class="text-light-purple-300 mb-6">
         {{ error }}
       </p>
       <button
@@ -81,6 +88,7 @@
     <!-- Products -->
     <div
       v-else-if="filteredProducts.length > 0"
+      role="list" aria-label="Liste des produits de la catégorie"
       class="grid gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
     >
       <ProductCard
@@ -88,12 +96,13 @@
         :key="product.id"
         :product="product"
         @view-details="viewProductDetails"
+        role="listitem"
       />
     </div>
 
     <!-- Empty -->
     <div v-else class="text-center py-16">
-      <span class="text-6xl mb-4 block opacity-50">📦</span>
+      <span aria-hidden="true" class="text-6xl mb-4 block opacity-50">📦</span>
       <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
         Aucun produit trouvé
       </h3>

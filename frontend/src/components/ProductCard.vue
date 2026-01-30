@@ -11,7 +11,7 @@
         :alt="product.title"
         class="h-full w-full object-cover"
       />
-      <span v-else class="text-6xl text-grey-purple-400">
+      <span aria-hidden="true" v-else class="text-6xl text-grey-purple-400">
         📦
       </span>
     </div>
@@ -34,9 +34,10 @@
       <button
         v-if="!isCardClickable"
         @click.stop="$emit('view-details', product.id)"
-        class="mt-auto w-full rounded-lg bg-dark-purple-700 px-6 py-3
-               text-sm font-medium font-body text-white-purple-100 transition
+        class="mt-auto w-full rounded-lg bg-dark-purple-700 px-6 py-3 font-body
+               sm:text-lg md:text-xl font-medium font-body text-white-purple-100 transition
                lg:inline-block hover:bg-highlight-purple-500 active:scale-95 cursor-pointer"
+        :aria-label="`Voir les détails du produit ${product.title}`"
       >
         Voir les détails
       </button>
