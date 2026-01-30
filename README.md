@@ -1,18 +1,16 @@
 # 🧶 MamiePull
 
-👥 Individual project  
-💻 Website created for a family member  
-🎓 Project for my RNCP professional title  
-
-MamiePull is a web application designed to showcase handmade knitted clothing for babies, children and baby dolls.  
-The project provides an online showcase for handcrafted creations, allowing visitors to discover products, models, and get in touch easily.
+> 👥 Individual project  
+> 💻 Website created for a family member  
+> 🎓 Project for my RNCP professional title  
 
 🚧 **Status:** Work in progress
 
 ## 📚 Project Context
 
-To find a fulfilling activity during retirement, the client wants to sell handmade knitted clothes for babies and young children.  
-MamiePull aims to highlight handmade products while keeping a personal and human approach.
+To find a fulfilling activity during retirement, the client wants to sell handmade knitted clothes for babies young children and baby dolls.  
+MamiePull aims to highlight handmade products while keeping a personal and human approach. <br>
+The project provides an online showcase for handcrafted creations, allowing visitors to discover products, models, and get in touch easily.
 
 ## 🎯 Project Objectives
 
@@ -55,6 +53,12 @@ This project uses **Docker** for local development.
 
 - Docker
 
+### Clone repository
+
+```
+git clone [repository url]
+```
+
 ### Environment Variables
 
 The project uses:
@@ -74,7 +78,8 @@ docker-compose up --build
 
 At this stage:
 
-- The homepage is displayed
+- The homepage is displayed but not complete
+- Navigation bar and search bar are displayed but not fully functionnal
 - Products generated from the backend are fetched and shown
 
 🔧 API documentation and endpoints will be added later.
