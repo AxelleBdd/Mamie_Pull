@@ -1,22 +1,17 @@
 <template>
-  <div class="max-w-400 mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple-100">
+  <div class="max-w-400 mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple-100 text-dark-purple-700">
     <!-- Header -->
     <header class="text-center mb-4">
-      <h1
-        class="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-dark-purple-700 mb-2"
-      >
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading mb-2">
         {{ currentCategory?.name || 'Catégorie' }}
       </h1>
-      <p class="text-base sm:text-lg md:text-xl font-body text-dark-purple-700">
+      <p class="text-base sm:text-lg md:text-xl font-body">
         Découvrez nos produits faits main avec amour
       </p>
     </header>
 
     <!-- Breadcrumb -->
-    <nav
-      aria-label="Fil d'Ariane"
-      class="mb-6 flex items-center gap-2 sm:text-lg md:text-xl font-body text-dark-purple-700"
-    >
+    <nav aria-label="Fil d'Ariane" class="mb-6 flex items-center gap-2 sm:text-lg md:text-xl font-body ">
       <router-link to="/" class="hover:underline">Accueil</router-link>
       <span aria-hidden="true"> > </span>
       <router-link to="/products" class="hover:underline">Produits</router-link>
@@ -34,7 +29,7 @@
     <!-- Error -->
     <div v-else-if="error" role="alert" class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block">⚠️</span>
-      <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
+      <h3 class="text-2xl font-semibold mb-2">
         Erreur de chargement
       </h3>
       <p class="text-light-purple-300 mb-6">
@@ -45,7 +40,7 @@
     <!-- Category not found -->
     <div v-else-if="!currentCategory" role="alert" class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block">🔍</span>
-      <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
+      <h3 class="text-2xl font-semibold mb-2">
         Catégorie introuvable
       </h3>
       <p class="text-highlight-purple-500 mb-6">
@@ -79,7 +74,7 @@
     <!-- Empty -->
     <div v-else class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block opacity-50">📦</span>
-      <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
+      <h3 class="text-2xl font-semibold mb-2">
         Aucun produit trouvé
       </h3>
       <p class="text-highlight-purple-500 mb-6">
@@ -130,9 +125,8 @@ const loadCategoryProducts = async () => {
       products.value = []
     }
   } catch (err) {
-    error.value =
-      'Impossible de charger les produits. Vérifiez que le backend est bien lancé.'
-    console.error('Erreur de chargement:', err)
+    error.value = 'Impossible de charger les produits.';
+    console.error('Erreur de chargement:', err);
   } finally {
     loading.value = false
   }
