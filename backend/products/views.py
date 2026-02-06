@@ -7,12 +7,14 @@ from .serializers import ProductSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser
 
-def products_api(request, product_id=None):
+def products_api(request, product_id=None, category_id=None):
     if request.method == "GET":
-        if product_id is None:
-            return get_products()
-        else:
+        if product_id is not None:
             return get_product(product_id)
+        if category_id is not None:
+            return get_products_by_category(category_id)
+        else:
+            return get_products()
     
     elif request.method == "POST":
         body = json.loads(request.body)
@@ -41,6 +43,12 @@ def get_product(product_id):
         return JsonResponse(serializer.data)
     except Product.DoesNotExist:
         return JsonResponse({"error": "Not found"}, status=404)
+
+#GET products by category
+def get_products_by_category(category_id):
+    products = Product.objects.filter(category_id=category_id)
+    serializer = ProductSerializer(products, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 # POST product
 @api_view(['POST'])

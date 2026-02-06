@@ -49,7 +49,7 @@ export const getProductById = async (id) => {
  // Get products by category
 export const getProductsByCategory = async (categoryId) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/products/?category=${categoryId}`, {
+    const response = await fetch(`${API_BASE_URL}/products/category/${categoryId}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
