@@ -31,9 +31,7 @@ urlpatterns = [
     # APIs
     path("api/categories/", include("categories.urls")),
     path("api/products/", include("products.urls")),
-    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    # Users
-    path("users/", include("users.urls")),
-    path("api/auth/", include("users.api_urls")),
+    #Users
+    path('api/users/', include('users.urls')),
+    path('api/auth/', include('users.api_urls')),
 ]
