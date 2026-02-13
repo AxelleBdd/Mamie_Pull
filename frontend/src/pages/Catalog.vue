@@ -63,7 +63,7 @@
     <!-- Loading -->
     <div v-if="loading" class="text-center py-16">
       <div
-        class="mx-auto mb-4 h-12 w-12 rounded-full border-4 border-purple-200 border-t-purple-500 animate-spin"
+        class="mx-auto mb-4 h-12 w-12 rounded-full border-4 border-highlight-purple-500 animate-spin"
       ></div>
       <p class="text-lg text-light-purple-300">Chargement des produits...</p>
     </div>

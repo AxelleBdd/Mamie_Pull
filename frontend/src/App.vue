@@ -303,7 +303,7 @@
       </div>
     </div>
 
-    <main class="flex-1">
+    <main class="flex-1 font-body">
       <router-view />
     </main>
 
