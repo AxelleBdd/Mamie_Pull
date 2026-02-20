@@ -45,39 +45,77 @@
                     </svg>
                 </button>
             </div>
+            <p v-if="error" class="text-error-purple-900 flex mt-4">
+                <svg fill="#5E1E22" height="20px" width="20px"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 57.602 57.602">
+                    <path d="M57.337,52.327L30.353,3.279c-0.361-0.617-1.005-0.986-1.722-0.986c-0.721,0-1.366,
+                        0.373-1.74,1.02L0.272,52.313c-0.362,0.624-0.363,1.371-0.002,1.997c0.36,0.625,1.007,0.999,
+                        1.729,0.999h53.603c0.724,0,1.371-0.375,1.731-1.003C57.693,53.678,57.689,52.93,57.337,52.327z
+                        M5.539,51.309L28.642,8.15l23.396,43.159H5.539z"/>
+                    <path d="M27.599,21.309v17c0,0.553,0.447,1,1,1s1-0.447,1-1v-17c0-0.553-0.447-1-1-1S27.599,
+                        20.757,27.599,21.309z"/>
+                    <path d="M28.599,41.309c-0.553,0-1,0.447-1,1v2c0,0.553,0.447,1,1,1s1-0.447,1-1v-2C29.599,
+                        41.757,29.151,41.309,28.599,41.309z"/>
+                </svg>
+                <span class="ml-2">{{ error }}</span>
+            </p>
         </div>
         <div class="flex space-x-5 mt-12">
-            <ButtonLight buttonText="Créer un compte" @click="createAccount"/>
-            <ButtonDark buttonText="Se connecter" @click="handleSubmit"/>
+            <ButtonLight buttonText="Créer un compte"/>
+            <ButtonDark buttonText="Se connecter" @click="login"/>
         </div>
     </form>
 </template>
 
 <script setup>
-    import { ref } from 'vue'
+    import { ref, onMounted } from 'vue'
+    import { useSessionStore } from '../stores/sessionStore'
+    import { storeToRefs } from 'pinia'
+
     import ButtonDark from '../components/ButtonDark.vue'
     import ButtonLight from '../components/ButtonLight.vue'
 
     // Visibility of the password input
+    const username = ref('')
     const password = ref('')
     const isVisible = ref(false)
 
     const toggleVisibility = () => {
     isVisible.value = !isVisible.value
     }
+    //Error message
+    const error = ref(null)
+
+    const store = useSessionStore()
+    const { isLoggedIn, user } = storeToRefs(store)
+
+    const login = async () => {
+    error.value = null
+    const success = await store.login(username.value, password.value)
+    if (!success) error.value = 'Email ou mot de passe incorrect'
+    }
+
+    const logout = () => {
+    store.logout()
+    }
+
+    onMounted(() => {
+    store.loadSession()
+    })
 
     // Send connection request to the backend
-    const handleSubmit = async () => {
-        try {
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email: email.value, password: password.value })
-            })
-        } catch(error) {
-            console.error('Error during login:', error)
-        }
-    }
+    // const handleSubmit = async () => {
+    //     try {
+    //         const response = await fetch('/api/login', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({ email: email.value, password: password.value })
+    //         })
+    //     } catch(error) {
+    //         console.error('Error during login:', error)
+    //     }
+    // }
 </script>

@@ -7,6 +7,8 @@ class User(AbstractUser):
     # (username, first_name, last_name, password, is_staff, created_at = date_joined)
     email = models.EmailField(unique=True)
     updated_at = models.DateTimeField(auto_now=True)
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
     class Meta:
         verbose_name = "Utilisateur"
