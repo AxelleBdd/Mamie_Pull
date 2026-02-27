@@ -5,11 +5,11 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm bg-grey-purple-400 rounded-lg space-y-10 p-10">
-        <form class="space-y-6" action="login" method="POST">
+        <form class="space-y-6" @submit.prevent>
             <div>
                 <label for="email" class="block font-heading text-3xl font-medium">Email</label>
                 <div class="mt-2">
-                    <input type="email" name="email" id="email" autocomplete="email" placeholder="example@email.com" required 
+                    <input type="email" v-model="email" name="email" id="email" autocomplete="email" placeholder="example@email.com" required 
                     class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2" />
                 </div>
             </div>
@@ -63,53 +63,34 @@
 </template>
 
 <script setup>
-    import { ref, onMounted } from 'vue'
-    import { useSessionStore } from '../stores/sessionStore'
-    import { storeToRefs } from 'pinia'
+    import { ref } from 'vue'
+    import { useRouter } from 'vue-router'
+    import { useAuthStore } from '../stores/authStore'
 
     import ButtonDark from '../components/ButtonDark.vue'
     import ButtonLight from '../components/ButtonLight.vue'
 
-    // Visibility of the password input
-    const username = ref('')
+    // Form data
+    const email = ref('')
     const password = ref('')
     const isVisible = ref(false)
+    const error = ref(null)
 
     const toggleVisibility = () => {
     isVisible.value = !isVisible.value
     }
-    //Error message
-    const error = ref(null)
 
-    const store = useSessionStore()
-    const { isLoggedIn, user } = storeToRefs(store)
+    const store = useAuthStore()
+    const router = useRouter()
 
     const login = async () => {
-    error.value = null
-    const success = await store.login(username.value, password.value)
-    if (!success) error.value = 'Email ou mot de passe incorrect'
+        error.value = null
+        try {
+            await store.login(email.value, password.value)
+            router.push('/')
+        } catch (err) {
+            // Message from authService if the backends returns an error
+            error.value = err.message || 'Email ou mot de passe incorrect'
+        }
     }
-
-    const logout = () => {
-    store.logout()
-    }
-
-    onMounted(() => {
-    store.loadSession()
-    })
-
-    // Send connection request to the backend
-    // const handleSubmit = async () => {
-    //     try {
-    //         const response = await fetch('/api/login', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({ email: email.value, password: password.value })
-    //         })
-    //     } catch(error) {
-    //         console.error('Error during login:', error)
-    //     }
-    // }
 </script>

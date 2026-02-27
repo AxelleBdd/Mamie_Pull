@@ -69,7 +69,7 @@
           </nav>
 
           <div class="hidden md:flex items-center gap-4">
-            <router-link v-if="isLoggedIn" to="/favoris" class="p-2 hover:bg-grey-purple-400 rounded-full transition" title="Favoris">
+            <router-link v-if="isAuthenticated" to="/favoris" class="p-2 hover:bg-grey-purple-400 rounded-full transition" title="Favoris">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
             </router-link>
 
@@ -105,8 +105,7 @@
                 </svg>
               </button>
               <div class="absolute right-0 w-48 bg-white border border-grey-purple-300 rounded-md shadow-lg hidden group-hover:block z-50 py-2">
-                <template v-if="isLoggedIn">
-                  <div class="px-4 py-1 text-xs text-dark-purple-400 border-b mb-1">{{ userStore.user.username }}</div>
+                <template v-if="isAuthenticated">
                   <router-link to="/profil" class="block px-4 py-2 hover:bg-white-purple-100">Mon profil</router-link>
                   <button @click="logout()" class="w-full text-left px-4 py-2 text-red-500 hover:bg-red-50">Déconnexion</button>
                 </template>
@@ -197,7 +196,7 @@
             Compte
           </p>
           <ul class="flex flex-col gap-1 pb-4">
-            <template v-if="isLoggedIn">
+            <template v-if="isAuthenticated">
               <li><router-link to="/profil" class="block px-4 py-2 rounded-md text-base" @click="mobileMenuOpen = false">Mon profil</router-link></li>
               <li><router-link to="/favoris" class="block px-4 py-2 rounded-md text-base" @click="mobileMenuOpen = false">Favoris</router-link></li>
               <li><button @click="logout(); mobileMenuOpen = false" class="w-full text-left px-4 py-2 text-red-500">Déconnexion</button></li>
@@ -268,7 +267,7 @@
   import { ref, computed, onMounted } from 'vue';
   import { useRoute } from 'vue-router';
   import { useCategoryStore } from './stores/categoryStore'
-  import { useSessionStore } from './stores/sessionStore'
+  import { useAuthStore } from './stores/authStore'
   import { storeToRefs } from 'pinia'
 
 const mobileMenuOpen = ref(false)
@@ -276,8 +275,8 @@ const route = useRoute()
 const categoryStore = useCategoryStore()
 
   // User session management
-  const sessionStore = useSessionStore()
-  const { isLoggedIn } = storeToRefs(sessionStore)
+  const authStore = useAuthStore()
+  const { isAuthenticated } = storeToRefs(authStore)
 
   // Search bar visibility logic
   const showSearchBar = computed(() => {
@@ -289,8 +288,11 @@ const categoryStore = useCategoryStore()
   return categoryStore.categories.filter(cat => cat && cat.slug);
 });
 
+  const logout = () => {
+    authStore.logout()
+  }
+
   onMounted(() => {
     categoryStore.fetchCategories()
-    sessionStore.loadSession()
   })
 </script>

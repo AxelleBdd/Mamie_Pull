@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8000/api'
+const API_URL = import.meta.env.VITE_API_BASE_URL
 
 /**
  * Send Django login details to get JWT tokens
