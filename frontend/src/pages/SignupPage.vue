@@ -1,11 +1,25 @@
 <template>
     <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <h2 class="mt-10 text-center text-4xl sm:text-5xl lg:text-6xl font-bold font-heading tracking-tight"><u>Connexion</u></h2>
+            <h2 class="mt-10 text-center text-4xl sm:text-5xl lg:text-6xl font-bold font-heading tracking-tight"><u>Créer mon compte</u></h2>
         </div>
 
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm bg-grey-purple-400 rounded-lg space-y-10 p-10">
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm md:max-w-md bg-grey-purple-400 rounded-lg space-y-10 p-10">
         <form class="space-y-6" @submit.prevent>
+            <div>
+                <label for="lastname" class="block font-heading text-3xl font-medium">Nom de famille</label>
+                <div class="mt-2">
+                    <input type="text" v-model="lastname" name="lastname" id="lastname" autocomplete="family-name" placeholder="Dupont" required 
+                    class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2" />
+                </div>
+            </div>
+            <div>
+                <label for="firstname" class="block font-heading text-3xl font-medium">Prénom</label>
+                <div class="mt-2">
+                    <input type="text" v-model="firstname" name="firstname" id="firstname" autocomplete="given-name" placeholder="Léa" required 
+                    class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2" />
+                </div>
+            </div>
             <div>
                 <label for="email" class="block font-heading text-3xl font-medium">Email</label>
                 <div class="mt-2">
@@ -18,7 +32,6 @@
                 <div class="flex items-center justify-between">
                     <label for="password" class="block font-heading text-3xl">Mot de passe</label>
                     <div class="text-sm">
-                        <!-- <a href="#" class="font-semibold text-highlight-purple-500">Forgot password?</a> -->
                     </div>
                 </div>
                 <div class="mt-2 relative">
@@ -54,8 +67,8 @@
             </div>
 
             <div class="flex gap-4 mt-12">
-                <ButtonLight buttonText="Créer un compte" link="/signup"/>
-                <ButtonDark buttonText="Se connecter" @click="login"/>
+                <ButtonLight buttonText="J'ai déjà un compte" link="/login"/>
+                <ButtonDark buttonText="Créer mon compte" @click="signup"/>
             </div>
         </form>
         </div>

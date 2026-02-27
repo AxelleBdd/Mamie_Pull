@@ -55,7 +55,7 @@
                 >
                   Tous nos produits
                 </router-link>
-                <hr class="my-1 border-grey-purple-200" />
+                <hr class="my-1 border-grey-purple-400">
                 <router-link
                   v-for="category in validCategories"
                   :key="category.id"
@@ -104,10 +104,10 @@
                   />
                 </svg>
               </button>
-              <div class="absolute right-0 w-48 bg-white border border-grey-purple-300 rounded-md shadow-lg hidden group-hover:block z-50 py-2">
+              <div class="absolute right-0 w-48 bg-white border border-grey-purple-400 rounded-md shadow-lg hidden group-hover:block z-50 py-2">
                 <template v-if="isAuthenticated">
                   <router-link to="/profil" class="block px-4 py-2 hover:bg-white-purple-100">Mon profil</router-link>
-                  <button @click="logout()" class="w-full text-left px-4 py-2 text-red-500 hover:bg-red-50">Déconnexion</button>
+                  <button @click="logout()" class="w-full text-left px-4 py-2 hover:bg-red-50">Déconnexion</button>
                 </template>
                 <template v-else>
                   <router-link
@@ -199,7 +199,7 @@
             <template v-if="isAuthenticated">
               <li><router-link to="/profil" class="block px-4 py-2 rounded-md text-base" @click="mobileMenuOpen = false">Mon profil</router-link></li>
               <li><router-link to="/favoris" class="block px-4 py-2 rounded-md text-base" @click="mobileMenuOpen = false">Favoris</router-link></li>
-              <li><button @click="logout(); mobileMenuOpen = false" class="w-full text-left px-4 py-2 text-red-500">Déconnexion</button></li>
+              <li><button @click="logout(); mobileMenuOpen = false" class="w-full text-left px-4 py-2">Déconnexion</button></li>
             </template>
             <template v-else>
               <li>
