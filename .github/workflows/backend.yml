@@ -1,0 +1,62 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'backend/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r backend/requirements.txt
+
+      - name: Create .env file
+        run: |
+          echo "DB_NAME=test_db" >> backend/.env
+          echo "DB_USER=postgres" >> backend/.env
+          echo "DB_PASSWORD=postgres" >> backend/.env
+          echo "DB_HOST=localhost" >> backend/.env
+          echo "DB_PORT=5432" >> backend/.env
+          echo "SECRET_KEY=une-cle-secrete-pour-les-tests" >> backend/.env
+          echo "DEBUG=True" >> backend/.env
+
+      - name: Run migrations
+        run: |
+          cd backend
+          python manage.py migrate
+
+      - name: Run tests
+        run: |
+          cd backend
+          python manage.py test
