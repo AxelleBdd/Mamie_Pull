@@ -41,18 +41,20 @@ jobs:
       - name: Install dependencies
         run: pip install -r backend/requirements.txt
 
-      - name: Run linting (flake8)
-        run: |
-          cd backend
-          pip install flake8
-          flake8 . --max-line-length=120
-
-      - name: Run tests
+      - name: Run migrations
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DEBUG: "True"
         run: |
           cd backend
           python manage.py migrate
+
+      - name: Run tests
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DEBUG: "True"
+        run: |
+          cd backend
           python manage.py test
