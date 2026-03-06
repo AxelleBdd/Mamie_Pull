@@ -2,7 +2,6 @@ from django.test import TestCase
 from products.models import Product
 from products.models import Category
 
-# Create your tests here.
 class ProductTestCase(TestCase):
     def setUp(self):
         category = Category.objects.create(name="Test Category")
@@ -16,7 +15,7 @@ class ProductTestCase(TestCase):
         self.assertEqual(product1.description, "Description for product 1")
         self.assertEqual(product2.description, "Description for product 2")
 
-    #GET (by category, by id, all)
+    #GET (all, by id, by category)
     def test_product_get_all(self):
         products = Product.objects.all()
         self.assertEqual(len(products), 2)
