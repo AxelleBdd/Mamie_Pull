@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="max-w-400 mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple-100"
-  >
+  <div class="max-w-400 mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple-100">
     <!-- Header -->
     <header class="text-center mb-4">
       <h1
@@ -9,7 +7,7 @@
       >
         Catalogue de produits
       </h1>
-      <p class="text-base sm:text-lg md:text-xl font-body text-dark-purple-700">
+      <p class="text-base sm:text-lg md:text-xl font-body">
         Découvrez notre collection de produits faits main avec amour
       </p>
     </header>
@@ -17,7 +15,7 @@
     <!-- Breadcrumb -->
     <nav
       aria-label="Fil d'Ariane"
-      class="mb-6 flex items-center gap-2 sm:text-lg md:text-xl text-dark-purple-700"
+      class="mb-6 flex items-center gap-2 sm:text-lg md:text-xl"
     >
       <router-link to="/" class="hover:underline">Accueil</router-link>
       <span aria-hidden="true"> > </span>
@@ -34,7 +32,7 @@
         :class="{
           'bg-dark-purple-700 text-white hover:text-grey-purple-400':
             selectedCategory === null,
-          'bg-white-purple-100 text-dark-purple-700 hover:text-dark-purple-700 hover:bg-grey-purple-400':
+          'bg-white-purple-100 hover:text-dark-purple-700 hover:bg-grey-purple-400':
             selectedCategory !== null,
         }"
         aria-label="Afficher tous les produits"
@@ -51,7 +49,7 @@
         :class="{
           'bg-dark-purple-700 text-white-purple-100 hover:text-grey-purple-400':
             selectedCategory === category.id,
-          'bg-white-purple-100 text-dark-purple-700 hover:text-dark-purple-700 hover:bg-grey-purple-400':
+          'bg-white-purple-100 hover:text-dark-purple-700 hover:bg-grey-purple-400':
             selectedCategory !== category.id,
         }"
         :aria-label="`Filtrer par la catégorie ${category.name}`"
@@ -67,20 +65,18 @@
       <div
         class="mx-auto mb-4 h-12 w-12 rounded-full border-4 border-purple-200 border-t-purple-500 animate-spin"
       ></div>
-      <p class="text-lg text-purple-300">Chargement des produits...</p>
+      <p class="text-lg text-light-purple-300">Chargement des produits...</p>
     </div>
 
     <!-- Error -->
     <div v-else-if="error" role="alert" class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block">⚠️</span>
-      <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
-        Erreur de chargement
-      </h3>
+      <h3 class="text-2xl font-semibold mb-2">Erreur de chargement</h3>
       <p class="text-light-purple-300 mb-6">
         {{ error }}
       </p>
       <button
-        class="px-8 py-3 rounded-lg font-medium text-white bg-purple-500 hover:bg-purple-700 transition"
+        class="px-8 py-3 rounded-lg font-medium text-white-purple-100 bg-dark-purple-700 hover:bg-purple-700 transition"
         @click="loadProducts"
       >
         Réessayer
@@ -106,9 +102,7 @@
     <!-- Empty -->
     <div v-else class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block opacity-50">📦</span>
-      <h3 class="text-2xl font-semibold text-dark-purple-700 mb-2">
-        Aucun produit trouvé
-      </h3>
+      <h3 class="text-2xl font-semibold mb-2">Aucun produit trouvé</h3>
       <p class="text-highlight-purple-500">
         Il n'y a pas encore de produits dans cette catégorie.
       </p>
@@ -182,9 +176,7 @@ const loadProducts = async () => {
 
 // See product details
 const viewProductDetails = (productId) => {
-  console.log('Voir les détails du produit:', productId)
-  // TODO: Add navigation to product details page
-  // router.push(`/products/${productId}`);
+  router.push(`/products/${productId}`)
 }
 
 // Load products on component mount

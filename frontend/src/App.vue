@@ -249,10 +249,7 @@
               <li>
                 <button
                   class="w-full text-left px-4 py-2 text-red-500"
-                  @click="
-                    handleLogout()
-                    mobileMenuOpen = false
-                  "
+                  @click="handleLogoutAndClose()"
                 >
                   Déconnexion
                 </button>
@@ -337,6 +334,11 @@ const userStore = ref({
 
 const handleLogout = () => {
   userStore.value.isAuthenticated = false
+}
+
+const handleLogoutAndClose = () => {
+  handleLogout()
+  mobileMenuOpen.value = false
 }
 
 const showSearchBar = computed(() => {

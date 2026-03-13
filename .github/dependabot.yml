@@ -7,12 +7,20 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 5
 
-  #Node.js (Vue,...)
+  #Frontend
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    groups:
+    vite-ecosystem:
+      patterns:
+        - "vite"
+        - "@vitejs/*"
+        - "@tailwindcss/*"
+        - "vitest"
+        - "@vitest/*"
 
   #Dockerfiles
   - package-ecosystem: "docker"
