@@ -7,7 +7,7 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 5
 
-  #Node.js (Vue & Nuxt)
+  #Node.js (Vue,...)
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
@@ -16,12 +16,9 @@ updates:
 
   #Dockerfiles
   - package-ecosystem: "docker"
-    directory: "/backend"
-    schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "docker"
-    directory: "/frontend"
+    directories:
+      - "/backend"
+      - "/frontend"
     schedule:
       interval: "weekly"
 
@@ -29,4 +26,10 @@ updates:
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
+      interval: "weekly"
+
+  #GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule: 
       interval: "weekly"
