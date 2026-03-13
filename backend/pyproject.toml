@@ -1,6 +1,7 @@
 [tool.ruff]
 line-length = 88
 target-version = "py311"
+exclude = ["config/settings.py", "**/migrations/*.py"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W"]

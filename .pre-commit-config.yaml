@@ -1,0 +1,34 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.5
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^backend/
+      - id: ruff-format
+        files: ^backend/
+
+  - repo: local
+    hooks:
+      - id: eslint
+        name: ESLint (Vue)
+        language: system
+        entry: docker compose exec -T frontend npm run lint
+        files: \.(vue|js|ts)$
+        pass_filenames: false
+
+      # Tests Django
+      - id: pytest
+        name: Pytest (Django)
+        language: system
+        entry: docker compose exec -T backend pytest
+        pass_filenames: false
+        stages: [pre-push]
+
+      # Tests Vue
+      - id: vitest
+        name: Vitest (Vue)
+        language: system
+        entry: docker compose exec -T frontend npm run test
+        pass_filenames: false
+        stages: [pre-push]
