@@ -7,6 +7,10 @@ export default defineConfig({
   plugins: [vue(), tailwindcss()],
   server: {
     port: 3000,
-    host: true
-  }
+    host: true,
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
+  },
 })

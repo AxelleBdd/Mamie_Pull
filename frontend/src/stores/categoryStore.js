@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export const useCategoryStore = defineStore('category', () => {
   const categories = ref([])
@@ -12,11 +12,11 @@ export const useCategoryStore = defineStore('category', () => {
   async function fetchCategories() {
     loading.value = true
     error.value = null
-    
+
     try {
       const response = await fetch(`${API_BASE_URL}/categories/`)
       if (!response.ok) throw new Error('Erreur lors du chargement')
-      
+
       const data = await response.json()
       categories.value = data
     } catch (e) {
@@ -31,6 +31,6 @@ export const useCategoryStore = defineStore('category', () => {
     categories,
     loading,
     error,
-    fetchCategories
+    fetchCategories,
   }
 })

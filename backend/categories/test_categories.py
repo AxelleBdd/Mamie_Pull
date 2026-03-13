@@ -1,6 +1,7 @@
 from django.test import TestCase
-from products.models import Category
+
 from categories.models import Category
+
 
 class CategoryTestCase(TestCase):
     def setUp(self):

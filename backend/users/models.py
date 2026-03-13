@@ -1,14 +1,16 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 class User(AbstractUser):
-    # In abstractUser there are already all user infos (username, first_name, last_name, password, is_staff, created_at = date_joined)
+    # In abstractUser there are already all user infos
+    # (username, first_name, last_name, password, is_staff, created_at = date_joined)
     email = models.EmailField(unique=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name = 'Utilisateur'
-        verbose_name_plural = 'Utilisateurs'
+        verbose_name = "Utilisateur"
+        verbose_name_plural = "Utilisateurs"
 
     def __str__(self):
         if self.first_name and self.last_name:
