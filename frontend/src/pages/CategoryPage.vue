@@ -1,5 +1,7 @@
 <template>
-  <div class="max-w-400 mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple-100 text-dark-purple-700">
+  <div
+    class="max-w-400 mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple-100 text-dark-purple-700"
+  >
     <!-- Header -->
     <header class="text-center mb-4">
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading mb-2">
@@ -11,7 +13,10 @@
     </header>
 
     <!-- Breadcrumb -->
-    <nav aria-label="Fil d'Ariane" class="mb-6 flex items-center gap-2 sm:text-lg md:text-xl font-body ">
+    <nav
+      aria-label="Fil d'Ariane"
+      class="mb-6 flex items-center gap-2 sm:text-lg md:text-xl font-body"
+    >
       <router-link to="/" class="hover:underline">Accueil</router-link>
       <span aria-hidden="true"> > </span>
       <router-link to="/products" class="hover:underline">Produits</router-link>
@@ -29,9 +34,7 @@
     <!-- Error -->
     <div v-else-if="error" role="alert" class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block">⚠️</span>
-      <h3 class="text-2xl font-semibold mb-2">
-        Erreur de chargement
-      </h3>
+      <h3 class="text-2xl font-semibold mb-2">Erreur de chargement</h3>
       <p class="text-light-purple-300 mb-6">
         {{ error }}
       </p>
@@ -40,9 +43,7 @@
     <!-- Category not found -->
     <div v-else-if="!currentCategory" role="alert" class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block">🔍</span>
-      <h3 class="text-2xl font-semibold mb-2">
-        Catégorie introuvable
-      </h3>
+      <h3 class="text-2xl font-semibold mb-2">Catégorie introuvable</h3>
       <p class="text-highlight-purple-500 mb-6">
         La catégorie demandée n'existe pas.
       </p>
@@ -74,9 +75,7 @@
     <!-- Empty -->
     <div v-else class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block opacity-50">📦</span>
-      <h3 class="text-2xl font-semibold mb-2">
-        Aucun produit trouvé
-      </h3>
+      <h3 class="text-2xl font-semibold mb-2">Aucun produit trouvé</h3>
       <p class="text-highlight-purple-500 mb-6">
         Il n'y a pas encore de produits dans cette catégorie.
       </p>
@@ -99,9 +98,9 @@ import { getProductsByCategory } from '../api/products.js'
 import { useCategoryStore } from '../stores/categoryStore'
 import ProductCard from '../components/ProductCard.vue'
 
-const router = useRouter();
-const route = useRoute();
-const categoryStore = useCategoryStore();
+const router = useRouter()
+const route = useRoute()
+const categoryStore = useCategoryStore()
 
 const products = ref([])
 const loading = ref(true)
@@ -125,8 +124,8 @@ const loadCategoryProducts = async () => {
       products.value = []
     }
   } catch (err) {
-    error.value = 'Impossible de charger les produits.';
-    console.error('Erreur de chargement:', err);
+    error.value = 'Impossible de charger les produits.'
+    console.error('Erreur de chargement:', err)
   } finally {
     loading.value = false
   }
@@ -134,8 +133,8 @@ const loadCategoryProducts = async () => {
 
 // See product details
 const viewProductDetails = (productId) => {
-  router.push(`/products/${productId}`);
-};
+  router.push(`/products/${productId}`)
+}
 
 // Watch for route changes (when navigating between categories)
 watch(
