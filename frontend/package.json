@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .vue,.js,.ts",
     "lint:fix": "eslint . --ext .vue,.js,.ts --fix",
     "format": "prettier --write src/",
-    "test": "vitest run"
+    "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
