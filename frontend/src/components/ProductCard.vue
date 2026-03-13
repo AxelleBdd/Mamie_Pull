@@ -1,17 +1,22 @@
 <template>
   <div
-    :class="['flex h-full flex-col rounded-xl shadow-sm border-dark-purple-700 border-1 overflow-hidden transition hover:-translate-y-1 hover:shadow-lg', isCardClickable ? 'cursor-pointer' : '']"
+    :class="[
+      'flex h-full flex-col rounded-xl shadow-sm border-dark-purple-700 border overflow-hidden transition hover:-translate-y-1 hover:shadow-lg',
+      isCardClickable ? 'cursor-pointer' : '',
+    ]"
     @click="handleCardClick"
   >
     <!-- Image -->
-    <div class="relative h-48 w-full bg-grey-purple-400 flex items-center justify-center overflow-hidden">
+    <div
+      class="relative h-48 w-full bg-grey-purple-400 flex items-center justify-center overflow-hidden"
+    >
       <img
         v-if="product.image"
         :src="product.image"
         :alt="product.title"
         class="h-full w-full object-cover"
       />
-      <span aria-hidden="true" v-else class="text-6xl text-grey-purple-400">
+      <span v-else aria-hidden="true" class="text-6xl text-grey-purple-400">
         📦
       </span>
     </div>
@@ -33,11 +38,9 @@
       <!-- Button visible only on desktop -->
       <button
         v-if="!isCardClickable"
-        @click.stop="$emit('view-details', product.id)"
-        class="mt-auto w-full rounded-lg bg-dark-purple-700 px-6 py-3 font-body
-               sm:text-lg md:text-xl font-medium font-body text-white-purple-100 transition
-               lg:inline-block hover:bg-highlight-purple-500 active:scale-95 cursor-pointer"
+        class="mt-auto w-full rounded-lg bg-dark-purple-700 px-6 py-3 sm:text-lg md:text-xl font-medium font-body text-white-purple-100 transition lg:inline-block hover:bg-highlight-purple-500 active:scale-95 cursor-pointer"
         :aria-label="`Voir les détails du produit ${product.title}`"
+        @click.stop="$emit('view-details', product.id)"
       >
         Voir les détails
       </button>
@@ -46,33 +49,36 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
-  product: Object
-});
-const emit = defineEmits(['view-details']);
+  product: {
+    type: Object,
+    required: true,
+  },
+})
+const emit = defineEmits(['view-details'])
 
 // Detect window size
-const isCardClickable = ref(false);
+const isCardClickable = ref(false)
 
 const updateClickable = () => {
   // If screen width is less than 1024px (lg breakpoint), make card clickable
-  isCardClickable.value = window.innerWidth < 1024;
-};
+  isCardClickable.value = window.innerWidth < 1024
+}
 
 const handleCardClick = () => {
   if (isCardClickable.value) {
-    emit('view-details', props.product.id);
+    emit('view-details', props.product.id)
   }
-};
+}
 
 // Window resize listener
 onMounted(() => {
-  updateClickable();
-  window.addEventListener('resize', updateClickable);
-});
+  updateClickable()
+  window.addEventListener('resize', updateClickable)
+})
 onUnmounted(() => {
-  window.removeEventListener('resize', updateClickable);
-});
+  window.removeEventListener('resize', updateClickable)
+})
 </script>
