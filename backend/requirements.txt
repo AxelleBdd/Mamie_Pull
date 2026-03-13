@@ -23,4 +23,4 @@ pytest-django==4.10.0
 coverage==7.8.0
 
 #Linter
-ruff==0.15.5
+ruff==0.15.6
