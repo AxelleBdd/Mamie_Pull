@@ -1,0 +1,25 @@
+{
+    "short_name": "Mamie Pull",
+    "name": "Mamie Pull PWA",
+    "icons": [
+        {
+            "src": "/logo-mamie-pull-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo-mamie-pull-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo-mamie-pull-64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+}
