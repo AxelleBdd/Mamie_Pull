@@ -14,13 +14,13 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 5
     groups:
-    vite-ecosystem:
-      patterns:
-        - "vite"
-        - "@vitejs/*"
-        - "@tailwindcss/*"
-        - "vitest"
-        - "@vitest/*"
+      vite-ecosystem:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "@tailwindcss/*"
+          - "vitest"
+          - "@vitest/*"
 
   #Dockerfiles
   - package-ecosystem: "docker"
