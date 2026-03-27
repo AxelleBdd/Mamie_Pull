@@ -24,3 +24,29 @@ export async function loginRequest(email, password) {
 
   return response.json() // { access, refresh }
 }
+
+export async function signupRequest(signupData) {
+  const url = `${API_URL}/auth/register/`
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(signupData),
+    })
+
+    if (!response.ok) {
+      const text = await response.text()
+      let errorMsg = 'Erreur lors de l\'inscription'
+      try {
+        const json = JSON.parse(text)
+        errorMsg = json.detail || json.non_field_errors?.[0] || Object.values(json)?.flat?.()[0] || errorMsg
+      } catch {}
+      throw new Error(errorMsg)
+    }
+
+    if (response.status === 204) return {}
+    return await response.json()
+  } catch (networkErr) {
+    throw new Error(networkErr.message || 'Impossible de contacter le serveur')
+  }
+}

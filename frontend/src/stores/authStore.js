@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { loginRequest } from '../api/authService'
+import { loginRequest, signupRequest } from '../api/authService'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -25,5 +25,14 @@ export const useAuthStore = defineStore('auth', {
       this.accessToken = null
       localStorage.removeItem('refreshToken')
     },
+
+    async signup(signupData) {
+      await signupRequest(signupData)
+      // After successful signup, auto-login the user
+      const { access, refresh } = await loginRequest(signupData.email, signupData.password)
+      this.accessToken = access
+      localStorage.setItem('refreshToken', refresh)
+    },
+
   },
 })

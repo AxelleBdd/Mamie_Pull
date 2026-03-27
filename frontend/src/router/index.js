@@ -11,7 +11,7 @@ const routes = [
   { path: '/categories/:slug', component: CategoryPage, name: 'category' },
   { path: '/products/:id', component: ProductDetail, name: 'product-detail' },
   { path: '/login', component: LoginPage, name: 'login' },
-  { path: '/signup', component: SignupPage, name: 'signup' },
+  { path: '/register', component: SignupPage, name: 'signup' },
 ]
 
 export const router = createRouter({
