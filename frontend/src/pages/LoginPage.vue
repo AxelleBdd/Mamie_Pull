@@ -18,7 +18,7 @@
                 <div class="flex items-center justify-between">
                     <label for="password" class="block font-heading text-3xl">Mot de passe</label>
                     <div class="text-sm">
-                        <!-- <a href="#" class="font-semibold text-highlight-purple-500">Forgot password?</a> -->
+                        <!-- TODO: <a href="#" class="font-semibold text-highlight-purple-500">Forgot password?</a> -->
                     </div>
                 </div>
                 <div class="mt-2 relative">
@@ -54,7 +54,7 @@
             </div>
 
             <div class="flex gap-4 mt-12">
-                <ButtonLight buttonText="Créer un compte" link="/signup"/>
+                <ButtonLight buttonText="Créer un compte" link="/register"/>
                 <ButtonDark buttonText="Se connecter" @click="login"/>
             </div>
         </form>

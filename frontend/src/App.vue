@@ -116,7 +116,7 @@
                     >Connexion</router-link
                   >
                   <router-link
-                    to="/signup"
+                    to="/register"
                     class="block px-4 py-2 hover:bg-white-purple-100 text-highlight-purple-600 font-bold"
                     >S'inscrire</router-link
                   >
@@ -212,7 +212,7 @@
               </li>
               <li>
                 <router-link
-                  to="/signup"
+                  to="/register"
                   class="block px-4 py-2 rounded-md text-base"
                   @click="mobileMenuOpen = false"
                   >S'inscrire</router-link

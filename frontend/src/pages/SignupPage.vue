@@ -7,16 +7,16 @@
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm md:max-w-md bg-grey-purple-400 rounded-lg space-y-10 p-10">
         <form class="space-y-6" @submit.prevent>
             <div>
-                <label for="lastname" class="block font-heading text-3xl font-medium">Nom de famille</label>
+                <label for="last_name" class="block font-heading text-3xl font-medium">Nom de famille</label>
                 <div class="mt-2">
-                    <input type="text" v-model="lastname" name="lastname" id="lastname" autocomplete="family-name" placeholder="Dupont" required 
+                    <input type="text" v-model="last_name" name="last_name" id="last_name" autocomplete="family-name" placeholder="Dupont" required 
                     class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2" />
                 </div>
             </div>
             <div>
-                <label for="firstname" class="block font-heading text-3xl font-medium">Prénom</label>
+                <label for="first_name" class="block font-heading text-3xl font-medium">Prénom</label>
                 <div class="mt-2">
-                    <input type="text" v-model="firstname" name="firstname" id="firstname" autocomplete="given-name" placeholder="Léa" required 
+                    <input type="text" v-model="first_name" name="first_name" id="first_name" autocomplete="given-name" placeholder="Léa" required 
                     class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2" />
                 </div>
             </div>
@@ -28,44 +28,12 @@
                 </div>
             </div>
 
-            <div>
-                <div class="flex items-center justify-between">
-                    <label for="password" class="block font-heading text-3xl">Mot de passe</label>
-                    <div class="text-sm">
-                    </div>
-                </div>
-                <div class="mt-2 relative">
-                    <input :type="isVisible ? 'text' : 'password'" v-model="password" name="password" id="password" placeholder="Entrez votre mot de passe..." required 
-                    class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2" />
-                    <button type="button" @click="toggleVisibility"
-                        :aria-label="isVisible ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
-                        :aria-pressed="isVisible.toString()" aria-controls="password"
-                        class="absolute inset-y-0 right-2 flex items-center">
-
-                        <svg v-if="!isVisible" class="h-5 w-5 text-dark-purple-700 cursor-pointer"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5
-                                c4.477 0 8.268 2.943 9.542 7
-                                -1.274 4.057-5.065 7-9.542 7
-                                -4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-
-                        <svg v-else class="h-5 w-5 text-dark-purple-700 cursor-pointer" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 3l18 18M9.88 9.88
-                                a3 3 0 104.24 4.24M6.18 6.18
-                                A9.956 9.956 0 0112 5
-                                c4.477 0 8.268 2.943
-                                9.542 7a9.97 9.97 0 01-4.043 5.132" />
-                        </svg>
-                    </button>
-                </div>
+            <PasswordInput v-model="password" name="password" id="password" placeholder="Entrez votre mot de passe..." />
+            <PasswordInput v-model="confirm_password" label="Confirmer le mot de passe" id="confirm_password" name="confirm_password" autocomplete="new-password" placeholder="Confirmez votre mot de passe..." />
+            
+            <div v-if="error" class="text-error-purple-900 px-4 py-3 rounded mb-4" role="alert">
+                <span class="block sm:inline">{{ error }}</span>
             </div>
-
             <div class="flex gap-4 mt-12">
                 <ButtonLight buttonText="J'ai déjà un compte" link="/login"/>
                 <ButtonDark buttonText="Créer mon compte" @click="signup"/>
@@ -82,10 +50,14 @@
 
     import ButtonDark from '../components/ButtonDark.vue'
     import ButtonLight from '../components/ButtonLight.vue'
+    import PasswordInput from '../components/PasswordInput.vue'
 
     // Form data
+    const last_name = ref('')
+    const first_name = ref('')
     const email = ref('')
     const password = ref('')
+    const confirm_password = ref('')
     const isVisible = ref(false)
     const error = ref(null)
 
@@ -96,14 +68,21 @@
     const store = useAuthStore()
     const router = useRouter()
 
-    const login = async () => {
+    const signup = async () => {
         error.value = null
         try {
-            await store.login(email.value, password.value)
+            await store.signup({
+                username: email.value,
+                first_name: first_name.value,
+                last_name: last_name.value,
+                email: email.value,
+                password: password.value,
+                password_confirm: confirm_password.value,
+        })
             router.push('/')
         } catch (err) {
             // Message from authService if the backends returns an error
-            error.value = err.message || 'Email ou mot de passe incorrect'
+            error.value = err.message || 'Une erreur est survenue lors de la création du compte.'
         }
     }
 </script>
