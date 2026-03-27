@@ -121,7 +121,7 @@
       </div>
 
       <!-- Right Column: Details -->
-      <div class="lg:w-1/2 flex flex-col">
+      <div class="lg:w-1/2 flex flex-col lg:justify-center">
         <!-- Description Section -->
         <div class="mb-8">
           <h2
@@ -136,14 +136,30 @@
           </p>
         </div>
 
-        <div>
+        <div class="mb-8">
           <h2 class="text-2xl font-semibold font-heading mb-4">Tailles</h2>
-          <p>{{ product.sizes?.join(', ') }}</p>
+
+          <!-- Checkbox option -->
+          <div class="grid grid-cols-2 gap-2">
+            <label
+              v-for="size in product.sizes"
+              :key="`checkbox-${size}`"
+              class="inline-flex items-center gap-2 text-base"
+            >
+              <input
+                type="checkbox"
+                :value="size"
+                v-model="selectedSizes"
+                class="rounded border-grey-purple-400 text-dark-purple-700 focus:ring-highlight-purple-500"
+              />
+              {{ size }}
+            </label>
+          </div>
         </div>
 
         <!-- Contact Button -->
         <button
-          class="mt-auto w-full py-4 px-6 bg-dark-purple-700 text-white-purple-100 rounded-lg text-lg sm:text-xl font-medium font-body hover:bg-highlight-purple-500 transition active:scale-95"
+          class="w-full py-4 px-6 bg-dark-purple-700 text-white-purple-100 rounded-lg text-lg sm:text-xl font-medium font-body hover:bg-highlight-purple-500 transition active:scale-95"
           aria-label="Nous contacter pour ce modèle"
           disabled
         >
@@ -185,6 +201,7 @@ const categoryStore = useCategoryStore()
 const product = ref(null)
 const loading = ref(true)
 const error = ref(null)
+const selectedSizes = ref([])
 
 // Load product details
 const loadProduct = async () => {

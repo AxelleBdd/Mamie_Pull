@@ -53,6 +53,13 @@ class Command(BaseCommand):
             ],
         }
 
+        # Sizes for each category
+        sizes_map = {
+            "Pulls": ["18 mois", "24 mois", "36 mois"],
+            "Layette": ["0-3 mois", "3-6 mois", "6-12 mois"],
+            "Accessoires pour poupons": ["Taille unique"],
+        }
+
         # 4. Generating 20 products
         count = 0
         for i in range(20):
@@ -60,14 +67,29 @@ class Command(BaseCommand):
             category_name = random.choice(cat_names)
             category_obj = categories[category_name]
 
-            # Pick a name and add increment
+            # Pick a name
             base_title = random.choice(data_map[category_name])
-            full_title = f"{base_title} n°{i + 1}"
+
+            # Check if base_title already exists
+            if Product.objects.filter(title=base_title).exists():
+                # Find the next available increment
+                increment = 2
+                while Product.objects.filter(
+                    title=f"{base_title} n°{increment}"
+                ).exists():
+                    increment += 1
+                full_title = f"{base_title} n°{increment}"
+            else:
+                full_title = base_title
+
+            # Get sizes for the category
+            available_sizes = sizes_map[category_name]
 
             Product.objects.create(
                 title=full_title,
                 description=f"Ceci est une description pour le produit {full_title}.",
                 category=category_obj,
+                sizes=available_sizes,
                 created_by=admin_user,
             )
             count += 1
