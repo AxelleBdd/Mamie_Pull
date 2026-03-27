@@ -31,7 +31,7 @@ urlpatterns = [
     # APIs
     path("api/categories/", include("categories.urls")),
     path("api/products/", include("products.urls")),
-    #Users
-    path('api/users/', include('users.urls')),
-    path('api/auth/', include('users.api_urls')),
+    # Users
+    path("api/users/", include("users.urls")),
+    path("api/auth/", include("users.api_urls")),
 ]
