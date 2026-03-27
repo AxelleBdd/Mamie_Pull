@@ -55,7 +55,7 @@
                 >
                   Tous nos produits
                 </router-link>
-                <hr class="my-1 border-grey-purple-200" />
+                <hr class="my-1 border-grey-purple-400">
                 <router-link
                   v-for="category in validCategories"
                   :key="category.id"
@@ -69,25 +69,8 @@
           </nav>
 
           <div class="hidden md:flex items-center gap-4">
-            <router-link
-              v-if="userStore.isAuthenticated"
-              to="/favoris"
-              class="p-2 hover:bg-grey-purple-400 rounded-full transition"
-              title="Favoris"
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
+            <router-link v-if="isAuthenticated" to="/favoris" class="p-2 hover:bg-grey-purple-400 rounded-full transition" title="Favoris">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
             </router-link>
 
             <div class="relative group">
@@ -121,26 +104,10 @@
                   />
                 </svg>
               </button>
-              <div
-                class="absolute right-0 w-48 bg-white border border-grey-purple-300 rounded-md shadow-lg hidden group-hover:block z-50 py-2"
-              >
-                <template v-if="userStore.isAuthenticated">
-                  <div
-                    class="px-4 py-1 text-xs text-dark-purple-400 border-b mb-1"
-                  >
-                    {{ userStore.user.username }}
-                  </div>
-                  <router-link
-                    to="/profil"
-                    class="block px-4 py-2 hover:bg-white-purple-100"
-                    >Mon profil</router-link
-                  >
-                  <button
-                    class="w-full text-left px-4 py-2 text-red-500 hover:bg-red-50"
-                    @click="handleLogout"
-                  >
-                    Déconnexion
-                  </button>
+              <div class="absolute right-0 w-48 bg-white border border-grey-purple-400 rounded-md shadow-lg hidden group-hover:block z-50 py-2">
+                <template v-if="isAuthenticated">
+                  <router-link to="/profil" class="block px-4 py-2 hover:bg-white-purple-100">Mon profil</router-link>
+                  <button @click="logout()" class="w-full text-left px-4 py-2 hover:bg-red-50">Déconnexion</button>
                 </template>
                 <template v-else>
                   <router-link
@@ -229,31 +196,10 @@
             Compte
           </p>
           <ul class="flex flex-col gap-1 pb-4">
-            <template v-if="userStore.isAuthenticated">
-              <li>
-                <router-link
-                  to="/profil"
-                  class="block px-4 py-2 rounded-md text-base"
-                  @click="mobileMenuOpen = false"
-                  >Mon profil</router-link
-                >
-              </li>
-              <li>
-                <router-link
-                  to="/favoris"
-                  class="block px-4 py-2 rounded-md text-base"
-                  @click="mobileMenuOpen = false"
-                  >Favoris</router-link
-                >
-              </li>
-              <li>
-                <button
-                  class="w-full text-left px-4 py-2 text-red-500"
-                  @click="handleLogoutAndClose()"
-                >
-                  Déconnexion
-                </button>
-              </li>
+            <template v-if="isAuthenticated">
+              <li><router-link to="/profil" class="block px-4 py-2 rounded-md text-base" @click="mobileMenuOpen = false">Mon profil</router-link></li>
+              <li><router-link to="/favoris" class="block px-4 py-2 rounded-md text-base" @click="mobileMenuOpen = false">Favoris</router-link></li>
+              <li><button @click="logout(); mobileMenuOpen = false" class="w-full text-left px-4 py-2">Déconnexion</button></li>
             </template>
             <template v-else>
               <li>
@@ -303,7 +249,7 @@
       </div>
     </div>
 
-    <main class="flex-1">
+    <main class="flex-1 font-body">
       <router-view />
     </main>
 
@@ -318,42 +264,35 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-import { useCategoryStore } from './stores/categoryStore'
+  import { ref, computed, onMounted } from 'vue';
+  import { useRoute } from 'vue-router';
+  import { useCategoryStore } from './stores/categoryStore'
+  import { useAuthStore } from './stores/authStore'
+  import { storeToRefs } from 'pinia'
 
 const mobileMenuOpen = ref(false)
 const route = useRoute()
 const categoryStore = useCategoryStore()
 
-// Mock user not authenticated
-const userStore = ref({
-  isAuthenticated: false,
-  user: { username: 'Mamie' },
-})
+  // User session management
+  const authStore = useAuthStore()
+  const { isAuthenticated } = storeToRefs(authStore)
 
-const handleLogout = () => {
-  userStore.value.isAuthenticated = false
-}
+  // Search bar visibility logic
+  const showSearchBar = computed(() => {
+    return route.path === '/' || route.path.startsWith('/products') || route.path.startsWith('/categories');
+  });
 
-const handleLogoutAndClose = () => {
-  handleLogout()
-  mobileMenuOpen.value = false
-}
+  // Display categories in the navigation
+  const validCategories = computed(() => {
+  return categoryStore.categories.filter(cat => cat && cat.slug);
+});
 
-const showSearchBar = computed(() => {
-  return (
-    route.path === '/' ||
-    route.path.startsWith('/products') ||
-    route.path.startsWith('/categories')
-  )
-})
+  const logout = () => {
+    authStore.logout()
+  }
 
-const validCategories = computed(() => {
-  return categoryStore.categories.filter((cat) => cat && cat.slug)
-})
-
-onMounted(() => {
-  categoryStore.fetchCategories()
-})
+  onMounted(() => {
+    categoryStore.fetchCategories()
+  })
 </script>
