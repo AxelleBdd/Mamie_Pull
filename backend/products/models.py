@@ -13,6 +13,9 @@ class Product(models.Model):
         related_name="products",
     )
     image = models.ImageField(upload_to="products/", blank=True, null=True)
+    sizes = models.JSONField(
+        default=list, blank=True, help_text="List of available sizes"
+    )
 
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,

@@ -16,5 +16,6 @@ class ProductSerializer(serializers.ModelSerializer):
             "category",
             "category_name",
             "image",
+            "sizes",
             "created_by",
         ]

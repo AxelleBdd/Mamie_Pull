@@ -14,7 +14,7 @@
     <!-- Breadcrumb -->
     <nav
       aria-label="Fil d'Ariane"
-      class="mb-6 flex items-center gap-2 sm:text-lg md:text-xl text-dark-purple-700"
+      class="mb-6 flex items-center gap-2 sm:text-lg md:text-xl"
     >
       <router-link to="/" class="hover:underline">Accueil</router-link>
       <span aria-hidden="true"> > </span>
@@ -74,13 +74,13 @@
     </div>
 
     <!-- Product Detail -->
-    <div v-else-if="product" class="flex flex-col lg:flex-row gap-8">
+    <div v-else-if="product" class="flex flex-col lg:flex-row gap-10 px-8 sm:px-16 md:px-24 lg:px-6 xl:px-12 2xl:px-32">
       <!-- Left Column: Image -->
       <div class="lg:w-1/2">
         <div class="sticky top-4">
           <!-- Main Image with Heart -->
           <div
-            class="relative rounded-xl overflow-hidden bg-grey-purple-400 aspect-square flex items-center justify-center"
+            class="relative rounded-xl overflow-hidden bg-grey-purple-400 aspect-square flex items-center justify-center w-full"
           >
             <img
               v-if="product.image"
@@ -121,24 +121,45 @@
       </div>
 
       <!-- Right Column: Details -->
-      <div class="lg:w-1/2 flex flex-col">
+      <div class="lg:w-1/2 flex flex-col lg:justify-center">
         <!-- Description Section -->
         <div class="mb-8">
           <h2
-            class="text-2xl font-semibold font-heading text-dark-purple-700 mb-4"
+            class="text-2xl font-semibold font-heading mb-4"
           >
             Description
           </h2>
           <p
-            class="text-base sm:text-lg text-dark-purple-700 leading-relaxed whitespace-pre-line"
+            class="text-base sm:text-lg"
           >
             {{ product.description }}
           </p>
         </div>
 
+        <div class="mb-8">
+          <h2 class="text-2xl font-semibold font-heading mb-4">Tailles</h2>
+
+          <!-- Checkbox option -->
+          <div class="grid grid-cols-2 gap-2">
+            <label
+              v-for="size in product.sizes"
+              :key="`checkbox-${size}`"
+              class="inline-flex items-center gap-2 text-base"
+            >
+              <input
+                type="checkbox"
+                :value="size"
+                v-model="selectedSizes"
+                class="rounded border-grey-purple-400 text-dark-purple-700 focus:ring-highlight-purple-500"
+              />
+              {{ size }}
+            </label>
+          </div>
+        </div>
+
         <!-- Contact Button -->
         <button
-          class="mt-auto w-full py-4 px-6 bg-dark-purple-700 text-white-purple-100 rounded-lg text-lg sm:text-xl font-medium font-body hover:bg-highlight-purple-500 transition active:scale-95"
+          class="w-full py-4 px-6 bg-dark-purple-700 text-white-purple-100 rounded-lg text-lg sm:text-xl font-medium font-body hover:bg-highlight-purple-500 transition active:scale-95"
           aria-label="Nous contacter pour ce modèle"
           disabled
         >
@@ -180,6 +201,7 @@ const categoryStore = useCategoryStore()
 const product = ref(null)
 const loading = ref(true)
 const error = ref(null)
+const selectedSizes = ref([])
 
 // Load product details
 const loadProduct = async () => {

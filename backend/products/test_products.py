@@ -10,11 +10,13 @@ class ProductTestCase(TestCase):
             title="Test Product 1",
             description="Description for product 1",
             category=category,
+            sizes=["18 mois", "24 mois", "36 mois"],
         )
         Product.objects.create(
             title="Test Product 2",
             description="Description for product 2",
             category=category,
+            sizes=["One size"],
         )
 
     # POST
@@ -23,6 +25,8 @@ class ProductTestCase(TestCase):
         product2 = Product.objects.get(title="Test Product 2")
         self.assertEqual(product1.description, "Description for product 1")
         self.assertEqual(product2.description, "Description for product 2")
+        self.assertEqual(product1.sizes, ["18 mois", "24 mois", "36 mois"])
+        self.assertEqual(product2.sizes, ["One size"])
 
     # GET (all, by id, by category)
     def test_product_get_all(self):
