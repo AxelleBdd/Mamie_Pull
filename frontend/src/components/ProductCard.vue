@@ -24,7 +24,7 @@
     <!-- Content -->
     <div class="flex flex-1 flex-col bg-white-purple-100 p-5">
       <span
-        class="mb-2 text-xs font-semibold uppercase tracking-wider text-dark-purple-700"
+        class="mb-2 text-base font-semibold uppercase tracking-wider text-dark-purple-700"
       >
         {{ product.category_name }}
       </span>
@@ -36,19 +36,21 @@
       </h3>
 
       <!-- Button visible only on desktop -->
-      <button
+      <ButtonDark
         v-if="!isCardClickable"
-        class="mt-auto w-full rounded-lg bg-dark-purple-700 px-6 py-3 sm:text-lg md:text-xl font-medium font-body text-white-purple-100 transition lg:inline-block hover:bg-highlight-purple-500 active:scale-95 cursor-pointer"
+        class="mt-auto w-full rounded-lg px-6 py-3 sm:text-lg cursor-pointer"
         :aria-label="`Voir les détails du produit ${product.title}`"
-        @click.stop="$emit('view-details', product.id)"
+        @click="() => $emit('view-details', product.id)"
+        buttonType="button"
       >
         Voir les détails
-      </button>
+      </ButtonDark>
     </div>
   </div>
 </template>
 
 <script setup>
+import ButtonDark from './ButtonDark.vue'
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({

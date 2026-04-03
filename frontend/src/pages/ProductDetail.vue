@@ -36,10 +36,11 @@
     </nav>
 
     <!-- Back button -->
-    <button
-      class="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-lg bg-dark-purple-700 text-white-purple-100 hover:bg-highlight-purple-500 transition"
+    <ButtonDark
+      class="mb-6 inline-flex items-center gap-2 rounded-lg text-lg hover:bg-highlight-purple-500 transition lg:w-auto"
       aria-label="Retour à la page précédente"
       @click="goBack"
+      buttonType="button"
     >
       <svg
         class="w-5 h-5"
@@ -55,7 +56,7 @@
         />
       </svg>
       Retour
-    </button>
+    </ButtonDark>
 
     <!-- Loading -->
     <div v-if="loading" class="text-center py-16" role="status">
@@ -125,26 +126,24 @@
         <!-- Description Section -->
         <div class="mb-8">
           <h2
-            class="text-2xl font-semibold font-heading mb-4"
+            class="text-3xl font-semibold font-heading mb-4"
           >
             Description
           </h2>
           <p
-            class="text-base sm:text-lg"
+            class="text-base sm:text-lg md:text-xl"
           >
             {{ product.description }}
           </p>
         </div>
 
         <div class="mb-8">
-          <h2 class="text-2xl font-semibold font-heading mb-4">Tailles</h2>
-
-          <!-- Checkbox option -->
+          <h2 class="text-3xl font-semibold font-heading mb-4">Tailles</h2>
           <div class="grid grid-cols-2 gap-2">
             <label
               v-for="size in product.sizes"
               :key="`checkbox-${size}`"
-              class="inline-flex items-center gap-2 text-base"
+              class="inline-flex items-center gap-2 text-base sm:text-lg md:text-xl"
             >
               <input
                 type="checkbox"
@@ -158,13 +157,16 @@
         </div>
 
         <!-- Contact Button -->
-        <button
-          class="w-full py-4 px-6 bg-dark-purple-700 text-white-purple-100 rounded-lg text-lg sm:text-xl font-medium font-body hover:bg-highlight-purple-500 transition active:scale-95"
-          aria-label="Nous contacter pour ce modèle"
-          disabled
-        >
-          Nous contacter pour ce modèle
-        </button>
+        <div class="flex justify-center">
+          <ButtonDark
+            class="lg:w-90 py-2 px-6 rounded-lg sm:text-lg md:text-xl hover:bg-highlight-purple-500 transition"
+            aria-label="Nous contacter pour ce modèle"
+            disabled
+            buttonType="button"
+          >
+            Nous contacter pour ce modèle
+          </ButtonDark>
+        </div>
       </div>
     </div>
 
@@ -191,6 +193,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import ButtonDark from '../components/ButtonDark.vue'
 import { getProductById } from '../api/products.js'
 import { useCategoryStore } from '../stores/categoryStore'
 
