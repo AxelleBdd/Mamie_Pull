@@ -75,12 +75,13 @@
       <p class="text-light-purple-300 mb-6">
         {{ error }}
       </p>
-      <button
-        class="px-8 py-3 rounded-lg font-medium text-white-purple-100 bg-dark-purple-700 hover:bg-purple-700 transition"
+      <ButtonDark
+        class="px-8 py-3 rounded-lg font-medium hover:bg-purple-700 transition"
         @click="loadProducts"
+        buttonType="button"
       >
         Réessayer
-      </button>
+      </ButtonDark>
     </div>
 
     <!-- Products -->
@@ -112,13 +113,16 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import ProductCard from '../components/ProductCard.vue'
+import ButtonDark from '../components/ButtonDark.vue'
 import { getAllProducts } from '../api/products.js'
 
 const products = ref([])
 const loading = ref(true)
 const error = ref(null)
 const selectedCategory = ref(null)
+const router = useRouter()
 
 // Get categories from products
 const categories = computed(() => {
