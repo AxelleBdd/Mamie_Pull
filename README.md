@@ -81,25 +81,30 @@ At this stage:
 - The homepage is displayed but not complete
 - Navigation bar and search bar are displayed but not fully functionnal
 - Products generated from the backend are fetched and shown
+- User authentication is implemented (sign up / sign in)
+- Users can browse products by category and view details
 
 🔧 API documentation and endpoints will be added later.
 
 ## ✨ Features
 
-### Existing Features
+### Existing Features (Frontend & Backend)
 
 - Homepage layout
 - Display of products from the backend
+- User authentication (sign up / sign in)
+- Browse products by category
+- View product details
 
 ### Planned Features
 
 #### User Features
 
-- View site news and updates
-- Browse products by category
-- View product details
-- User authentication (sign up / sign in)
 - Manage favorite products
+- View site news and updates
+- Search functionality for products
+- Display customer feedback and testimonials
+- List markets and events
 
 #### Admin Features
 
@@ -108,8 +113,13 @@ At this stage:
 
 ## 🧪 Tests
 
-🚧 No tests implemented yet.  
-Tests will be added in a future development phase.
+Backend tests have been implemented for:
+
+- User models and authentication
+- Product models and views
+- Category models
+
+Run tests with: `docker-compose exec backend python manage.py test`
 
 ## 🤝 Contribution
 
