@@ -4,101 +4,101 @@ import ProductCard from '../ProductCard.vue'
 import ButtonDark from '../ButtonDark.vue'
 
 describe('ProductCard', () => {
-    const mockProduct = {
-        id: 1,
-        title: 'Test Product',
-        category_name: 'Category A',
-        // image: 'https://example.com/image.jpg',
+  const mockProduct = {
+    id: 1,
+    title: 'Test Product',
+    category_name: 'Category A',
+    // image: 'https://example.com/image.jpg',
+  }
+
+  it('renders product information correctly', () => {
+    const wrapper = mount(ProductCard, {
+      props: {
+        product: mockProduct,
+      },
+      global: {
+        components: {
+          ButtonDark,
+        },
+      },
+    })
+
+    expect(wrapper.text()).toContain('Test Product')
+    expect(wrapper.text()).toContain('Category A')
+    // expect(wrapper.find('img').attributes('src')).toBe()
+    // expect(wrapper.find('img').attributes('alt')).toBe('Test Product')
+  })
+
+  it('displays fallback emoji when product has no image', () => {
+    const productWithoutImage = {
+      ...mockProduct,
+      image: null,
     }
 
-    it('renders product information correctly', () => {
-        const wrapper = mount(ProductCard, {
-            props: {
-                product: mockProduct,
-            },
-            global: {
-                components: {
-                    ButtonDark,
-                },
-            },
-        })
-
-        expect(wrapper.text()).toContain('Test Product')
-        expect(wrapper.text()).toContain('Category A')
-        // expect(wrapper.find('img').attributes('src')).toBe()
-        // expect(wrapper.find('img').attributes('alt')).toBe('Test Product')
+    const wrapper = mount(ProductCard, {
+      props: {
+        product: productWithoutImage,
+      },
     })
 
-    it('displays fallback emoji when product has no image', () => {
-        const productWithoutImage = {
-            ...mockProduct,
-            image: null,
-        }
+    expect(wrapper.text()).toContain('📦')
+    expect(wrapper.find('img').exists()).toBe(false)
+  })
 
-        const wrapper = mount(ProductCard, {
-            props: {
-                product: productWithoutImage,
-            },
-        })
+  it('emits view-details event when details button is clicked on desktop', async () => {
+    // Mock window.innerWidth for desktop
+    global.innerWidth = 1200
 
-        expect(wrapper.text()).toContain('📦')
-        expect(wrapper.find('img').exists()).toBe(false)
+    const wrapper = mount(ProductCard, {
+      props: {
+        product: mockProduct,
+      },
+      global: {
+        components: {
+          ButtonDark,
+        },
+      },
     })
 
-    it('emits view-details event when details button is clicked on desktop', async () => {
-        // Mock window.innerWidth for desktop
-        global.innerWidth = 1200
+    const button = wrapper.findComponent(ButtonDark)
+    await button.trigger('click')
 
-        const wrapper = mount(ProductCard, {
-            props: {
-                product: mockProduct,
-            },
-            global: {
-                components: {
-                    ButtonDark,
-                },
-            },
-        })
+    expect(wrapper.emitted('view-details')).toBeTruthy()
+    expect(wrapper.emitted('view-details')[0]).toEqual([mockProduct.id])
+  })
 
-        const button = wrapper.findComponent(ButtonDark)
-        await button.trigger('click')
+  it('emits view-details event when card is clicked on mobile', async () => {
+    // Mock window.innerWidth for mobile
+    global.innerWidth = 500
 
-        expect(wrapper.emitted('view-details')).toBeTruthy()
-        expect(wrapper.emitted('view-details')[0]).toEqual([mockProduct.id])
+    // Trigger the updateClickable logic
+    const wrapper = mount(ProductCard, {
+      props: {
+        product: mockProduct,
+      },
     })
 
-    it('emits view-details event when card is clicked on mobile', async () => {
-        // Mock window.innerWidth for mobile
-        global.innerWidth = 500
+    await wrapper.vm.$nextTick()
+    await wrapper.find('div').trigger('click')
 
-        // Trigger the updateClickable logic
-        const wrapper = mount(ProductCard, {
-            props: {
-                product: mockProduct,
-            },
-        })
+    expect(wrapper.emitted('view-details')).toBeTruthy()
+    expect(wrapper.emitted('view-details')[0]).toEqual([mockProduct.id])
+  })
 
-        await wrapper.vm.$nextTick()
-        await wrapper.find('div').trigger('click')
+  it('does not emit event when card is clicked on desktop', async () => {
+    // Mock window.innerWidth for desktop
+    global.innerWidth = 1200
 
-        expect(wrapper.emitted('view-details')).toBeTruthy()
-        expect(wrapper.emitted('view-details')[0]).toEqual([mockProduct.id])
+    const wrapper = mount(ProductCard, {
+      props: {
+        product: mockProduct,
+      },
     })
 
-    it('does not emit event when card is clicked on desktop', async () => {
-        // Mock window.innerWidth for desktop
-        global.innerWidth = 1200
+    await wrapper.vm.$nextTick()
+    const mainDiv = wrapper.find('[class*="flex h-full"]')
+    await mainDiv.trigger('click')
 
-        const wrapper = mount(ProductCard, {
-            props: {
-                product: mockProduct,
-            },
-        })
-
-        await wrapper.vm.$nextTick()
-        const mainDiv = wrapper.find('[class*="flex h-full"]')
-        await mainDiv.trigger('click')
-
-        expect(wrapper.emitted('view-details')).toBeFalsy()
-    })
+    expect(wrapper.emitted('view-details')).toBeFalsy()
+  })
 })

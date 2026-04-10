@@ -40,8 +40,8 @@
         v-if="!isCardClickable"
         class="mt-auto w-full rounded-lg px-6 py-3 sm:text-lg cursor-pointer"
         :aria-label="`Voir les détails du produit ${product.title}`"
+        button-type="button"
         @click="() => $emit('view-details', product.id)"
-        buttonType="button"
       >
         Voir les détails
       </ButtonDark>
