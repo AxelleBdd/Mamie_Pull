@@ -77,8 +77,8 @@
       </p>
       <ButtonDark
         class="px-8 py-3 rounded-lg font-medium hover:bg-purple-700 transition"
+        button-type="button"
         @click="loadProducts"
-        buttonType="button"
       >
         Réessayer
       </ButtonDark>

@@ -39,8 +39,8 @@
     <ButtonDark
       class="mb-6 inline-flex items-center gap-2 rounded-lg text-lg hover:bg-highlight-purple-500 transition lg:w-auto"
       aria-label="Retour à la page précédente"
+      button-type="button"
       @click="goBack"
-      buttonType="button"
     >
       <svg
         class="w-5 h-5"
@@ -75,7 +75,10 @@
     </div>
 
     <!-- Product Detail -->
-    <div v-else-if="product" class="flex flex-col lg:flex-row gap-10 px-8 sm:px-16 md:px-24 lg:px-6 xl:px-12 2xl:px-32">
+    <div
+      v-else-if="product"
+      class="flex flex-col lg:flex-row gap-10 px-8 sm:px-16 md:px-24 lg:px-6 xl:px-12 2xl:px-32"
+    >
       <!-- Left Column: Image -->
       <div class="lg:w-1/2">
         <div class="sticky top-4">
@@ -125,14 +128,8 @@
       <div class="lg:w-1/2 flex flex-col lg:justify-center">
         <!-- Description Section -->
         <div class="mb-8">
-          <h2
-            class="text-3xl font-semibold font-heading mb-4"
-          >
-            Description
-          </h2>
-          <p
-            class="text-base sm:text-lg md:text-xl"
-          >
+          <h2 class="text-3xl font-semibold font-heading mb-4">Description</h2>
+          <p class="text-base sm:text-lg md:text-xl">
             {{ product.description }}
           </p>
         </div>
@@ -146,9 +143,9 @@
               class="inline-flex items-center gap-2 text-base sm:text-lg md:text-xl"
             >
               <input
+                v-model="selectedSizes"
                 type="checkbox"
                 :value="size"
-                v-model="selectedSizes"
                 class="rounded border-grey-purple-400 text-dark-purple-700 focus:ring-highlight-purple-500"
               />
               {{ size }}
@@ -162,7 +159,7 @@
             class="lg:w-90 py-2 px-6 rounded-lg sm:text-lg md:text-xl hover:bg-highlight-purple-500 transition"
             aria-label="Nous contacter pour ce modèle"
             disabled
-            buttonType="button"
+            button-type="button"
           >
             Nous contacter pour ce modèle
           </ButtonDark>

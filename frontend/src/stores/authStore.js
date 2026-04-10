@@ -29,10 +29,12 @@ export const useAuthStore = defineStore('auth', {
     async signup(signupData) {
       await signupRequest(signupData)
       // After successful signup, auto-login the user
-      const { access, refresh } = await loginRequest(signupData.email, signupData.password)
+      const { access, refresh } = await loginRequest(
+        signupData.email,
+        signupData.password,
+      )
       this.accessToken = access
       localStorage.setItem('refreshToken', refresh)
     },
-
   },
 })

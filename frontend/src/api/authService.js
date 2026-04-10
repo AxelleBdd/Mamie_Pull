@@ -36,10 +36,14 @@ export async function signupRequest(signupData) {
 
     if (!response.ok) {
       const text = await response.text()
-      let errorMsg = 'Erreur lors de l\'inscription'
+      let errorMsg = "Erreur lors de l'inscription"
       try {
         const json = JSON.parse(text)
-        errorMsg = json.detail || json.non_field_errors?.[0] || Object.values(json)?.flat?.()[0] || errorMsg
+        errorMsg =
+          json.detail ||
+          json.non_field_errors?.[0] ||
+          Object.values(json)?.flat?.()[0] ||
+          errorMsg
       } catch {}
       throw new Error(errorMsg)
     }
