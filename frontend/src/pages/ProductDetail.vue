@@ -1,11 +1,11 @@
 <template>
   <div
-    class="max-w-400 mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple-100 min-h-screen"
+    class="max-w-400 mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple min-h-screen"
   >
     <!-- Header -->
     <header class="text-center mb-4">
       <h1
-        class="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-dark-purple-700 mb-2"
+        class="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-dark-purple mb-2"
       >
         {{ product?.title || 'Chargement...' }}
       </h1>
@@ -37,7 +37,7 @@
 
     <!-- Back button -->
     <ButtonDark
-      class="mb-6 inline-flex items-center gap-2 rounded-lg text-lg hover:bg-highlight-purple-500 transition lg:w-auto"
+      class="mb-6 inline-flex items-center gap-2 rounded-lg text-lg hover:bg-highlight-purple transition lg:w-auto"
       aria-label="Retour à la page précédente"
       button-type="button"
       @click="goBack"
@@ -60,16 +60,16 @@
 
     <!-- Loading -->
     <div v-if="loading" class="text-center py-16" role="status">
-      <p class="text-lg text-purple-300">Chargement du produit...</p>
+      <p class="text-lg text-purple">Chargement du produit...</p>
     </div>
 
     <!-- Error -->
     <div v-else-if="error" class="text-center py-16" role="alert">
       <span class="text-6xl mb-4 block" aria-hidden="true">⚠️</span>
-      <h2 class="text-2xl font-semibold text-purple-900 mb-2">
+      <h2 class="text-2xl font-semibold text-purple mb-2">
         Erreur de chargement
       </h2>
-      <p class="text-purple-300 mb-6">
+      <p class="text-purple mb-6">
         {{ error }}
       </p>
     </div>
@@ -84,7 +84,7 @@
         <div class="sticky top-4">
           <!-- Main Image with Heart -->
           <div
-            class="relative rounded-xl overflow-hidden bg-grey-purple-400 aspect-square flex items-center justify-center w-full"
+            class="relative rounded-xl overflow-hidden bg-grey-purple aspect-square flex items-center justify-center w-full"
           >
             <img
               v-if="product.image"
@@ -94,7 +94,7 @@
             />
             <span
               v-else
-              class="text-9xl text-grey-purple-300"
+              class="text-9xl text-grey-purple"
               aria-hidden="true"
             >
               📦
@@ -102,12 +102,12 @@
 
             <!-- Heart Icon -->
             <button
-              class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white-purple-100 flex items-center justify-center shadow-md hover:bg-white transition"
+              class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white-purple flex items-center justify-center shadow-md hover:bg-white transition"
               aria-label="Ajouter aux favoris"
               disabled
             >
               <svg
-                class="w-6 h-6 text-dark-purple-700"
+                class="w-6 h-6 text-dark-purple"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -146,7 +146,7 @@
                 v-model="selectedSizes"
                 type="checkbox"
                 :value="size"
-                class="rounded border-grey-purple-400 text-dark-purple-700 focus:ring-highlight-purple-500"
+                class="rounded border-grey-purple text-dark-purple focus:ring-highlight-purple"
               />
               {{ size }}
             </label>
@@ -156,7 +156,7 @@
         <!-- Contact Button -->
         <div class="flex justify-center">
           <ButtonDark
-            class="lg:w-90 py-2 px-6 rounded-lg sm:text-lg md:text-xl hover:bg-highlight-purple-500 transition"
+            class="lg:w-90 py-2 px-6 rounded-lg sm:text-lg md:text-xl hover:bg-highlight-purple transition"
             aria-label="Nous contacter pour ce modèle"
             disabled
             button-type="button"
@@ -170,15 +170,15 @@
     <!-- Product not found -->
     <div v-else class="text-center py-16" role="alert">
       <span class="text-6xl mb-4 block" aria-hidden="true">🔍</span>
-      <h2 class="text-2xl font-semibold text-dark-purple-700 mb-2">
+      <h2 class="text-2xl font-semibold text-dark-purple mb-2">
         Produit introuvable
       </h2>
-      <p class="text-highlight-purple-500 mb-6">
+      <p class="text-highlight-purple mb-6">
         Le produit demandé n'existe pas ou a été supprimé.
       </p>
       <router-link
         to="/products"
-        class="inline-block px-8 py-3 rounded-lg font-medium text-white bg-dark-purple-700 hover:bg-highlight-purple-500 transition"
+        class="inline-block px-8 py-3 rounded-lg font-medium text-white bg-dark-purple hover:bg-highlight-purple transition"
         aria-label="Retourner à la page de tous les produits"
       >
         Voir tous les produits

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="max-w-400 mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple-100 text-dark-purple-700"
+    class="max-w-400 mx-auto px-4 md:px-8 lg:px-12 py-4 bg-white-purple text-dark-purple"
   >
     <!-- Header -->
     <header class="text-center mb-4">
@@ -28,14 +28,14 @@
 
     <!-- Loading -->
     <div v-if="loading" role="status" class="text-center py-16">
-      <p class="text-lg text-light-purple-300">Chargement des produits...</p>
+      <p class="text-lg text-light-purple">Chargement des produits...</p>
     </div>
 
     <!-- Error -->
     <div v-else-if="error" role="alert" class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block">⚠️</span>
       <h3 class="text-2xl font-semibold mb-2">Erreur de chargement</h3>
-      <p class="text-light-purple-300 mb-6">
+      <p class="text-light-purple mb-6">
         {{ error }}
       </p>
     </div>
@@ -44,13 +44,13 @@
     <div v-else-if="!currentCategory" role="alert" class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block">🔍</span>
       <h3 class="text-2xl font-semibold mb-2">Catégorie introuvable</h3>
-      <p class="text-highlight-purple-500 mb-6">
+      <p class="text-highlight-purple mb-6">
         La catégorie demandée n'existe pas.
       </p>
       <router-link
         to="/products"
         aria-label="Retourner à la page de tous les produits"
-        class="inline-block px-8 py-3 rounded-lg font-medium text-white-purple-100 bg-dark-purple-700 hover:bg-purple-700 transition"
+        class="inline-block px-8 py-3 rounded-lg font-medium text-white-purple bg-dark-purple hover:bg-purple transition"
       >
         Voir tous les produits
       </router-link>
@@ -76,13 +76,13 @@
     <div v-else class="text-center py-16">
       <span aria-hidden="true" class="text-6xl mb-4 block opacity-50">📦</span>
       <h3 class="text-2xl font-semibold mb-2">Aucun produit trouvé</h3>
-      <p class="text-highlight-purple-500 mb-6">
+      <p class="text-highlight-purple mb-6">
         Il n'y a pas encore de produits dans cette catégorie.
       </p>
       <router-link
         to="/products"
         aria-label="Retourner à la page de tous les produits"
-        class="inline-block px-8 py-3 rounded-lg font-medium text-white-purple-100 bg-dark-purple-700 hover:bg-purple-700 transition"
+        class="inline-block px-8 py-3 rounded-lg font-medium text-white-purple bg-dark-purple hover:bg-purple transition"
       >
         Voir tous les produits
       </router-link>

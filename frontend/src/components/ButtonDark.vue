@@ -2,7 +2,7 @@
   <button
     v-bind="$attrs"
     :class="[
-      'bg-dark-purple-700 hover:bg-highlight-purple-500 hover:cursor-pointer text-white-purple-100 py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40',
+      'bg-dark-purple hover:bg-highlight-purple hover:cursor-pointer text-white-purple py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40',
       $attrs.class,
     ]"
     :type="buttonType"

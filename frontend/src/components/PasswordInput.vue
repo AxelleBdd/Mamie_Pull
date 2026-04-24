@@ -15,7 +15,7 @@
         :placeholder="placeholder"
         :autocomplete="autocomplete"
         required
-        class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2"
+        class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2"
         @input="updateValue"
       />
       <button
@@ -30,7 +30,7 @@
       >
         <svg
           v-if="!isVisible"
-          class="h-5 w-5 text-dark-purple-700 cursor-pointer"
+          class="h-5 w-5 text-dark-purple cursor-pointer"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -55,7 +55,7 @@
 
         <svg
           v-else
-          class="h-5 w-5 text-dark-purple-700 cursor-pointer"
+          class="h-5 w-5 text-dark-purple cursor-pointer"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
