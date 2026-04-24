@@ -12,7 +12,7 @@ djangorestframework-simplejwt
 django-cors-headers==4.9.0
 
 # Database
-psycopg2-binary==2.9.11
+psycopg2-binary==2.9.12
 
 # .env
 python-decouple==3.8
