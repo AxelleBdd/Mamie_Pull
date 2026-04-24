@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia'
 import { loginRequest, signupRequest } from '../api/authService'
+import { getCurrentUser } from '../api/users'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     // Access token in memory only - lost on page refresh
     accessToken: null,
+    // Current user data
+    user: null,
   }),
 
   getters: {
@@ -12,6 +15,16 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
+    async fetchUser() {
+      if (!this.accessToken) return
+      try {
+        const userData = await getCurrentUser(this.accessToken)
+        this.user = userData
+      } catch (error) {
+        console.error('Failed to fetch user:', error)
+      }
+    },
+
     async login(email, password) {
       const { access, refresh } = await loginRequest(email, password)
 
@@ -19,10 +32,14 @@ export const useAuthStore = defineStore('auth', {
       this.accessToken = access
       // Refresh token in localStorage
       localStorage.setItem('refreshToken', refresh)
+
+      // Fetch user data
+      await this.fetchUser()
     },
 
     logout() {
       this.accessToken = null
+      this.user = null
       localStorage.removeItem('refreshToken')
     },
 
@@ -35,6 +52,13 @@ export const useAuthStore = defineStore('auth', {
       )
       this.accessToken = access
       localStorage.setItem('refreshToken', refresh)
+
+      // Fetch user data
+      await this.fetchUser()
+    },
+
+    setUser(userData) {
+      this.user = userData
     },
   },
 })

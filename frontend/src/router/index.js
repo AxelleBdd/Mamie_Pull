@@ -6,6 +6,7 @@ import ProductDetail from '../pages/ProductDetail.vue'
 import LoginPage from '../pages/LoginPage.vue'
 import SignupPage from '../pages/SignupPage.vue'
 import HomePage from '../pages/HomePage.vue'
+import ProfilePage from '../pages/ProfilePage.vue'
 
 const routes = [
   { path: '/products', component: Catalog },
@@ -13,6 +14,7 @@ const routes = [
   { path: '/products/:id', component: ProductDetail, name: 'product-detail' },
   { path: '/login', component: LoginPage, name: 'login' },
   { path: '/register', component: SignupPage, name: 'signup' },
+  { path: '/profile', component: ProfilePage, name: 'profile' },
   { path: '/', component: HomePage, name: 'home' },
 ]
 

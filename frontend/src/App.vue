@@ -29,7 +29,7 @@
               <button
                 class="flex items-center gap-1 px-4 py-2 rounded-md text-xl hover:bg-grey-purple transition"
               >
-                Nos Produits
+                Nos produits
                 <svg
                   class="w-4 h-4"
                   fill="none"
@@ -90,7 +90,7 @@
 
             <div class="relative group">
               <button
-                class="flex items-center gap-1 p-2 hover:bg-grey-purple rounded-md transition"
+                class="flex items-center gap-2 p-2 hover:bg-grey-purple rounded-md transition"
               >
                 <svg
                   class="w-7 h-7"
@@ -105,6 +105,12 @@
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
+                <span
+                  v-if="isAuthenticated && displayFirstName"
+                  class="text-lg"
+                >
+                  {{ displayFirstName }}
+                </span>
                 <svg
                   class="w-4 h-4"
                   fill="none"
@@ -124,7 +130,7 @@
               >
                 <template v-if="isAuthenticated">
                   <router-link
-                    to="/profil"
+                    to="/profile"
                     class="block px-4 py-2 hover:bg-white-purple"
                     >Mon profil</router-link
                   >
@@ -225,7 +231,7 @@
             <template v-if="isAuthenticated">
               <li>
                 <router-link
-                  to="/profil"
+                  to="/profile"
                   class="block px-4 py-2 rounded-md text-base"
                   @click="mobileMenuOpen = false"
                   >Mon profil</router-link
@@ -327,6 +333,13 @@ const categoryStore = useCategoryStore()
 // User session management
 const authStore = useAuthStore()
 const { isAuthenticated } = storeToRefs(authStore)
+
+// Display user name in the header
+const displayFirstName = computed(() => {
+  if (!authStore.user) return null
+  const first_name = authStore.user.first_name
+  return first_name || null
+})
 
 // Search bar visibility logic
 const showSearchBar = computed(() => {
