@@ -113,11 +113,11 @@
 
         <div class="flex gap-4 mt-12">
           <router-link
-              to="/register"
-              class="bg-white-purple hover:cursor-pointer text-dark-purple py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40"
-            >
-              Créer un compte
-            </router-link>
+            to="/register"
+            class="bg-white-purple hover:cursor-pointer text-dark-purple py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40"
+          >
+            Créer un compte
+          </router-link>
           <ButtonDark button-text="Se connecter" @click="login" />
         </div>
       </form>

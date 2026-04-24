@@ -92,11 +92,7 @@
               :alt="product.title"
               class="w-full h-full object-cover"
             />
-            <span
-              v-else
-              class="text-9xl text-grey-purple"
-              aria-hidden="true"
-            >
+            <span v-else class="text-9xl text-grey-purple" aria-hidden="true">
               📦
             </span>
 
