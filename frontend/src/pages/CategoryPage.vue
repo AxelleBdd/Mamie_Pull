@@ -58,13 +58,13 @@
 
     <!-- Products -->
     <div
-      v-else-if="products.length > 0"
+      v-else-if="filteredProducts.length > 0"
       role="list"
       aria-label="Liste des produits de la catégorie"
       class="grid gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]"
     >
       <ProductCard
-        v-for="product in products"
+        v-for="product in filteredProducts"
         :key="product.id"
         :product="product"
         role="listitem"
@@ -96,11 +96,13 @@ import { useRoute } from 'vue-router' // Read route info
 import { useRouter } from 'vue-router' // For navigation
 import { getProductsByCategory } from '../api/products.js'
 import { useCategoryStore } from '../stores/categoryStore'
+import { useSearchStore } from '../stores/searchStore'
 import ProductCard from '../components/ProductCard.vue'
 
 const router = useRouter()
 const route = useRoute()
 const categoryStore = useCategoryStore()
+const searchStore = useSearchStore()
 
 const products = ref([])
 const loading = ref(true)
@@ -110,6 +112,17 @@ const error = ref(null)
 const currentCategory = computed(() => {
   const slug = route.params.slug
   return categoryStore.categories.find((cat) => cat.slug === slug)
+})
+
+// Filter products by search query
+const filteredProducts = computed(() => {
+  const searchQuery = searchStore.query.toLowerCase().trim()
+  if (!searchQuery) {
+    return products.value
+  }
+  return products.value.filter((product) =>
+    product.title.toLowerCase().includes(searchQuery),
+  )
 })
 
 // Load products filtered by category
