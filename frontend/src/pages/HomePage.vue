@@ -174,7 +174,7 @@ const error = ref(null)
 const currentSlide = ref(0)
 
 const categoryStore = useCategoryStore()
-const { 
+const {
   categories,
   loading: catLoading,
   error: catError,
