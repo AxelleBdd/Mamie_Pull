@@ -91,7 +91,12 @@
           <span class="block sm:inline">{{ error }}</span>
         </div>
         <div class="flex gap-4 mt-12">
-          <ButtonLight button-text="J'ai déjà un compte" link="/login" />
+          <router-link
+              to="/login"
+              class="bg-white-purple-100 hover:cursor-pointer text-dark-purple-700 py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40"
+            >
+              J'ai déjà un compte
+            </router-link>
           <ButtonDark button-text="Créer mon compte" @click="signup" />
         </div>
       </form>
