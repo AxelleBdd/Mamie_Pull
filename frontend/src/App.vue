@@ -1,10 +1,10 @@
 <template>
   <div
     id="app"
-    class="min-h-screen flex flex-col font-body bg-white-purple-100 text-dark-purple-700"
+    class="min-h-screen flex flex-col font-body bg-white-purple text-dark-purple"
   >
     <header
-      class="bg-white-purple-100 shadow-sm border-b border-grey-purple-300"
+      class="bg-white-purple shadow-sm border-b border-grey-purple"
     >
       <div class="max-w-7xl mx-auto px-6 py-2">
         <div class="flex items-center justify-between gap-8">
@@ -22,14 +22,14 @@
           <nav class="hidden md:flex items-center gap-6 flex-1 ml-10">
             <router-link
               to="/"
-              class="px-4 py-2 rounded-md text-xl hover:bg-grey-purple-400 transition"
+              class="px-4 py-2 rounded-md text-xl hover:bg-grey-purple transition"
             >
               Accueil
             </router-link>
 
             <div class="relative group">
               <button
-                class="flex items-center gap-1 px-4 py-2 rounded-md text-xl hover:bg-grey-purple-400 transition"
+                class="flex items-center gap-1 px-4 py-2 rounded-md text-xl hover:bg-grey-purple transition"
               >
                 Nos Produits
                 <svg
@@ -47,20 +47,20 @@
                 </svg>
               </button>
               <div
-                class="absolute left-0 w-64 bg-white border border-grey-purple-300 rounded-md shadow-lg hidden group-hover:block z-50 py-2 font-normal"
+                class="absolute left-0 w-64 bg-white border border-grey-purple rounded-md shadow-lg hidden group-hover:block z-50 py-2 font-normal"
               >
                 <router-link
                   to="/products"
-                  class="block px-4 py-2 hover:bg-white-purple-100 transition"
+                  class="block px-4 py-2 hover:bg-white-purple transition"
                 >
                   Tous nos produits
                 </router-link>
-                <hr class="my-1 border-grey-purple-400" />
+                <hr class="my-1 border-grey-purple" />
                 <router-link
                   v-for="category in validCategories"
                   :key="category.id"
                   :to="`/categories/${category.slug}`"
-                  class="block px-4 py-2 hover:bg-white-purple-100 transition"
+                  class="block px-4 py-2 hover:bg-white-purple transition"
                 >
                   {{ category.name }}
                 </router-link>
@@ -72,7 +72,7 @@
             <router-link
               v-if="isAuthenticated"
               to="/favoris"
-              class="p-2 hover:bg-grey-purple-400 rounded-full transition"
+              class="p-2 hover:bg-grey-purple rounded-full transition"
               title="Favoris"
             >
               <svg
@@ -92,7 +92,7 @@
 
             <div class="relative group">
               <button
-                class="flex items-center gap-1 p-2 hover:bg-grey-purple-400 rounded-md transition"
+                class="flex items-center gap-1 p-2 hover:bg-grey-purple rounded-md transition"
               >
                 <svg
                   class="w-7 h-7"
@@ -122,12 +122,12 @@
                 </svg>
               </button>
               <div
-                class="absolute right-0 w-48 bg-white border border-grey-purple-400 rounded-md shadow-lg hidden group-hover:block z-50 py-2"
+                class="absolute right-0 w-48 bg-white border border-grey-purple rounded-md shadow-lg hidden group-hover:block z-50 py-2"
               >
                 <template v-if="isAuthenticated">
                   <router-link
                     to="/profil"
-                    class="block px-4 py-2 hover:bg-white-purple-100"
+                    class="block px-4 py-2 hover:bg-white-purple"
                     >Mon profil</router-link
                   >
                   <button
@@ -140,12 +140,12 @@
                 <template v-else>
                   <router-link
                     to="/login"
-                    class="block px-4 py-2 hover:bg-white-purple-100 text-highlight-purple-600 font-bold"
+                    class="block px-4 py-2 hover:bg-white-purple text-highlight-purple font-bold"
                     >Connexion</router-link
                   >
                   <router-link
                     to="/register"
-                    class="block px-4 py-2 hover:bg-white-purple-100 text-highlight-purple-600 font-bold"
+                    class="block px-4 py-2 hover:bg-white-purple text-highlight-purple font-bold"
                     >S'inscrire</router-link
                   >
                 </template>
@@ -154,7 +154,7 @@
           </div>
 
           <button
-            class="md:hidden p-2 rounded-md hover:bg-grey-purple-400 transition"
+            class="md:hidden p-2 rounded-md hover:bg-grey-purple transition"
             @click="mobileMenuOpen = !mobileMenuOpen"
           >
             <svg
@@ -183,10 +183,10 @@
         <!-- Mobile Menu -->
         <div
           v-if="mobileMenuOpen"
-          class="md:hidden mt-4 pt-4 border-t border-grey-purple-300"
+          class="md:hidden mt-4 pt-4 border-t border-grey-purple"
         >
           <p
-            class="text-lg font-semibold text-dark-purple-500 mb-2 px-4 italic underline"
+            class="text-lg font-semibold text-dark-purple mb-2 px-4 italic underline"
           >
             Navigation
           </p>
@@ -211,7 +211,7 @@
               <router-link
                 v-if="category.slug"
                 :to="`/categories/${category.slug}`"
-                class="block px-4 py-2 pl-10 rounded-md text-base hover:bg-grey-purple-400"
+                class="block px-4 py-2 pl-10 rounded-md text-base hover:bg-grey-purple"
                 @click="mobileMenuOpen = false"
                 >{{ category.name }}</router-link
               >
@@ -219,7 +219,7 @@
           </ul>
 
           <p
-            class="text-lg font-semibold text-dark-purple-500 mb-2 px-4 italic underline"
+            class="text-lg font-semibold text-dark-purple mb-2 px-4 italic underline"
           >
             Compte
           </p>
@@ -276,16 +276,16 @@
       </div>
     </header>
 
-    <div v-if="showSearchBar" class="bg-white-purple-100">
+    <div v-if="showSearchBar" class="bg-white-purple">
       <div class="max-w-7xl mx-auto px-6 py-3">
         <div class="relative max-w-2xl mx-auto">
           <input
             type="search"
             placeholder="Rechercher un produit..."
-            class="w-full px-4 py-2 pr-10 rounded-md border border-grey-purple-300 focus:outline-none focus:ring-2 focus:ring-highlight-purple-500 bg-white transition"
+            class="w-full px-4 py-2 pr-10 rounded-md border border-grey-purple focus:outline-none focus:ring-2 focus:ring-highlight-purple bg-white transition"
           />
           <svg
-            class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-purple-500"
+            class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-purple"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -305,9 +305,9 @@
       <router-view />
     </main>
 
-    <footer class="bg-dark-purple-700 border-t border-grey-purple-300">
+    <footer class="bg-dark-purple border-t border-grey-purple">
       <div
-        class="max-w-7xl mx-auto px-6 py-6 text-center text-white-purple-100 text-sm md:text-base"
+        class="max-w-7xl mx-auto px-6 py-6 text-center text-white-purple text-sm md:text-base"
       >
         <p>2025 MamiePull &copy; – Produits faits main avec amour 💜</p>
       </div>

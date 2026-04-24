@@ -8,20 +8,20 @@
 
       <div v-if="loading" class="text-center py-10">
         <div
-          class="mx-auto mb-4 h-12 w-12 rounded-full border-4 border-highlight-purple-500 animate-spin"
+          class="mx-auto mb-4 h-12 w-12 rounded-full border-4 border-highlight-purple animate-spin"
         ></div>
-        <p class="text-base text-light-purple-300">
+        <p class="text-base text-light-purple">
           Chargement des produits...
         </p>
       </div>
 
-      <div v-else-if="error" class="text-center py-10 text-error-purple-900">
+      <div v-else-if="error" class="text-center py-10 text-error-purple">
         <p class="font-semibold">Erreur : {{ error }}</p>
       </div>
 
       <div
         v-else-if="products.length === 0"
-        class="text-center py-10 text-light-purple-300"
+        class="text-center py-10 text-light-purple"
       >
         Aucun produit trouvé.
       </div>
@@ -33,7 +33,7 @@
           <!-- Left Arrow -->
           <button
             :disabled="currentSlide === 0"
-            class="shrink-0 bg-white-purple-100 p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:cursor-pointer"
+            class="shrink-0 bg-white-purple p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:cursor-pointer"
             aria-label="Produit précédent"
             @click="previousSlide"
           >
@@ -55,9 +55,9 @@
           <!-- Image Container -->
           <div class="flex flex-col items-center flex-1 max-w-2xl">
             <div
-              class="rounded-3xl overflow-hidden bg-grey-purple-400 aspect-4/5 w-full max-w-lg lg:max-w-none lg:w-1/2 border border-grey-purple-300 flex items-center justify-center"
+              class="rounded-3xl overflow-hidden bg-grey-purple aspect-4/5 w-full max-w-lg lg:max-w-none lg:w-1/2 border border-grey-purple flex items-center justify-center"
             >
-              <span class="text-3xl text-dark-purple-700">Image</span>
+              <span class="text-3xl text-dark-purple">Image</span>
             </div>
 
             <!-- Dots indicator -->
@@ -65,11 +65,11 @@
               <div
                 v-for="(product, index) in latestProducts.slice(0, 3)"
                 :key="product.id"
-                class="w-3 h-3 rounded-full transition-all duration-300"
+                class="w-3 h-3 rounded-full transition-all duration"
                 :class="
                   index === currentSlide
-                    ? 'bg-dark-purple-700'
-                    : 'bg-grey-purple-400 hover:bg-grey-purple-400'
+                    ? 'bg-dark-purple'
+                    : 'bg-grey-purple hover:bg-grey-purple'
                 "
                 :aria-label="`Aller au produit ${index + 1}`"
               ></div>
@@ -79,12 +79,12 @@
           <!-- Right Arrow -->
           <button
             :disabled="currentSlide === latestProducts.slice(0, 3).length - 1"
-            class="shrink-0 bg-white-purple-100 p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:cursor-pointer"
+            class="shrink-0 bg-white-purple p-3 disabled:opacity-50 disabled:cursor-not-allowed hover:cursor-pointer"
             aria-label="Produit suivant"
             @click="nextSlide"
           >
             <svg
-              class="w-6 h-6 text-dark-purple-700"
+              class="w-6 h-6 text-dark-purple"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -106,7 +106,7 @@
       <h2 class="text-3xl font-heading text-center mb-4">Qui sommes nous ?</h2>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-center">
         <div
-          class="h-40 lg:h-64 rounded-xl border-2 border-dark-purple-300 bg-grey-purple-100 flex items-center justify-center"
+          class="h-40 lg:h-64 rounded-xl border-2 border-dark-purple bg-grey-purple flex items-center justify-center"
         >
           Image à venir
         </div>
@@ -133,15 +133,15 @@
         Explorer par catégorie
       </h2>
 
-      <div v-if="catLoading" class="text-center py-10 text-light-purple-300">
+      <div v-if="catLoading" class="text-center py-10 text-light-purple">
         Chargement des catégories...
       </div>
-      <div v-else-if="catError" class="text-center py-10 text-error-purple-900">
+      <div v-else-if="catError" class="text-center py-10 text-error-purple">
         Erreur : {{ catError }}
       </div>
       <div
         v-else-if="categories.length === 0"
-        class="text-center py-10 text-light-purple-300"
+        class="text-center py-10 text-light-purple"
       >
         Pas de catégories disponibles.
       </div>

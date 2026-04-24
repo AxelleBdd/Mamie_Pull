@@ -11,7 +11,7 @@
     </div>
 
     <div
-      class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm bg-grey-purple-400 rounded-lg space-y-10 p-10"
+      class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm bg-grey-purple rounded-lg space-y-10 p-10"
     >
       <form class="space-y-6" @submit.prevent>
         <div>
@@ -27,7 +27,7 @@
               autocomplete="email"
               placeholder="example@email.com"
               required
-              class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2"
+              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2"
             />
           </div>
         </div>
@@ -38,7 +38,7 @@
               >Mot de passe</label
             >
             <div class="text-sm">
-              <!-- TODO: <a href="#" class="font-semibold text-highlight-purple-500">Forgot password?</a> -->
+              <!-- TODO: <a href="#" class="font-semibold text-highlight-purple">Forgot password?</a> -->
             </div>
           </div>
           <div class="mt-2 relative">
@@ -49,7 +49,7 @@
               name="password"
               placeholder="Entrez votre mot de passe..."
               required
-              class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2"
+              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2"
             />
             <button
               type="button"
@@ -65,7 +65,7 @@
             >
               <svg
                 v-if="!isVisible"
-                class="h-5 w-5 text-dark-purple-700 cursor-pointer"
+                class="h-5 w-5 text-dark-purple cursor-pointer"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -90,7 +90,7 @@
 
               <svg
                 v-else
-                class="h-5 w-5 text-dark-purple-700 cursor-pointer"
+                class="h-5 w-5 text-dark-purple cursor-pointer"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -114,7 +114,7 @@
         <div class="flex gap-4 mt-12">
           <router-link
               to="/register"
-              class="bg-white-purple-100 hover:cursor-pointer text-dark-purple-700 py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40"
+              class="bg-white-purple hover:cursor-pointer text-dark-purple py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40"
             >
               Créer un compte
             </router-link>

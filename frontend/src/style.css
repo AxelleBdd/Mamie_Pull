@@ -2,12 +2,12 @@
 /* Import Font Family */
 @theme {
     /* Colors */
-    --color-white-purple-100: #FBF2F2;
-    --color-light-purple-300: #B57BB7;
-    --color-grey-purple-400: #CFC1D0;
-    --color-highlight-purple-500: #A34CA8;
-    --color-dark-purple-700: #6E3D70;
-    --color-error-purple-900: #5E1E22;
+    --color-white-purple: #FBF2F2;
+    --color-light-purple: #B57BB7;
+    --color-grey-purple: #CFC1D0;
+    --color-highlight-purple: #A34CA8;
+    --color-dark-purple: #6E3D70;
+    --color-error-purple: #5E1E22;
 
     /* Font Families */
     --font-heading: "Truculenta", sans-serif;

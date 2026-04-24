@@ -11,7 +11,7 @@
     </div>
 
     <div
-      class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm md:max-w-md bg-grey-purple-400 rounded-lg space-y-10 p-10"
+      class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm md:max-w-md bg-grey-purple rounded-lg space-y-10 p-10"
     >
       <form class="space-y-6" @submit.prevent>
         <div>
@@ -27,7 +27,7 @@
               autocomplete="family-name"
               placeholder="Dupont"
               required
-              class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2"
+              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2"
             />
           </div>
         </div>
@@ -46,7 +46,7 @@
               autocomplete="given-name"
               placeholder="Léa"
               required
-              class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2"
+              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2"
             />
           </div>
         </div>
@@ -63,7 +63,7 @@
               autocomplete="email"
               placeholder="example@email.com"
               required
-              class="block w-full bg-white-purple-100 rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple-700 focus:outline-2"
+              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2"
             />
           </div>
         </div>
@@ -85,7 +85,7 @@
 
         <div
           v-if="error"
-          class="text-error-purple-900 px-4 py-3 rounded mb-4"
+          class="text-error-purple px-4 py-3 rounded mb-4"
           role="alert"
         >
           <span class="block sm:inline">{{ error }}</span>
@@ -93,7 +93,7 @@
         <div class="flex gap-4 mt-12">
           <router-link
               to="/login"
-              class="bg-white-purple-100 hover:cursor-pointer text-dark-purple-700 py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40"
+              class="bg-white-purple hover:cursor-pointer text-dark-purple py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40"
             >
               J'ai déjà un compte
             </router-link>
