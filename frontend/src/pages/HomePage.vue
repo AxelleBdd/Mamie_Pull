@@ -10,9 +10,7 @@
         <div
           class="mx-auto mb-4 h-12 w-12 rounded-full border-4 border-highlight-purple animate-spin"
         ></div>
-        <p class="text-base text-light-purple">
-          Chargement des produits...
-        </p>
+        <p class="text-base text-light-purple">Chargement des produits...</p>
       </div>
 
       <div v-else-if="error" class="text-center py-10 text-error-purple">
@@ -164,6 +162,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 import { useCategoryStore } from '../stores/categoryStore'
 import { getAllProducts } from '../api/products'
 import ButtonDark from '../components/ButtonDark.vue'
@@ -175,9 +174,11 @@ const error = ref(null)
 const currentSlide = ref(0)
 
 const categoryStore = useCategoryStore()
-const categories = categoryStore.categories
-const catLoading = categoryStore.loading
-const catError = categoryStore.error
+const { 
+  categories,
+  loading: catLoading,
+  error: catError,
+} = storeToRefs(categoryStore)
 
 const fetchLatestProducts = async () => {
   loading.value = true

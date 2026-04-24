@@ -3,9 +3,7 @@
     id="app"
     class="min-h-screen flex flex-col font-body bg-white-purple text-dark-purple"
   >
-    <header
-      class="bg-white-purple shadow-sm border-b border-grey-purple"
-    >
+    <header class="bg-white-purple shadow-sm border-b border-grey-purple">
       <div class="max-w-7xl mx-auto px-6 py-2">
         <div class="flex items-center justify-between gap-8">
           <div class="shrink-0">

@@ -92,11 +92,11 @@
         </div>
         <div class="flex gap-4 mt-12">
           <router-link
-              to="/login"
-              class="bg-white-purple hover:cursor-pointer text-dark-purple py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40"
-            >
-              J'ai déjà un compte
-            </router-link>
+            to="/login"
+            class="bg-white-purple hover:cursor-pointer text-dark-purple py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40"
+          >
+            J'ai déjà un compte
+          </router-link>
           <ButtonDark button-text="Créer mon compte" @click="signup" />
         </div>
       </form>
