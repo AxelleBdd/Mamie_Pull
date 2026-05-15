@@ -74,42 +74,25 @@ See the .env.example to make your own .env files
 docker-compose up --build 
 ```
 
-## 🚀 Usage
-
-At this stage:
-
-- The homepage is displayed but not complete
-- Navigation bar and search bar are displayed but not fully functionnal
-- Products generated from the backend are fetched and shown
-- User authentication is implemented (sign up / sign in)
-- Users can browse products by category and view details
-
-🔧 API documentation and endpoints will be added later.
-
 ## ✨ Features
 
-### Existing Features (Frontend & Backend)
+### Current Implementation
 
-- Homepage layout
-- Display of products from the backend
-- User authentication (sign up / sign in)
-- Browse products by category
-- View product details
+- **Homepage**: Project showcase with layout
+- **Product Management**: Display and browse products from the backend
+- **User Authentication**: Sign up and sign in functionality
+- **User Profile Management**: View and edit user profile information
+- **Product Browsing**: Filter products by category, view detailed information and search by title
+- **Admin Dashboard**: Add, edit, and delete products (staff only)
+- **Contact Feature**: Contact button for product inquiries
+- **Responsive Design**: Built with Tailwind CSS for mobile and desktop compatibility
 
 ### Planned Features
 
-#### User Features
-
-- Manage favorite products
-- View site news and updates
-- Search functionality for products
-- Display customer feedback and testimonials
-- List markets and events
-
-#### Admin Features
-
-- Add, edit, and delete products
-- Manage news and updates
+- **Favorites**: Allow users to save and manage favorite products
+- **News & Updates**: Display site news and updates
+- **Testimonials**: Customer feedback and reviews section
+- **Events & Markets**: List markets and events where the creator is present
 
 ## 🧪 Tests
 
@@ -120,6 +103,34 @@ Backend tests have been implemented for:
 - Category models
 
 Run tests with: `docker-compose exec backend python manage.py test`
+
+## 🔄 Continuous Integration
+
+This project uses **GitHub Actions** for automated testing and code quality assurance.
+
+### Backend Pipeline (`backend.yml`)
+
+Triggered on:
+- Push to `main` branch (backend/ changes)
+- Pull requests to `main` branch (backend/ changes)
+
+Steps:
+- ✅ Python 3.14 environment setup with pip caching
+- ✅ PostgreSQL service initialization
+- ✅ Dependency installation
+- ✅ Database migrations
+- ✅ Automated test suite execution
+
+### Frontend Pipeline (`frontend.yml`)
+
+Triggered on:
+- Push to `main` branch (frontend/ changes)
+- Pull requests to `main` branch (frontend/ changes)
+
+Steps:
+- ✅ Node.js 20 environment setup with npm caching
+- ✅ Dependency installation
+- ✅ Automated test suite execution
 
 ## 🤝 Contribution
 
