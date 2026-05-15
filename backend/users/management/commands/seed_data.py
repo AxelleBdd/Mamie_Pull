@@ -14,7 +14,12 @@ class Command(BaseCommand):
                 "password": "password123",
                 "username": "Alice",
             },
-            {"email": "bob@example.com", "password": "password123", "username": "Bob"},
+            {
+                "email": "bob@example.com",
+                "password": "password123",
+                "username": "Bob",
+                "is_staff": True,
+            },
             {
                 "email": "charlie@example.com",
                 "password": "password123",
@@ -35,6 +40,7 @@ class Command(BaseCommand):
                     email=data["email"],
                     password=data["password"],
                     username=data["username"],
+                    is_staff=data.get("is_staff", False),
                 )
                 count += 1
                 self.stdout.write(f"User {data['email']} created.")
