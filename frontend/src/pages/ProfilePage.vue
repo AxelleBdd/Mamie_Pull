@@ -75,7 +75,7 @@
               name="first_name"
               autocomplete="given-name"
               placeholder="Léa"
-              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2"
+              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2 text-lg"
             />
           </div>
         </div>
@@ -93,7 +93,7 @@
               name="last_name"
               autocomplete="family-name"
               placeholder="Dupont"
-              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2"
+              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2 text-lg"
             />
           </div>
         </div>
@@ -111,25 +111,23 @@
               name="email"
               autocomplete="email"
               placeholder="example@email.com"
-              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2"
+              class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2 text-lg"
             />
           </div>
         </div>
 
         <!-- Actions -->
-        <div class="flex gap-3 mt-12">
-          <router-link
-            to="/"
-            class="bg-white-purple text-dark-purple py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40 text-center place-content-center"
-          >
-            Annuler
-          </router-link>
-          <ButtonDark
-            button-text="Enregistrer les modifications"
-            :disabled="updating"
-            @click="updateProfile"
-          />
-        </div>
+        <router-link
+          to="/"
+          class="bg-white-purple text-dark-purple py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40 text-center place-content-center"
+        >
+          Annuler
+        </router-link>
+        <ButtonDark
+          button-text="Enregistrer les modifications"
+          :disabled="updating"
+          @click="updateProfile"
+        />
       </form>
     </div>
   </div>

@@ -28,14 +28,14 @@
       + Ajouter un produit
     </router-link>
 
-    <!-- Products table -->
+    <!-- Products table (Desktop) -->
     <div v-if="loading" class="text-center py-12 text-light-purple text-lg">
       Chargement des produits...
     </div>
 
     <div
-      v-else-if="products.length > 0"
-      class="overflow-x-auto rounded-lg shadow"
+      v-if="products.length > 0"
+      class="hidden md:block overflow-x-auto rounded-lg shadow"
     >
       <table class="w-full bg-white border-collapse">
         <thead class="bg-grey-purple border-b-2 border-light-purple">
@@ -65,7 +65,7 @@
               <div class="flex gap-2">
                 <router-link
                   :to="`/admin/products/${product.id}/edit`"
-                  class="bg-highlight-purple hover:bg-dark-purple text-white py-1 px-3 rounded text-sm transition"
+                  class="bg-highlight-purple hover:bg-dark-purple text-white py-1 px-3 rounded self-center text-sm transition"
                 >
                   Editer
                 </router-link>
@@ -80,6 +80,40 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <!-- Products cards (Mobile) -->
+    <div v-if="products.length > 0" class="md:hidden space-y-3">
+      <div
+        v-for="product in paginatedProducts"
+        :key="product.id"
+        class="bg-white-purple rounded-lg p-4 border border-light-purple"
+      >
+        <div class="flex flex-col">
+          <div class="mb-4">
+            <h3 class="font-semibold text-lg text-dark-purple mb-2">
+              {{ product.title }}
+            </h3>
+            <p class="text-sm text-dark-purple">
+              {{ product.category_name }}
+            </p>
+          </div>
+          <div class="flex gap-2 justify-between">
+            <button
+              class="bg-grey-purple text-dark-purple hover:bg-dark-purple hover:text-white-purple py-1 px-3 rounded text-sm transition text-center flex-1"
+              @click="deleteProductHandler(product.id)"
+            >
+              Supprimer
+            </button>
+            <router-link
+              :to="`/admin/products/${product.id}/edit`"
+              class="bg-highlight-purple hover:bg-dark-purple text-white py-1 px-3 rounded text-sm transition text-center flex-1"
+            >
+              Editer
+            </router-link>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div
@@ -114,7 +148,7 @@
         Suivant
       </button>
     </div>
-    <p class="mb-4 text-center py-12 text-light-purple">
+    <p v-if="!loading && products.length === 0" class="mb-4 text-center py-12 text-light-purple">
       Aucun produit trouvé.
     </p>
   </div>

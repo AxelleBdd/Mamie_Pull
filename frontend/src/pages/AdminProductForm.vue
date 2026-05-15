@@ -1,6 +1,6 @@
 <template>
-  <div class="max-w-2xl px-6 py-8">
-    <div class="mb-6">
+  <div class="max-w-2xl mx-auto px-6 py-8">
+    <div class="mb-6 flex justify-start -ml-8 sm:ml-0">
       <router-link
         to="/admin/products"
         class="text-highlight-purple hover:text-dark-purple font-semibold"
@@ -49,10 +49,10 @@
       class="bg-grey-purple rounded-lg shadow-lg p-8 border border-grey-purple"
     >
       <form @submit.prevent="submitForm">
-        <div class="mb-6">
+        <div class="mb-3 sm:mb-6">
           <label
             for="title"
-            class="block text-sm font-semibold text-dark-purple mb-2"
+            class="block font-heading text-xl sm:text-3xl font-medium text-dark-purple mb-1 sm:mb-2"
           >
             Titre *
           </label>
@@ -62,14 +62,14 @@
             type="text"
             required
             placeholder="Titre du produit"
-            class="w-full px-4 py-2 border border-grey-purple bg-white-purple rounded-md focus:outline-none focus:ring-2 focus:ring-highlight-purple"
+            class="w-full px-3 py-1.5 bg-white-purple rounded-lg outline-1 -outline-offset-1 outline-dark-purple focus:outline-2 text-lg"
           />
         </div>
 
-        <div class="mb-6">
+        <div class="mb-3 sm:mb-6">
           <label
             for="description"
-            class="block text-sm font-semibold text-dark-purple mb-2"
+            class="block font-heading text-xl sm:text-3xl font-medium text-dark-purple mb-1 sm:mb-2"
           >
             Description *
           </label>
@@ -79,14 +79,14 @@
             required
             placeholder="Description du produit"
             rows="5"
-            class="w-full px-4 py-2 border border-grey-purple bg-white-purple rounded-md focus:outline-none focus:ring-2 focus:ring-highlight-purple"
+            class="w-full px-3 py-1.5 bg-white-purple rounded-lg outline-1 -outline-offset-1 outline-dark-purple focus:outline-2 text-lg"
           ></textarea>
         </div>
 
-        <div class="mb-6">
+        <div class="mb-3 sm:mb-6">
           <label
             for="category"
-            class="block text-sm font-semibold text-dark-purple mb-2"
+            class="block font-heading text-xl sm:text-3xl font-medium text-dark-purple mb-1 sm:mb-2"
           >
             Catégorie *
           </label>
@@ -94,7 +94,7 @@
             id="category"
             v-model.number="formData.category"
             required
-            class="w-full px-4 py-2 border border-grey-purple bg-white-purple rounded-md focus:outline-none focus:ring-2 focus:ring-highlight-purple"
+            class="w-full px-3 py-1.5 bg-white-purple rounded-lg outline-1 -outline-offset-1 outline-dark-purple focus:outline-2 text-lg"
           >
             <option value="">-- Sélectionner une catégorie --</option>
             <option v-for="cat in categories" :key="cat.id" :value="cat.id">
@@ -103,31 +103,33 @@
           </select>
         </div>
 
-        <div class="mb-6">
-          <p class="block text-sm font-semibold text-dark-purple mb-2">
+        <div class="mb-3 sm:mb-6">
+          <p
+            class="block font-heading text-xl sm:text-3xl font-medium text-dark-purple mb-1 sm:mb-2"
+          >
             Tailles
           </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="grid grid-cols-2 gap-2">
             <label
               v-for="size in sizeOptions"
               :key="size"
-              class="flex items-center gap-3 px-4 py-3 border border-grey-purple bg-white-purple rounded-md cursor-pointer hover:border-highlight-purple"
+              class="flex items-center gap-2 px-3 py-2 border border-grey-purple bg-white-purple rounded-md cursor-pointer hover:border-highlight-purple"
             >
               <input
                 v-model="formData.sizes"
                 type="checkbox"
                 :value="size"
-                class="h-4 w-4 text-highlight-purple focus:ring-highlight-purple"
+                class="h-4 w-4 text-highlight-purple focus:ring-highlight-purple rounded font-medium"
               />
-              <span class="text-sm text-dark-purple">{{ size }}</span>
+              <span class="text-base">{{ size }}</span>
             </label>
           </div>
         </div>
 
-        <div class="mb-8">
+        <div class="mb-3 sm:mb-8">
           <label
             for="image"
-            class="block text-sm font-semibold text-dark-purple mb-2"
+            class="block font-heading text-xl sm:text-3xl font-medium text-dark-purple mb-1 sm:mb-2"
           >
             Image (URL)
           </label>
@@ -136,7 +138,7 @@
             v-model="formData.image"
             type="text"
             placeholder="URL de l'image"
-            class="w-full px-4 py-2 border border-grey-purple bg-white-purple rounded-md focus:outline-none focus:ring-2 focus:ring-highlight-purple"
+            class="w-full px-3 py-1.5 bg-white-purple rounded-lg outline-1 -outline-offset-1 outline-dark-purple focus:outline-2 text-lg"
           />
         </div>
 
