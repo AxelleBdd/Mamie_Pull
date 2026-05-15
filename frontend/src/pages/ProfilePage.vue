@@ -3,11 +3,11 @@
     class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8"
   >
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <h2
+      <h1
         class="mt-10 text-center text-4xl sm:text-5xl lg:text-6xl font-bold font-heading tracking-tight"
       >
         <u>Mon Profil</u>
-      </h2>
+      </h1>
     </div>
 
     <!-- Loading State -->

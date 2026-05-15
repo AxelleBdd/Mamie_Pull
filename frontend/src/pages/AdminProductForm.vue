@@ -1,0 +1,268 @@
+<template>
+  <div class="max-w-2xl px-6 py-8">
+    <div class="mb-6">
+      <router-link
+        to="/admin/products"
+        class="text-highlight-purple hover:text-dark-purple font-semibold"
+      >
+        <div class="flex">
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          <p>Retour à la liste</p>
+        </div>
+      </router-link>
+    </div>
+
+    <h1
+      class="mt-10 text-center text-4xl sm:text-5xl lg:text-6xl font-bold font-heading tracking-tight mb-8"
+    >
+      <u>{{ isEditing ? `Éditer ${formData.title}` : 'Ajouter un produit' }}</u>
+    </h1>
+
+    <!-- Messages -->
+    <div
+      v-if="successMessage"
+      class="border border-light-purple bg-white-purple px-4 py-3 rounded mb-4 text-highlight-purple"
+    >
+      {{ successMessage }}
+    </div>
+    <div
+      v-if="errorMessage"
+      class="border border-error-purple bg-white-purple text-error-purple px-4 py-3 rounded mb-4"
+    >
+      {{ errorMessage }}
+    </div>
+
+    <!-- Form Card -->
+    <div
+      class="bg-grey-purple rounded-lg shadow-lg p-8 border border-grey-purple"
+    >
+      <form @submit.prevent="submitForm">
+        <div class="mb-6">
+          <label
+            for="title"
+            class="block text-sm font-semibold text-dark-purple mb-2"
+          >
+            Titre *
+          </label>
+          <input
+            id="title"
+            v-model="formData.title"
+            type="text"
+            required
+            placeholder="Titre du produit"
+            class="w-full px-4 py-2 border border-grey-purple bg-white-purple rounded-md focus:outline-none focus:ring-2 focus:ring-highlight-purple"
+          />
+        </div>
+
+        <div class="mb-6">
+          <label
+            for="description"
+            class="block text-sm font-semibold text-dark-purple mb-2"
+          >
+            Description *
+          </label>
+          <textarea
+            id="description"
+            v-model="formData.description"
+            required
+            placeholder="Description du produit"
+            rows="5"
+            class="w-full px-4 py-2 border border-grey-purple bg-white-purple rounded-md focus:outline-none focus:ring-2 focus:ring-highlight-purple"
+          ></textarea>
+        </div>
+
+        <div class="mb-6">
+          <label
+            for="category"
+            class="block text-sm font-semibold text-dark-purple mb-2"
+          >
+            Catégorie *
+          </label>
+          <select
+            id="category"
+            v-model.number="formData.category"
+            required
+            class="w-full px-4 py-2 border border-grey-purple bg-white-purple rounded-md focus:outline-none focus:ring-2 focus:ring-highlight-purple"
+          >
+            <option value="">-- Sélectionner une catégorie --</option>
+            <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+              {{ cat.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="mb-6">
+          <p class="block text-sm font-semibold text-dark-purple mb-2">
+            Tailles
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label
+              v-for="size in sizeOptions"
+              :key="size"
+              class="flex items-center gap-3 px-4 py-3 border border-grey-purple bg-white-purple rounded-md cursor-pointer hover:border-highlight-purple"
+            >
+              <input
+                v-model="formData.sizes"
+                type="checkbox"
+                :value="size"
+                class="h-4 w-4 text-highlight-purple focus:ring-highlight-purple"
+              />
+              <span class="text-sm text-dark-purple">{{ size }}</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <label
+            for="image"
+            class="block text-sm font-semibold text-dark-purple mb-2"
+          >
+            Image (URL)
+          </label>
+          <input
+            id="image"
+            v-model="formData.image"
+            type="text"
+            placeholder="URL de l'image"
+            class="w-full px-4 py-2 border border-grey-purple bg-white-purple rounded-md focus:outline-none focus:ring-2 focus:ring-highlight-purple"
+          />
+        </div>
+
+        <div class="flex gap-3 justify-center">
+          <router-link
+            to="/admin/products"
+            class="bg-grey-purple hover:bg-light-purple text-dark-purple font-semibold py-2 px-6 rounded transition"
+          >
+            Annuler
+          </router-link>
+          <button
+            type="submit"
+            class="bg-highlight-purple hover:bg-dark-purple text-white-purple font-semibold py-2 px-6 rounded transition"
+          >
+            {{ isEditing ? 'Mettre à jour' : 'Ajouter' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useAuthStore } from '../stores/authStore'
+import { useCategoryStore } from '../stores/categoryStore'
+import { getProductById, createProduct, updateProduct } from '../api/products'
+
+const router = useRouter()
+const route = useRoute()
+const authStore = useAuthStore()
+const categoryStore = useCategoryStore()
+
+const isEditing = ref(false)
+const successMessage = ref('')
+const errorMessage = ref('')
+
+const formData = ref({
+  title: '',
+  description: '',
+  category: '',
+  sizes: [],
+  image: '',
+})
+
+const sizeOptions = [
+  'Naissance',
+  '3 mois',
+  '6 mois',
+  '12 mois',
+  '18 mois',
+  '24 mois',
+  '36 mois',
+  '4 ans',
+  '6 ans',
+  '8 ans',
+  'Taille unique',
+]
+
+const categories = computed(() => categoryStore.categories)
+
+onMounted(async () => {
+  await categoryStore.fetchCategories()
+
+  // Check if editing an existing product
+  if (route.params.id) {
+    isEditing.value = true
+    await loadProduct(route.params.id)
+  }
+})
+
+async function loadProduct(productId) {
+  try {
+    const product = await getProductById(productId)
+    formData.value = {
+      title: product.title,
+      description: product.description,
+      category: product.category,
+      sizes: product.sizes,
+      image: product.image || '',
+    }
+  } catch (error) {
+    showError('Erreur lors du chargement du produit: ' + error.message)
+    setTimeout(() => {
+      router.push('/admin/products')
+    }, 2000)
+  }
+}
+
+async function submitForm() {
+  try {
+    const payload = {
+      title: formData.value.title,
+      description: formData.value.description,
+      category: formData.value.category,
+      sizes: formData.value.sizes,
+    }
+    if (formData.value.image) {
+      payload.image = formData.value.image
+    }
+
+    if (isEditing.value) {
+      await updateProduct(route.params.id, payload, authStore.accessToken)
+      showSuccess('Produit mis à jour avec succès')
+    } else {
+      await createProduct(payload, authStore.accessToken)
+      showSuccess('Produit créé avec succès')
+    }
+
+    setTimeout(() => {
+      router.push('/admin/products')
+    }, 1500)
+  } catch (error) {
+    showError('Erreur: ' + error.message)
+  }
+}
+
+function showSuccess(message) {
+  successMessage.value = message
+}
+
+function showError(message) {
+  errorMessage.value = message
+  setTimeout(() => {
+    errorMessage.value = ''
+  }, 5000)
+}
+</script>

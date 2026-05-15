@@ -12,6 +12,7 @@ export const useAuthStore = defineStore('auth', {
 
   getters: {
     isAuthenticated: (state) => state.accessToken !== null,
+    isStaff: (state) => state.user?.is_staff || false,
   },
 
   actions: {

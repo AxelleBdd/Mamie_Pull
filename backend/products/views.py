@@ -1,14 +1,29 @@
 import json
 
 from django.http import HttpResponseNotAllowed, JsonResponse
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAdminUser
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Product
 from .serializers import ProductSerializer
 
 
+@csrf_exempt
 def products_api(request, product_id=None, category_id=None):
+    # Authenticate and authorize write operations with JWT
+    if request.method in ["POST", "PUT", "DELETE"]:
+        auth = JWTAuthentication()
+        try:
+            auth_result = auth.authenticate(request)
+        except AuthenticationFailed:
+            return JsonResponse({"error": "Authentication required"}, status=401)
+        if auth_result is None:
+            return JsonResponse({"error": "Authentication required"}, status=401)
+        request.user, request.auth = auth_result
+        if not request.user.is_staff:
+            return JsonResponse({"error": "Admin permission required"}, status=403)
+
     if request.method == "GET":
         if product_id is not None:
             return get_product(product_id)
@@ -19,7 +34,7 @@ def products_api(request, product_id=None, category_id=None):
 
     elif request.method == "POST":
         body = json.loads(request.body)
-        return create_product(body)
+        return create_product(request, body)
 
     elif request.method == "PUT":
         body = json.loads(request.body)
@@ -56,22 +71,31 @@ def get_products_by_category(category_id):
 
 
 # POST product
-@api_view(["POST"])
-@permission_classes([IsAdminUser])
-def create_product(body):
-    product = Product.objects.create(
-        title=body.get("title"),
-        description=body.get("description"),
-        category_id=body.get("category"),
-        image=body.get("image"),
-    )
-    serializer = ProductSerializer(product)
-    return JsonResponse(serializer.data, status=201)
+def create_product(request, body):
+    # Validate required fields
+    if not body.get("title"):
+        return JsonResponse({"error": "title is required"}, status=400)
+    if not body.get("description"):
+        return JsonResponse({"error": "description is required"}, status=400)
+    if not body.get("category"):
+        return JsonResponse({"error": "category is required"}, status=400)
+
+    try:
+        product = Product.objects.create(
+            title=body.get("title"),
+            description=body.get("description"),
+            category_id=body.get("category"),
+            image=body.get("image"),
+            sizes=body.get("sizes", []),
+            created_by=request.user,
+        )
+        serializer = ProductSerializer(product)
+        return JsonResponse(serializer.data, status=201)
+    except ValueError as e:
+        return JsonResponse({"error": str(e)}, status=400)
 
 
 # PUT product
-@api_view(["PUT"])
-@permission_classes([IsAdminUser])
 def update_product(product_id, body):
     if product_id is None:
         return JsonResponse({"error": "Product ID required"}, status=400)
@@ -81,10 +105,18 @@ def update_product(product_id, body):
     except Product.DoesNotExist:
         return JsonResponse({"error": "Not found"}, status=404)
 
-    product.title = body.get("title", product.title)
-    product.description = body.get("description", product.description)
-    product.category = body.get("category", product.category)
-    product.image = body.get("image", product.image)
+    # Only update fields that are provided
+    if "title" in body:
+        product.title = body.get("title")
+    if "description" in body:
+        product.description = body.get("description")
+    if "category" in body:
+        product.category_id = body.get("category")
+    if "image" in body:
+        product.image = body.get("image")
+    if "sizes" in body:
+        product.sizes = body.get("sizes")
+
     product.save()
 
     serializer = ProductSerializer(product)
@@ -92,8 +124,6 @@ def update_product(product_id, body):
 
 
 # DELETE product
-@api_view(["DELETE"])
-@permission_classes([IsAdminUser])
 def delete_product(product_id):
     if product_id is None:
         return JsonResponse({"error": "Product ID required"}, status=400)

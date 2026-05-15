@@ -55,8 +55,8 @@ class Command(BaseCommand):
 
         # Sizes for each category
         sizes_map = {
-            "Pulls": ["18 mois", "24 mois", "36 mois"],
-            "Layette": ["0-3 mois", "3-6 mois", "6-12 mois"],
+            "Pulls": ["3 mois", "6 mois", "12 mois", "18 mois", "24 mois", "36 mois"],
+            "Layette": ["Naissance", "3 mois", "6 mois"],
             "Accessoires pour poupons": ["Taille unique"],
         }
 
@@ -72,7 +72,7 @@ class Command(BaseCommand):
 
             # Check if base_title already exists
             if Product.objects.filter(title=base_title).exists():
-                # Find the next available increment
+                # Find the next available increment starting from 2
                 increment = 2
                 while Product.objects.filter(
                     title=f"{base_title} n°{increment}"
