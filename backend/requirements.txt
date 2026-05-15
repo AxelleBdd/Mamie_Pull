@@ -20,7 +20,7 @@ python-decouple==3.8
 # Tests
 pytest==9.0.3
 pytest-django==4.12.0
-coverage==7.13.5
+coverage==7.14.0
 
 #Linter
 ruff==0.15.11
