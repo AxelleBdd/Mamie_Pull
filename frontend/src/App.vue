@@ -134,6 +134,12 @@
                     class="block px-4 py-2 hover:bg-white-purple"
                     >Mon profil</router-link
                   >
+                  <router-link
+                    v-if="isStaff"
+                    to="/admin/products"
+                    class="block px-4 py-2 hover:bg-white-purple"
+                    >Admin - Produits</router-link
+                  >
                   <button
                     class="w-full text-left px-4 py-2 hover:bg-red-50"
                     @click="logout()"
@@ -309,7 +315,7 @@ const searchStore = useSearchStore()
 
 // User session management
 const authStore = useAuthStore()
-const { isAuthenticated } = storeToRefs(authStore)
+const { isAuthenticated, isStaff } = storeToRefs(authStore)
 
 // Display user name in the header
 const displayFirstName = computed(() => {
