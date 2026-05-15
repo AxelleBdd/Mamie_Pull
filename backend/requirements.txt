@@ -1,6 +1,6 @@
 # Framework Django
 asgiref==3.11.1
-Django==6.0.4
+Django==6.0.5
 sqlparse==0.5.5
 Pillow==12.2.0
 
