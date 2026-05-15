@@ -54,3 +54,24 @@ export async function signupRequest(signupData) {
     throw new Error(networkErr.message || 'Impossible de contacter le serveur')
   }
 }
+
+/**
+ * Refresh access token using refresh token
+ * @param {string} refreshToken
+ * @returns {Promise<{access: string, refresh: string}>}
+ */
+export async function refreshTokenRequest(refreshToken) {
+  const response = await fetch(`${API_URL}/token/refresh/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ refresh: refreshToken }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to refresh token')
+  }
+
+  return response.json()
+}

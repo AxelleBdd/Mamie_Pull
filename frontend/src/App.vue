@@ -335,5 +335,6 @@ const logout = () => {
 
 onMounted(() => {
   categoryStore.fetchCategories()
+  authStore.restoreSession()
 })
 </script>

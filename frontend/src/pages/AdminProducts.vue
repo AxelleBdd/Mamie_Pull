@@ -148,7 +148,10 @@
         Suivant
       </button>
     </div>
-    <p v-if="!loading && products.length === 0" class="mb-4 text-center py-12 text-light-purple">
+    <p
+      v-if="!loading && products.length === 0"
+      class="mb-4 text-center py-12 text-light-purple"
+    >
       Aucun produit trouvé.
     </p>
   </div>

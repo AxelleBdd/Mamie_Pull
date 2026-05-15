@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { loginRequest, signupRequest } from '../api/authService'
+import { loginRequest, signupRequest, refreshTokenRequest } from '../api/authService'
 import { getCurrentUser } from '../api/users'
 
 export const useAuthStore = defineStore('auth', {
@@ -56,6 +56,20 @@ export const useAuthStore = defineStore('auth', {
 
       // Fetch user data
       await this.fetchUser()
+    },
+
+    async restoreSession() {
+      const refreshToken = localStorage.getItem('refreshToken')
+      if (!refreshToken) return
+
+      try {
+        const { access } = await refreshTokenRequest(refreshToken)
+        this.accessToken = access
+        await this.fetchUser()
+      } catch (error) {
+        console.error('Failed to restore session:', error)
+        this.logout()
+      }
     },
 
     setUser(userData) {
