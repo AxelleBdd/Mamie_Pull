@@ -67,27 +67,6 @@
           </nav>
 
           <div class="hidden md:flex items-center gap-4">
-            <router-link
-              v-if="isAuthenticated"
-              to="/favoris"
-              class="p-2 hover:bg-grey-purple rounded-full transition"
-              title="Favoris"
-            >
-              <svg
-                class="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            </router-link>
-
             <div class="relative group">
               <button
                 class="flex items-center gap-2 p-2 hover:bg-grey-purple rounded-md transition"
@@ -133,6 +112,11 @@
                     to="/profile"
                     class="block px-4 py-2 hover:bg-white-purple"
                     >Mon profil</router-link
+                  >
+                  <router-link
+                    to="/favorites"
+                    class="block px-4 py-2 hover:bg-white-purple"
+                    >Mes favoris</router-link
                   >
                   <router-link
                     v-if="isStaff"
@@ -245,10 +229,10 @@
               </li>
               <li>
                 <router-link
-                  to="/favoris"
+                  to="/favorites"
                   class="block px-4 py-2 rounded-md text-base"
                   @click="mobileMenuOpen = false"
-                  >Favoris</router-link
+                  >Mes favoris</router-link
                 >
               </li>
               <li>
