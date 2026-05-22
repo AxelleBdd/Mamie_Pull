@@ -108,7 +108,7 @@
         {{ error }}
       </p>
       <ButtonDark
-        class="px-8 py-3 rounded-lg font-medium hover:bg-purple transition"
+        class="px-8 py-3 rounded-lg font-medium hover:bg-purple-dark transition"
         button-type="button"
         @click="loadProducts"
       >

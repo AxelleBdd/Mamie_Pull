@@ -29,7 +29,7 @@
         <p class="text-error-purple font-semibold mb-4">{{ error }}</p>
         <router-link
           to="/"
-          class="bg-white-purple hover:bg-grey-purple text-dark-purple py-2 px-4 rounded-lg transition"
+          class="bg-white-purple hover:bg-white text-dark-purple py-2 px-4 rounded-lg transition"
         >
           Retour à l'accueil
         </router-link>
@@ -117,17 +117,19 @@
         </div>
 
         <!-- Actions -->
-        <router-link
-          to="/"
-          class="bg-white-purple text-dark-purple py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40 text-center place-content-center"
-        >
-          Annuler
-        </router-link>
-        <ButtonDark
-          button-text="Enregistrer les modifications"
-          :disabled="updating"
-          @click="updateProfile"
-        />
+        <div class="flex items-center justify-between">
+          <router-link
+            to="/"
+            class="bg-white-purple text-dark-purple hover:bg-white py-2 px-4 rounded-lg mx-auto sg:w-30 lg:w-40 text-center place-content-center"
+          >
+            Annuler
+          </router-link>
+          <ButtonDark
+            button-text="Enregistrer les modifications"
+            :disabled="updating"
+            @click="updateProfile"
+          />
+        </div>
       </form>
     </div>
   </div>

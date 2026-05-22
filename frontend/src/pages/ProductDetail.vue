@@ -98,7 +98,7 @@
 
             <!-- Heart Icon -->
             <button
-              class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white-purple flex items-center justify-center shadow-md hover:bg-white transition"
+              class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white-purple flex items-center justify-center shadow-md hover:cursor-pointer hover:bg-white transition"
               aria-label="Ajouter aux favoris"
               disabled
             >
@@ -142,7 +142,7 @@
                 v-model="selectedSizes"
                 type="checkbox"
                 :value="size"
-                class="rounded border-grey-purple text-dark-purple focus:ring-highlight-purple"
+                class="rounded border-grey-purple text-dark-purple focus:ring-highlight-purple hover:cursor-pointer"
               />
               {{ size }}
             </label>

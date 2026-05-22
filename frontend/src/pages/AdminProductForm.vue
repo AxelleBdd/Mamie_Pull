@@ -1,11 +1,10 @@
 <template>
   <div class="max-w-2xl mx-auto px-6 py-8">
     <div class="mb-6 flex justify-start -ml-8 sm:ml-0">
-      <router-link
-        to="/admin/products"
-        class="text-highlight-purple hover:text-dark-purple font-semibold"
-      >
-        <div class="flex">
+      <router-link to="/admin/products" aria-label="Retour à la liste">
+        <div
+          class="flex mb-6 items-center gap-2 rounded-lg text-lg hover:bg-highlight-purple transition lg:w-auto bg-dark-purple hover:cursor-pointer text-white-purple py-2 px-4 mx-auto sg:w-30"
+        >
           <svg
             class="w-5 h-5"
             fill="none"
@@ -94,7 +93,7 @@
             id="category"
             v-model.number="formData.category"
             required
-            class="w-full px-3 py-1.5 bg-white-purple rounded-lg outline-1 -outline-offset-1 outline-dark-purple focus:outline-2 text-lg"
+            class="w-full px-3 py-1.5 bg-white-purple rounded-lg outline-1 -outline-offset-1 outline-dark-purple hover:cursor-pointer focus:outline-2 text-lg"
           >
             <option value="">-- Sélectionner une catégorie --</option>
             <option v-for="cat in categories" :key="cat.id" :value="cat.id">
@@ -113,13 +112,13 @@
             <label
               v-for="size in sizeOptions"
               :key="size"
-              class="flex items-center gap-2 px-3 py-2 border border-grey-purple bg-white-purple rounded-md cursor-pointer hover:border-highlight-purple"
+              class="flex items-center gap-2 px-3 py-2 border border-grey-purple bg-white-purple rounded-md hover:cursor-pointer hover:border-highlight-purple"
             >
               <input
                 v-model="formData.sizes"
                 type="checkbox"
                 :value="size"
-                class="h-4 w-4 text-highlight-purple focus:ring-highlight-purple rounded font-medium"
+                class="h-4 w-4 text-highlight-purple focus:ring-highlight-purple hover:cursor-pointer rounded font-medium"
               />
               <span class="text-base">{{ size }}</span>
             </label>
@@ -142,19 +141,16 @@
           />
         </div>
 
-        <div class="flex gap-3 justify-center">
+        <div class="flex justify-evenly">
           <router-link
             to="/admin/products"
-            class="bg-grey-purple hover:bg-light-purple text-dark-purple font-semibold py-2 px-6 rounded transition"
+            class="bg-white-purple text-dark-purple hover:bg-white py-2 px-4 rounded-lg text-center sg:w-30 lg:w-40"
           >
             Annuler
           </router-link>
-          <button
-            type="submit"
-            class="bg-highlight-purple hover:bg-dark-purple text-white-purple font-semibold py-2 px-6 rounded transition"
-          >
+          <ButtonDark class="sg:w-30 lg:w-40 mx-0!" @click="submitForm">
             {{ isEditing ? 'Mettre à jour' : 'Ajouter' }}
-          </button>
+          </ButtonDark>
         </div>
       </form>
     </div>
@@ -167,6 +163,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '../stores/authStore'
 import { useCategoryStore } from '../stores/categoryStore'
 import { getProductById, createProduct, updateProduct } from '../api/products'
+import ButtonDark from '../components/ButtonDark.vue'
 
 const router = useRouter()
 const route = useRoute()

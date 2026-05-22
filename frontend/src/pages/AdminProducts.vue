@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-6xl mx-auto px-6 py-8">
+    <!-- tracking-tight reduce the letter spacing -->
     <h1
       class="text-center text-4xl sm:text-5xl lg:text-6xl font-bold font-heading tracking-tight"
     >
@@ -9,12 +10,16 @@
     <!-- Messages -->
     <div
       v-if="successMessage"
+      role="status"
+      aria-live="polite"
       class="border border-light-purple bg-white-purple px-4 py-3 rounded mb-4 text-highlight-purple"
     >
       {{ successMessage }}
     </div>
     <div
       v-if="errorMessage"
+      role="alert"
+      aria-live="assertive"
       class="border border-error-purple bg-white-purple text-error-purple px-4 py-3 rounded mb-4"
     >
       {{ errorMessage }}
@@ -23,7 +28,8 @@
     <!-- Add button -->
     <router-link
       to="/admin/products/new"
-      class="bg-highlight-purple hover:bg-dark-purple text-white font-semibold py-2 px-4 rounded my-6 transition inline-block"
+      class="bg-highlight-purple hover:bg-dark-purple text-white py-2 px-4 rounded-lg my-6 transition inline-block"
+      aria-label="Ajouter un nouveau produit"
     >
       + Ajouter un produit
     </router-link>
@@ -66,15 +72,17 @@
                 <router-link
                   :to="`/admin/products/${product.id}/edit`"
                   class="bg-highlight-purple hover:bg-dark-purple text-white py-1 px-3 rounded self-center text-sm transition"
+                  :aria-label="`Éditer le produit: ${product.title}`"
                 >
                   Editer
                 </router-link>
-                <button
-                  class="bg-grey-purple text-dark-purple hover:bg-dark-purple hover:text-white-purple py-1 px-3 rounded text-sm transition"
+                <ButtonDark
+                  class="lg:w-auto! py-1! px-3! text-sm rounded!"
+                  :aria-label="`Supprimer le produit: ${product.title}`"
                   @click="deleteProductHandler(product.id)"
                 >
                   Supprimer
-                </button>
+                </ButtonDark>
               </div>
             </td>
           </tr>
@@ -87,27 +95,29 @@
       <div
         v-for="product in paginatedProducts"
         :key="product.id"
-        class="bg-white-purple rounded-lg p-4 border border-light-purple"
+        class="rounded-lg p-4 border border-light-purple"
       >
         <div class="flex flex-col">
           <div class="mb-4">
-            <h3 class="font-semibold text-lg text-dark-purple mb-2">
+            <h3 class="font-semibold text-lg mb-2">
               {{ product.title }}
             </h3>
-            <p class="text-sm text-dark-purple">
+            <p class="text-sm">
               {{ product.category_name }}
             </p>
           </div>
           <div class="flex gap-2 justify-between">
-            <button
-              class="bg-grey-purple text-dark-purple hover:bg-dark-purple hover:text-white-purple py-1 px-3 rounded text-sm transition text-center flex-1"
+            <ButtonDark
+              class="py-2! px-3!"
+              :aria-label="`Supprimer le produit: ${product.title}`"
               @click="deleteProductHandler(product.id)"
             >
               Supprimer
-            </button>
+            </ButtonDark>
             <router-link
               :to="`/admin/products/${product.id}/edit`"
-              class="bg-highlight-purple hover:bg-dark-purple text-white py-1 px-3 rounded text-sm transition text-center flex-1"
+              class="bg-highlight-purple hover:bg-dark-purple text-white py-2 px-3 rounded-lg transition text-center self-center flex-1"
+              :aria-label="`Éditer le produit: ${product.title}`"
             >
               Editer
             </router-link>
@@ -123,6 +133,7 @@
       <button
         class="px-3 py-2 rounded bg-grey-purple text-dark-purple hover:bg-dark-purple hover:text-white-purple transition disabled:opacity-50 disabled:cursor-not-allowed"
         :disabled="currentPage === 1"
+        aria-label="Aller à la page précédente"
         @click="gotoPage(currentPage - 1)"
       >
         Précédent
@@ -136,6 +147,8 @@
             ? 'bg-highlight-purple text-white'
             : 'bg-white border border-grey-purple text-dark-purple hover:bg-grey-purple'
         "
+        :aria-label="`Aller à la page ${page}`"
+        :aria-current="page === currentPage ? 'page' : undefined"
         @click="gotoPage(page)"
       >
         {{ page }}
@@ -143,6 +156,7 @@
       <button
         class="px-3 py-2 rounded bg-grey-purple text-dark-purple hover:bg-dark-purple hover:text-white-purple transition disabled:opacity-50 disabled:cursor-not-allowed"
         :disabled="currentPage === totalPages"
+        aria-label="Aller à la page suivante"
         @click="gotoPage(currentPage + 1)"
       >
         Suivant
@@ -167,6 +181,7 @@ import {
   updateProduct,
   deleteProduct,
 } from '../api/products'
+import ButtonDark from '../components/ButtonDark.vue'
 
 const authStore = useAuthStore()
 const categoryStore = useCategoryStore()
