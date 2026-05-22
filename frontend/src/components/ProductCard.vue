@@ -22,16 +22,12 @@
     </div>
 
     <!-- Content -->
-    <div class="flex flex-1 flex-col bg-white-purple p-5">
-      <span
-        class="mb-2 text-base font-semibold uppercase tracking-wider text-dark-purple"
-      >
+    <div class="flex flex-1 flex-col p-5">
+      <span class="mb-2 text-base font-semibold uppercase tracking-wider">
         {{ product.category_name }}
       </span>
 
-      <h3
-        class="mb-2 text-2xl font-medium leading-tight text-dark-purple font-heading"
-      >
+      <h3 class="mb-2 text-2xl font-medium leading-tight font-heading">
         {{ product.title }}
       </h3>
 
