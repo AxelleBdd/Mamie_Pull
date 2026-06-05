@@ -80,7 +80,6 @@ export const useFavoriteStore = defineStore('favorite', () => {
     }
   }
 
-
   return {
     favorites,
     loading,
