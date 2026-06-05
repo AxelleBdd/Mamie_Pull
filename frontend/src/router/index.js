@@ -52,7 +52,7 @@ router.beforeEach((to, from) => {
     const authStore = useAuthStore()
     if (!authStore.isAuthenticated || !authStore.isStaff) {
       // Redirect non-staff users to home
-      return { name: 'home' }
+      return '/home'
     } else {
       return
     }
