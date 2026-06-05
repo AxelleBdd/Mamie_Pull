@@ -9,6 +9,7 @@ import HomePage from '../pages/HomePage.vue'
 import ProfilePage from '../pages/ProfilePage.vue'
 import AdminProducts from '../pages/AdminProducts.vue'
 import AdminProductForm from '../pages/AdminProductForm.vue'
+import FavoritesPage from '../pages/FavoritesPage.vue'
 import { useAuthStore } from '../stores/authStore'
 
 const routes = [
@@ -18,6 +19,7 @@ const routes = [
   { path: '/login', component: LoginPage, name: 'login' },
   { path: '/register', component: SignupPage, name: 'signup' },
   { path: '/profile', component: ProfilePage, name: 'profile' },
+  { path: '/favorites', component: FavoritesPage, name: 'favorites' },
   {
     path: '/admin/products',
     component: AdminProducts,
@@ -45,7 +47,7 @@ export const router = createRouter({
 })
 
 // Route guard for staff-only routes
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from) => {
   if (to.meta.requiresStaff) {
     const authStore = useAuthStore()
     if (!authStore.isAuthenticated || !authStore.isStaff) {

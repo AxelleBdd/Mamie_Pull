@@ -95,27 +95,11 @@
             <span v-else class="text-9xl text-grey-purple" aria-hidden="true">
               📦
             </span>
-
-            <!-- Heart Icon -->
-            <button
-              class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white-purple flex items-center justify-center shadow-md hover:cursor-pointer hover:bg-white transition"
-              aria-label="Ajouter aux favoris"
-              disabled
-            >
-              <svg
-                class="w-6 h-6 text-dark-purple"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            </button>
+            <FavoriteButton
+              v-if="product"
+              :product-id="product.id"
+              class="absolute top-4 right-4"
+            />
           </div>
         </div>
       </div>
@@ -184,15 +168,21 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import ButtonDark from '../components/ButtonDark.vue'
 import { getProductById } from '../api/products.js'
 import { useCategoryStore } from '../stores/categoryStore'
+import { useAuthStore } from '../stores/authStore'
+import { useFavoriteStore } from '../stores/favoriteStore.js'
 
+import ButtonDark from '../components/ButtonDark.vue'
+import FavoriteButton from '../components/FavoriteButton.vue'
+
+const authStore = useAuthStore()
 const route = useRoute()
 const router = useRouter()
 const categoryStore = useCategoryStore()
+const favoriteStore = useFavoriteStore()
 
 const product = ref(null)
 const loading = ref(true)
@@ -220,6 +210,34 @@ const loadProduct = async () => {
 const getCategorySlug = (categoryId) => {
   const category = categoryStore.categories.find((cat) => cat.id === categoryId)
   return category?.slug || ''
+}
+
+watch(
+  () => authStore.isInitialized,
+  (initialized) => {
+    if (initialized) {
+      favoriteStore.fetchFavorites()
+    }
+  },
+  { immediate: true },
+)
+
+// Add to favorites
+const addToFavorite = async () => {
+  // Ensure auth state is initialized before proceeding
+  if (!authStore.isInitialized) return
+
+  if (product.value && authStore.accessToken) {
+    try {
+      await favoriteStore.addFavorite(product.value.id)
+      alert('Produit ajouté à vos favoris !')
+    } catch (err) {
+      console.error("Erreur lors de l'ajout aux favoris:", err)
+      alert('Une erreur est survenue. Veuillez réessayer.')
+    }
+  } else {
+    alert('Vous devez être connecté pour ajouter un produit à vos favoris.')
+  }
 }
 
 // Go back to previous page
