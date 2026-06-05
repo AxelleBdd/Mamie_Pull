@@ -1,11 +1,15 @@
 version: 2
 updates:
-  #Python (Django)
+  #Backend
   - package-ecosystem: "pip"
     directory: "/backend"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    groups:
+      all:
+        patterns:
+          - "*"
 
   #Frontend
   - package-ecosystem: "npm"
@@ -14,13 +18,9 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 5
     groups:
-      vite-ecosystem:
+      all:
         patterns:
-          - "vite"
-          - "@vitejs/*"
-          - "@tailwindcss/*"
-          - "vitest"
-          - "@vitest/*"
+          - "*"
 
   #Dockerfiles
   - package-ecosystem: "docker"
