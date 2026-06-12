@@ -13,7 +13,7 @@
     <div
       class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm md:max-w-md bg-grey-purple rounded-lg space-y-10 p-10"
     >
-      <form class="space-y-6" @submit.prevent>
+      <form class="space-y-6" @submit.prevent="signup">
         <div>
           <label for="last_name" class="block font-heading text-3xl font-medium"
             >Nom de famille</label
@@ -97,7 +97,7 @@
           >
             J'ai déjà un compte
           </router-link>
-          <ButtonDark button-text="Créer mon compte" @click="signup" />
+          <ButtonDark type="submit" button-text="Créer mon compte" />
         </div>
       </form>
     </div>

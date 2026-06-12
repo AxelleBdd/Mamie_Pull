@@ -13,7 +13,7 @@
     <div
       class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm bg-grey-purple rounded-lg space-y-10 p-10"
     >
-      <form class="space-y-6" @submit.prevent>
+      <form class="space-y-6" @submit.prevent="login">
         <div>
           <label for="email" class="block font-heading text-3xl font-medium"
             >Email</label
@@ -118,7 +118,7 @@
           >
             Créer un compte
           </router-link>
-          <ButtonDark button-text="Se connecter" @click="login" />
+          <ButtonDark type="submit" button-text="Se connecter" />
         </div>
       </form>
     </div>

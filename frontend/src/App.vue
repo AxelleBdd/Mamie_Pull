@@ -7,7 +7,7 @@
       <div class="max-w-7xl mx-auto px-6 py-2">
         <div class="flex items-center justify-between gap-8">
           <div class="shrink-0">
-            <router-link to="/">
+            <router-link to="/" aria-label="Accueil">
               <img
                 src="./assets/Logos/Logo-rectangle.png"
                 alt="Logo MamiePull"
@@ -17,7 +17,10 @@
           </div>
 
           <!-- Desktop Navigation -->
-          <nav class="hidden md:flex items-center gap-6 flex-1 ml-10">
+          <nav
+            class="hidden md:flex items-center gap-6 flex-1 ml-10"
+            aria-label="Navigation principale"
+          >
             <router-link
               to="/"
               class="px-4 py-2 rounded-md text-xl hover:bg-grey-purple transition"
@@ -25,9 +28,16 @@
               Accueil
             </router-link>
 
-            <div class="relative group">
+            <!-- Products dropdown -->
+            <div
+              class="relative"
+              @focusout="closeDropdownMenu('products', $event)"
+            >
               <button
                 class="flex items-center gap-1 px-4 py-2 rounded-md text-xl hover:bg-grey-purple transition"
+                :aria-expanded="menus.products.value"
+                aria-haspopup="true"
+                @click="menus.products.value = !menus.products.value"
               >
                 Nos produits
                 <svg
@@ -45,11 +55,14 @@
                 </svg>
               </button>
               <div
-                class="absolute left-0 w-64 bg-white border border-grey-purple rounded-md shadow-lg hidden group-hover:block z-50 py-2 font-normal"
+                v-show="menus.products.value"
+                class="absolute left-0 w-64 bg-white border border-grey-purple rounded-md shadow-lg z-50 py-2 font-normal"
+                role="menu"
               >
                 <router-link
                   to="/products"
                   class="block px-4 py-2 hover:bg-white-purple transition"
+                  role="menuitem"
                 >
                   Tous nos produits
                 </router-link>
@@ -59,6 +72,7 @@
                   :key="category.id"
                   :to="`/categories/${category.slug}`"
                   class="block px-4 py-2 hover:bg-white-purple transition"
+                  role="menuitem"
                 >
                   {{ category.name }}
                 </router-link>
@@ -66,10 +80,17 @@
             </div>
           </nav>
 
+          <!-- Account dropdown -->
           <div class="hidden md:flex items-center gap-4">
-            <div class="relative group">
+            <div
+              class="relative"
+              @focusout="closeDropdownMenu('account', $event)"
+            >
               <button
                 class="flex items-center gap-2 p-2 hover:bg-grey-purple rounded-md transition"
+                :aria-expanded="menus.account.value"
+                aria-haspopup="true"
+                @click="menus.account.value = !menus.account.value"
               >
                 <svg
                   class="w-7 h-7"
@@ -105,27 +126,36 @@
                 </svg>
               </button>
               <div
-                class="absolute right-0 w-48 bg-white border border-grey-purple rounded-md shadow-lg hidden group-hover:block z-50 py-2"
+                v-show="menus.account.value"
+                class="absolute right-0 w-48 bg-white border border-grey-purple rounded-md shadow-lg z-50 py-2"
+                role="menu"
               >
                 <template v-if="isAuthenticated">
                   <router-link
                     to="/profile"
                     class="block px-4 py-2 hover:bg-white-purple"
-                    >Mon profil</router-link
+                    role="menuitem"
                   >
+                    Mon profil
+                  </router-link>
                   <router-link
                     to="/favorites"
                     class="block px-4 py-2 hover:bg-white-purple"
-                    >Mes favoris</router-link
+                    role="menuitem"
                   >
+                    Mes favoris
+                  </router-link>
                   <router-link
                     v-if="isStaff"
                     to="/admin/products"
                     class="block px-4 py-2 hover:bg-white-purple"
-                    >Admin - Produits</router-link
+                    role="menuitem"
                   >
+                    Admin - Produits
+                  </router-link>
                   <button
                     class="w-full text-left px-4 py-2 hover:bg-red-50"
+                    role="menuitem"
                     @click="logout()"
                   >
                     Déconnexion
@@ -135,21 +165,28 @@
                   <router-link
                     to="/login"
                     class="block px-4 py-2 hover:bg-white-purple text-highlight-purple font-bold"
-                    >Connexion</router-link
+                    role="menuitem"
                   >
+                    Connexion
+                  </router-link>
                   <router-link
                     to="/register"
                     class="block px-4 py-2 hover:bg-white-purple text-highlight-purple font-bold"
-                    >S'inscrire</router-link
+                    role="menuitem"
                   >
+                    S'inscrire
+                  </router-link>
                 </template>
               </div>
             </div>
           </div>
 
+          <!-- Mobile menu toggle -->
           <button
             class="md:hidden p-2 rounded-md hover:bg-grey-purple transition"
-            @click="mobileMenuOpen = !mobileMenuOpen"
+            :aria-expanded="mobileMenu"
+            aria-controls="mobile-menu"
+            @click="mobileMenu = !mobileMenu"
           >
             <svg
               class="w-6 h-6"
@@ -158,7 +195,7 @@
               viewBox="0 0 24 24"
             >
               <path
-                v-if="!mobileMenuOpen"
+                v-if="!mobileMenu"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
@@ -174,9 +211,11 @@
             </svg>
           </button>
         </div>
+
         <!-- Mobile Menu -->
         <div
-          v-if="mobileMenuOpen"
+          v-if="mobileMenu"
+          id="mobile-menu"
           class="md:hidden mt-4 pt-4 border-t border-grey-purple"
         >
           <p
@@ -189,26 +228,29 @@
               <router-link
                 to="/"
                 class="block px-4 py-2 rounded-md text-base"
-                @click="mobileMenuOpen = false"
-                >Accueil</router-link
+                @click="mobileMenu = false"
               >
+                Accueil
+              </router-link>
             </li>
             <li>
               <router-link
                 to="/products"
                 class="block px-4 py-2 rounded-md text-base"
-                @click="mobileMenuOpen = false"
-                >Tous nos produits</router-link
+                @click="mobileMenu = false"
               >
+                Tous nos produits
+              </router-link>
             </li>
             <li v-for="category in validCategories" :key="category.id">
               <router-link
                 v-if="category.slug"
                 :to="`/categories/${category.slug}`"
                 class="block px-4 py-2 pl-10 rounded-md text-base hover:bg-grey-purple"
-                @click="mobileMenuOpen = false"
-                >{{ category.name }}</router-link
+                @click="mobileMenu = false"
               >
+                {{ category.name }}
+              </router-link>
             </li>
           </ul>
 
@@ -223,25 +265,24 @@
                 <router-link
                   to="/profile"
                   class="block px-4 py-2 rounded-md text-base"
-                  @click="mobileMenuOpen = false"
-                  >Mon profil</router-link
+                  @click="mobileMenu = false"
                 >
+                  Mon profil
+                </router-link>
               </li>
               <li>
                 <router-link
                   to="/favorites"
                   class="block px-4 py-2 rounded-md text-base"
-                  @click="mobileMenuOpen = false"
-                  >Mes favoris</router-link
+                  @click="mobileMenu = false"
                 >
+                  Mes favoris
+                </router-link>
               </li>
               <li>
                 <button
                   class="w-full text-left px-4 py-2"
-                  @click="
-                    (logout(), // eslint-disable-line , necessary
-                    (mobileMenuOpen = false))
-                  "
+                  @click="logoutAndClose"
                 >
                   Déconnexion
                 </button>
@@ -252,17 +293,19 @@
                 <router-link
                   to="/login"
                   class="block px-4 py-2 rounded-md text-base"
-                  @click="mobileMenuOpen = false"
-                  >Connexion</router-link
+                  @click="mobileMenu = false"
                 >
+                  Connexion
+                </router-link>
               </li>
               <li>
                 <router-link
                   to="/register"
                   class="block px-4 py-2 rounded-md text-base"
-                  @click="mobileMenuOpen = false"
-                  >S'inscrire</router-link
+                  @click="mobileMenu = false"
                 >
+                  S'inscrire
+                </router-link>
               </li>
             </template>
           </ul>
@@ -292,23 +335,26 @@ import { useAuthStore } from './stores/authStore'
 import { useSearchStore } from './stores/searchStore'
 import { storeToRefs } from 'pinia'
 
-const mobileMenuOpen = ref(false)
+const mobileMenu = ref(false)
+const productsMenu = ref(false)
+const accountMenu = ref(false)
+
+const menus = {
+  products: productsMenu,
+  account: accountMenu,
+}
+
 const route = useRoute()
 const categoryStore = useCategoryStore()
 const searchStore = useSearchStore()
-
-// User session management
 const authStore = useAuthStore()
 const { isAuthenticated, isStaff } = storeToRefs(authStore)
 
-// Display user name in the header
 const displayFirstName = computed(() => {
   if (!authStore.user) return null
-  const first_name = authStore.user.first_name
-  return first_name || null
+  return authStore.user.first_name || null
 })
 
-// Display categories in the navigation
 const validCategories = computed(() => {
   return categoryStore.categories.filter((cat) => cat && cat.slug)
 })
@@ -317,8 +363,33 @@ const logout = () => {
   authStore.logout()
 }
 
+const logoutAndClose = () => {
+  logout()
+  mobileMenu.value = false
+}
+
+// Close a dropdown only if focus has truly left the container
+const closeDropdownMenu = (menuName, event) => {
+  const container = event.currentTarget
+  setTimeout(() => {
+    if (!container.contains(document.activeElement)) {
+      menus[menuName].value = false
+    }
+  }, 150)
+}
+
+// Close all dropdowns on Escape
+const handleEscape = (e) => {
+  if (e.key === 'Escape') {
+    Object.values(menus).forEach((menu) => {
+      menu.value = false
+    })
+  }
+}
+
 onMounted(() => {
   categoryStore.fetchCategories()
   authStore.restoreSession()
+  document.addEventListener('keydown', handleEscape)
 })
 </script>
