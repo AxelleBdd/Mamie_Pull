@@ -4,6 +4,9 @@ Django==6.0.6
 sqlparse==0.5.5
 Pillow==12.2.0
 
+#swagger
+drf-spectacular==0.29.0
+
 # API REST
 djangorestframework==3.17.1
 djangorestframework-simplejwt

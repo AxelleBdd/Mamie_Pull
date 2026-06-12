@@ -1,28 +1,25 @@
 import json
 
-from django.http import HttpResponseNotAllowed, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework_simplejwt.authentication import JWTAuthentication
+from django.http import HttpResponseNotAllowed
+from drf_spectacular.utils import extend_schema
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from .models import Product
 from .serializers import ProductSerializer
 
 
-@csrf_exempt
+@extend_schema(responses=ProductSerializer)
+@api_view(["GET", "POST", "PUT", "DELETE"])
+@permission_classes([AllowAny])
 def products_api(request, product_id=None, category_id=None):
     # Authenticate and authorize write operations with JWT
     if request.method in ["POST", "PUT", "DELETE"]:
-        auth = JWTAuthentication()
-        try:
-            auth_result = auth.authenticate(request)
-        except AuthenticationFailed:
-            return JsonResponse({"error": "Authentication required"}, status=401)
-        if auth_result is None:
-            return JsonResponse({"error": "Authentication required"}, status=401)
-        request.user, request.auth = auth_result
+        if not request.user.is_authenticated:
+            return Response({"error": "Authentication required"}, status=401)
         if not request.user.is_staff:
-            return JsonResponse({"error": "Admin permission required"}, status=403)
+            return Response({"error": "Admin permission required"}, status=403)
 
     if request.method == "GET":
         if product_id is not None:
@@ -50,7 +47,7 @@ def products_api(request, product_id=None, category_id=None):
 def get_products():
     products = Product.objects.all()
     serializer = ProductSerializer(products, many=True)
-    return JsonResponse(serializer.data, safe=False)
+    return Response(serializer.data)
 
 
 # GET product by id
@@ -58,28 +55,26 @@ def get_product(product_id):
     try:
         product = Product.objects.get(id=product_id)
         serializer = ProductSerializer(product)
-        return JsonResponse(serializer.data)
+        return Response(serializer.data)
     except Product.DoesNotExist:
-        return JsonResponse({"error": "Not found"}, status=404)
+        return Response({"error": "Not found"}, status=404)
 
 
 # GET products by category
 def get_products_by_category(category_id):
     products = Product.objects.filter(category_id=category_id)
     serializer = ProductSerializer(products, many=True)
-    return JsonResponse(serializer.data, safe=False)
+    return Response(serializer.data)
 
 
 # POST product
 def create_product(request, body):
-    # Validate required fields
     if not body.get("title"):
-        return JsonResponse({"error": "title is required"}, status=400)
+        return Response({"error": "title is required"}, status=400)
     if not body.get("description"):
-        return JsonResponse({"error": "description is required"}, status=400)
+        return Response({"error": "description is required"}, status=400)
     if not body.get("category"):
-        return JsonResponse({"error": "category is required"}, status=400)
-
+        return Response({"error": "category is required"}, status=400)
     try:
         product = Product.objects.create(
             title=body.get("title"),
@@ -90,9 +85,9 @@ def create_product(request, body):
             created_by=request.user,
         )
         serializer = ProductSerializer(product)
-        return JsonResponse(serializer.data, status=201)
+        return Response(serializer.data, status=201)
     except ValueError:
-        return JsonResponse(
+        return Response(
             {"error": "an error occurred while creating the product"}, status=400
         )
 
@@ -100,14 +95,11 @@ def create_product(request, body):
 # PUT product
 def update_product(product_id, body):
     if product_id is None:
-        return JsonResponse({"error": "Product ID required"}, status=400)
-
+        return Response({"error": "Product ID required"}, status=400)
     try:
         product = Product.objects.get(id=product_id)
     except Product.DoesNotExist:
-        return JsonResponse({"error": "Not found"}, status=404)
-
-    # Only update fields that are provided
+        return Response({"error": "Not found"}, status=404)
     if "title" in body:
         product.title = body.get("title")
     if "description" in body:
@@ -122,18 +114,16 @@ def update_product(product_id, body):
     product.save()
 
     serializer = ProductSerializer(product)
-    return JsonResponse(serializer.data)
+    return Response(serializer.data)
 
 
 # DELETE product
 def delete_product(product_id):
     if product_id is None:
-        return JsonResponse({"error": "Product ID required"}, status=400)
-
+        return Response({"error": "Product ID required"}, status=400)
     try:
         product = Product.objects.get(id=product_id)
     except Product.DoesNotExist:
-        return JsonResponse({"error": "Not found"}, status=404)
-
+        return Response({"error": "Not found"}, status=404)
     product.delete()
-    return JsonResponse({}, status=204)
+    return Response({}, status=204)
