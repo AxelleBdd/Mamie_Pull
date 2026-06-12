@@ -82,7 +82,7 @@
       <!-- Left Column: Image -->
       <div class="lg:w-1/2">
         <div class="sticky top-4">
-          <!-- Main Image with Heart -->
+          <!-- Main Image with Heart if user is logged in -->
           <div
             class="relative rounded-xl overflow-hidden bg-grey-purple aspect-square flex items-center justify-center w-full"
           >
@@ -96,7 +96,7 @@
               📦
             </span>
             <FavoriteButton
-              v-if="product"
+              v-if="product && authStore.isAuthenticated"
               :product-id="product.id"
               class="absolute top-4 right-4"
             />
@@ -215,30 +215,12 @@ const getCategorySlug = (categoryId) => {
 watch(
   () => authStore.isInitialized,
   (initialized) => {
-    if (initialized) {
+    if (initialized && authStore.accessToken) {
       favoriteStore.fetchFavorites()
     }
   },
   { immediate: true },
 )
-
-// Add to favorites
-const addToFavorite = async () => {
-  // Ensure auth state is initialized before proceeding
-  if (!authStore.isInitialized) return
-
-  if (product.value && authStore.accessToken) {
-    try {
-      await favoriteStore.addFavorite(product.value.id)
-      alert('Produit ajouté à vos favoris !')
-    } catch (err) {
-      console.error("Erreur lors de l'ajout aux favoris:", err)
-      alert('Une erreur est survenue. Veuillez réessayer.')
-    }
-  } else {
-    alert('Vous devez être connecté pour ajouter un produit à vos favoris.')
-  }
-}
 
 // Go back to previous page
 const goBack = () => {
