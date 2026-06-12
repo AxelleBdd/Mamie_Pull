@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="flex items-center justify-between">
-      <label for="password" class="block font-heading text-3xl"
-        >Mot de passe</label
-      >
+      <label :for="id" class="block font-heading text-3xl">
+        {{ label }}
+      </label>
       <div class="text-sm"></div>
     </div>
     <div class="mt-2 relative">
@@ -15,8 +15,14 @@
         :placeholder="placeholder"
         :autocomplete="autocomplete"
         required
-        class="block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 outline-dark-purple focus:outline-2"
-        @input="updateValue"
+        :class="[
+          'block w-full bg-white-purple rounded-lg px-3 py-1.5 outline-1 -outline-offset-1 focus:outline-2',
+          errorMessage
+            ? 'outline-error-purple focus:outline-error-purple'
+            : 'outline-dark-purple focus:outline-dark-purple',
+        ]"
+        @input="handleInput"
+        @blur="handleBlur"
       />
       <button
         type="button"
@@ -24,7 +30,7 @@
           isVisible ? 'Masquer le mot de passe' : 'Afficher le mot de passe'
         "
         :aria-pressed="isVisible.toString()"
-        aria-controls="password"
+        :aria-controls="id"
         class="absolute inset-y-0 right-2 flex items-center"
         @click="toggleVisibility"
       >
@@ -74,11 +80,16 @@
         </svg>
       </button>
     </div>
+
+    <!-- Inline error message -->
+    <p v-if="errorMessage" role="alert" class="mt-1 text-sm text-error-purple">
+      {{ errorMessage }}
+    </p>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps({
   modelValue: {
@@ -95,7 +106,7 @@ const props = defineProps({
   },
   id: {
     type: String,
-    default: '',
+    default: 'password',
   },
   placeholder: {
     type: String,
@@ -105,17 +116,47 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  // Set to false on login — no length check needed there
+  validate: {
+    type: Boolean,
+    default: true,
+  },
+  minLength: {
+    type: Number,
+    default: 8,
+  },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'valid'])
 
 const isVisible = ref(false)
+const isFilled = ref(false) // only show errors after user has interacted with the field
+
+const errorMessage = computed(() => {
+  if (!props.validate || !isFilled.value) return ''
+  if (!props.modelValue) return 'Ce champ est requis.'
+  if (props.modelValue.length < props.minLength)
+    return `Minimum ${props.minLength} caractères requis.`
+  return ''
+})
+
+const isValid = computed(
+  () =>
+    !props.validate ||
+    (!!props.modelValue && props.modelValue.length >= props.minLength),
+)
 
 const toggleVisibility = () => {
   isVisible.value = !isVisible.value
 }
 
-const updateValue = (event) => {
+const handleInput = (event) => {
   emit('update:modelValue', event.target.value)
+  emit('valid', isValid.value)
+}
+
+const handleBlur = () => {
+  isFilled.value = true
+  emit('valid', isValid.value)
 }
 </script>
