@@ -91,8 +91,10 @@ def create_product(request, body):
         )
         serializer = ProductSerializer(product)
         return JsonResponse(serializer.data, status=201)
-    except ValueError as e:
-        return JsonResponse({"error": str(e)}, status=400)
+    except ValueError:
+        return JsonResponse(
+            {"error": "an error occurred while creating the product"}, status=400
+        )
 
 
 # PUT product
