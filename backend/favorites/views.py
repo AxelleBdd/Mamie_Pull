@@ -1,7 +1,8 @@
-from django.http import HttpResponseNotAllowed, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework_simplejwt.authentication import JWTAuthentication
+from django.http import HttpResponseNotAllowed
+from drf_spectacular.utils import extend_schema
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from products.models import Product
 
@@ -9,18 +10,10 @@ from .models import Favorite
 from .serializers import ProductSerializer
 
 
-@csrf_exempt
+@extend_schema(responses=ProductSerializer)
+@api_view(["GET", "POST", "DELETE"])
+@permission_classes([IsAuthenticated])
 def favorites_api(request, product_id=None):
-    # Authenticate with JWT for all requests
-    auth = JWTAuthentication()
-    try:
-        auth_result = auth.authenticate(request)
-    except AuthenticationFailed:
-        return JsonResponse({"error": "Authentication required"}, status=401)
-    if auth_result is None:
-        return JsonResponse({"error": "Authentication required"}, status=401)
-    request.user, request.auth = auth_result
-
     if request.method == "GET":
         return get_favorites(request)
     elif request.method == "POST":
@@ -31,34 +24,28 @@ def favorites_api(request, product_id=None):
     return HttpResponseNotAllowed(["GET", "POST", "DELETE"])
 
 
-# GET all favorite products for the authenticated user
+# GET favorites
 def get_favorites(request):
-    user = request.user
-    favorites = Favorite.objects.filter(user=user).select_related("product")
-    serializer = ProductSerializer(
-        [favorite.product for favorite in favorites], many=True
-    )
-    return JsonResponse(serializer.data, safe=False)
+    favorites = Favorite.objects.filter(user=request.user).select_related("product")
+    serializer = ProductSerializer([f.product for f in favorites], many=True)
+    return Response(serializer.data)
 
 
-# POST add a product to favorites
+# POST favorite
 def add_favorite(request, product_id):
-    user = request.user
     try:
         product = Product.objects.get(id=product_id)
-        Favorite.objects.create(user=user, product=product)
-        serializer = ProductSerializer(product)
-        return JsonResponse(serializer.data, status=201)
+        Favorite.objects.create(user=request.user, product=product)
+        return Response(ProductSerializer(product).data, status=201)
     except Product.DoesNotExist:
-        return JsonResponse({"error": "Product not found"}, status=404)
+        return Response({"error": "Product not found"}, status=404)
 
 
-# DELETE remove a product from favorites
+# DELETE favorite
 def remove_favorite(request, product_id):
-    user = request.user
     try:
         product = Product.objects.get(id=product_id)
-        Favorite.objects.filter(user=user, product=product).delete()
-        return JsonResponse({"message": "Product removed from favorites"}, status=200)
+        Favorite.objects.filter(user=request.user, product=product).delete()
+        return Response({"message": "Product removed from favorites"}, status=200)
     except Product.DoesNotExist:
-        return JsonResponse({"error": "Product not found"}, status=404)
+        return Response({"error": "Product not found"}, status=404)

@@ -3,6 +3,6 @@ from django.urls import path
 from .views import category_api
 
 urlpatterns = [
-    path("", category_api),
-    path("<int:category_id>/", category_api),
+    path("", category_api, name="category-list"),
+    path("<int:category_id>/", category_api, name="category-detail"),
 ]
