@@ -23,6 +23,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/authStore'
 import { useFavoriteStore } from '../stores/favoriteStore'
 
@@ -33,6 +34,7 @@ const props = defineProps({
   },
 })
 
+const router = useRouter()
 const authStore = useAuthStore()
 const favoriteStore = useFavoriteStore()
 
@@ -40,12 +42,6 @@ const isFav = computed(() => favoriteStore.isFavorite(props.productId))
 
 const toggle = async () => {
   if (!authStore.isInitialized) return
-
-  if (!authStore.accessToken) {
-    alert('Vous devez être connecté pour ajouter un produit à vos favoris.')
-    return
-  }
-
   try {
     if (isFav.value) {
       await favoriteStore.removeFavorite(props.productId)

@@ -66,7 +66,10 @@ export const useAuthStore = defineStore('auth', {
 
     async restoreSession() {
       const refreshToken = localStorage.getItem('refreshToken')
-      if (!refreshToken) return
+      if (!refreshToken) {
+        this.isInitialized = true
+        return
+      }
 
       try {
         const { access } = await refreshTokenRequest(refreshToken)
