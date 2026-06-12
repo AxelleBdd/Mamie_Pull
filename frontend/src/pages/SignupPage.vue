@@ -72,16 +72,33 @@
           id="password"
           v-model="password"
           name="password"
-          placeholder="Entrez votre mot de passe..."
-        />
-        <PasswordInput
-          id="confirm_password"
-          v-model="confirm_password"
-          label="Confirmer le mot de passe"
-          name="confirm_password"
           autocomplete="new-password"
-          placeholder="Confirmez votre mot de passe..."
+          placeholder="Entrez votre mot de passe..."
+          :validate="true"
+          :min-length="8"
+          @valid="isPasswordValid = $event"
         />
+
+        <div>
+          <PasswordInput
+            id="confirm_password"
+            v-model="confirm_password"
+            label="Confirmer le mot de passe"
+            name="confirm_password"
+            autocomplete="new-password"
+            placeholder="Confirmez votre mot de passe..."
+            :validate="true"
+            :min-length="8"
+            @valid="isConfirmValid = $event"
+          />
+          <p
+            v-if="confirm_password && password !== confirm_password"
+            role="alert"
+            class="mt-1 text-sm text-error-purple"
+          >
+            Les mots de passe ne correspondent pas.
+          </p>
+        </div>
 
         <div
           v-if="error"
@@ -90,6 +107,7 @@
         >
           <span class="block sm:inline">{{ error }}</span>
         </div>
+
         <div class="flex gap-4 mt-12">
           <router-link
             to="/login"
@@ -97,7 +115,11 @@
           >
             J'ai déjà un compte
           </router-link>
-          <ButtonDark type="submit" button-text="Créer mon compte" />
+          <ButtonDark
+            type="submit"
+            button-text="Créer mon compte"
+            :disabled="!canSubmit"
+          />
         </div>
       </form>
     </div>
@@ -105,12 +127,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/authStore'
 
 import ButtonDark from '../components/ButtonDark.vue'
-import ButtonLight from '../components/ButtonLight.vue'
 import PasswordInput from '../components/PasswordInput.vue'
 
 // Form data
@@ -119,18 +140,26 @@ const first_name = ref('')
 const email = ref('')
 const password = ref('')
 const confirm_password = ref('')
-const isVisible = ref(false)
 const error = ref(null)
 
-const toggleVisibility = () => {
-  isVisible.value = !isVisible.value
-}
+// Password validity state from PasswordInput's @valid emit
+const isPasswordValid = ref(false)
+const isConfirmValid = ref(false)
+
+const passwordsMatch = computed(
+  () => !!confirm_password.value && password.value === confirm_password.value,
+)
+
+const canSubmit = computed(
+  () => isPasswordValid.value && isConfirmValid.value && passwordsMatch.value,
+)
 
 const store = useAuthStore()
 const router = useRouter()
 
 const signup = async () => {
   error.value = null
+  if (!canSubmit.value) return
   try {
     await store.signup({
       username: email.value,
@@ -142,7 +171,6 @@ const signup = async () => {
     })
     router.push('/')
   } catch (err) {
-    // Message from authService if the backends returns an error
     error.value =
       err.message || 'Une erreur est survenue lors de la création du compte.'
   }
