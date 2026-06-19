@@ -1,0 +1,21 @@
+services:
+  db:
+    container_name: mamie-pull-db-test
+    tmpfs:
+      - /var/lib/postgresql #new DB every time test run
+    env_file:
+      - .env.test
+
+  backend:
+    container_name: mamie-pull-backend-test
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py pytest"
+    env_file:
+      - .env.test
+
+  frontend:
+    container_name: mamie-pull-frontend-test
+    command: npm run test
+    environment:
+      - VITE_API_BASE_URL=http://backend:8000/api
