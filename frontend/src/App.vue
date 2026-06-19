@@ -329,7 +329,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useCategoryStore } from './stores/categoryStore'
 import { useAuthStore } from './stores/authStore'
 import { useSearchStore } from './stores/searchStore'
@@ -345,6 +345,7 @@ const menus = {
 }
 
 const route = useRoute()
+const router = useRouter()
 const categoryStore = useCategoryStore()
 const searchStore = useSearchStore()
 const authStore = useAuthStore()
@@ -361,6 +362,7 @@ const validCategories = computed(() => {
 
 const logout = () => {
   authStore.logout()
+  router.push('/')
 }
 
 const logoutAndClose = () => {
