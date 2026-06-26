@@ -85,6 +85,29 @@
     <p v-if="errorMessage" role="alert" class="mt-1 text-sm text-error-purple">
       {{ errorMessage }}
     </p>
+
+    <!-- Password checks -->
+    <ul
+      v-if="props.validate && props.showRequirements"
+      class="mt-2 space-y-1 text-sm"
+      role="status"
+    >
+      <li
+        v-for="(req, index) in passwordRequirements"
+        :key="index"
+        class="flex items-center gap-1.5"
+        :class="
+          req.test
+            ? 'text-highlight-purple'
+            : isFilled
+              ? 'text-error-purple'
+              : 'text-dark-purple'
+        "
+      >
+        <span aria-hidden="true">{{ req.test ? '✓' : '✗' }}</span>
+        {{ req.message }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -116,7 +139,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  // Set to false on login — no length check needed there
+  // Set to false on login
   validate: {
     type: Boolean,
     default: true,
@@ -125,6 +148,11 @@ const props = defineProps({
     type: Number,
     default: 8,
   },
+  // Set to false on confirm password field
+  showRequirements: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const emit = defineEmits(['update:modelValue', 'valid'])
@@ -132,18 +160,43 @@ const emit = defineEmits(['update:modelValue', 'valid'])
 const isVisible = ref(false)
 const isFilled = ref(false) // only show errors after user has interacted with the field
 
+const passwordRequirements = computed(() => {
+  const value = props.modelValue || ''
+  return [
+    {
+      test: value.length >= props.minLength,
+      message: `Minimum ${props.minLength} caractères requis.`,
+    },
+    {
+      test: value !== value.toLowerCase(),
+      message: 'Au moins une lettre majuscule requise.',
+    },
+    {
+      test: value !== value.toUpperCase(),
+      message: 'Au moins une lettre minuscule requise.',
+    },
+    {
+      test: /\d/.test(value),
+      message: 'Au moins un chiffre requis.',
+    },
+    {
+      test: /\W/.test(value),
+      message: 'Au moins un caractère spécial requis.',
+    },
+  ]
+})
+
 const errorMessage = computed(() => {
   if (!props.validate || !isFilled.value) return ''
   if (!props.modelValue) return 'Ce champ est requis.'
-  if (props.modelValue.length < props.minLength)
-    return `Minimum ${props.minLength} caractères requis.`
   return ''
 })
 
 const isValid = computed(
   () =>
     !props.validate ||
-    (!!props.modelValue && props.modelValue.length >= props.minLength),
+    (!!props.modelValue &&
+      passwordRequirements.value.every((requirement) => requirement.test)),
 )
 
 const toggleVisibility = () => {

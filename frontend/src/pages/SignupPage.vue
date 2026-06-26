@@ -89,6 +89,7 @@
             placeholder="Confirmez votre mot de passe..."
             :validate="true"
             :min-length="8"
+            :show-requirements="false"
             @valid="isConfirmValid = $event"
           />
           <p

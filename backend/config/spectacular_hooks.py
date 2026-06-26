@@ -1,3 +1,4 @@
+# exclude from the swagger
 def exclude_non_api_paths(endpoints, **kwargs):
     excluded_prefixes = [
         "/admin/",
