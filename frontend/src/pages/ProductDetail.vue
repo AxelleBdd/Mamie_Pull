@@ -42,19 +42,7 @@
       button-type="button"
       @click="goBack"
     >
-      <svg
-        class="w-5 h-5"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M15 19l-7-7 7-7"
-        />
-      </svg>
+      <ChevronLeft />
       Retour
     </ButtonDark>
 
@@ -174,6 +162,7 @@ import { getProductById } from '../api/products.js'
 import { useCategoryStore } from '../stores/categoryStore'
 import { useAuthStore } from '../stores/authStore'
 import { useFavoriteStore } from '../stores/favoriteStore.js'
+import { ChevronLeft } from '@lucide/vue'
 
 import ButtonDark from '../components/ButtonDark.vue'
 import FavoriteButton from '../components/FavoriteButton.vue'

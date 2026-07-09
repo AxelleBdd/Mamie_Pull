@@ -37,19 +37,7 @@
             aria-label="Rechercher un produit"
             class="w-full px-4 py-2 pr-10 rounded-md border border-grey-purple focus:outline-none focus:ring-2 focus:ring-highlight-purple bg-white transition"
           />
-          <svg
-            class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-dark-purple"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
+          <Search />
         </div>
       </div>
     </div>
@@ -150,6 +138,7 @@ import ProductCard from '../components/ProductCard.vue'
 import ButtonDark from '../components/ButtonDark.vue'
 import { getAllProducts } from '../api/products.js'
 import { useSearchStore } from '../stores/searchStore'
+import { Search } from '@lucide/vue'
 
 const products = ref([])
 const loading = ref(true)

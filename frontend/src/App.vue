@@ -40,19 +40,7 @@
                 @click="menus.products.value = !menus.products.value"
               >
                 Nos produits
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M19 9l-7 7-7-7"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <ChevronDown />
               </button>
               <div
                 v-show="menus.products.value"
@@ -92,38 +80,14 @@
                 aria-haspopup="true"
                 @click="menus.account.value = !menus.account.value"
               >
-                <svg
-                  class="w-7 h-7"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
-                </svg>
+                <UserRound />
                 <span
                   v-if="isAuthenticated && displayFirstName"
                   class="text-lg"
                 >
                   {{ displayFirstName }}
                 </span>
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M19 9l-7 7-7-7"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <ChevronDown />
               </button>
               <div
                 v-show="menus.account.value"
@@ -188,27 +152,8 @@
             aria-controls="mobile-menu"
             @click="mobileMenu = !mobileMenu"
           >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                v-if="!mobileMenu"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-              <path
-                v-else
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
+            <Menu v-if="!mobileMenu" />
+            <X v-else />
           </button>
         </div>
 
@@ -334,6 +279,7 @@ import { useCategoryStore } from './stores/categoryStore'
 import { useAuthStore } from './stores/authStore'
 import { useSearchStore } from './stores/searchStore'
 import { storeToRefs } from 'pinia'
+import { ChevronDown, UserRound, Menu, X } from '@lucide/vue'
 
 const mobileMenu = ref(false)
 const productsMenu = ref(false)
