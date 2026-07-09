@@ -34,50 +34,8 @@
         class="absolute inset-y-0 right-2 flex items-center"
         @click="toggleVisibility"
       >
-        <svg
-          v-if="!isVisible"
-          class="h-5 w-5 text-dark-purple cursor-pointer"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-          />
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M2.458 12C3.732 7.943 7.523 5 12 5
-                        c4.477 0 8.268 2.943 9.542 7
-                        -1.274 4.057-5.065 7-9.542 7
-                        -4.477 0-8.268-2.943-9.542-7z"
-          />
-        </svg>
-
-        <svg
-          v-else
-          class="h-5 w-5 text-dark-purple cursor-pointer"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M3 3l18 18M9.88 9.88
-                        a3 3 0 104.24 4.24M6.18 6.18
-                        A9.956 9.956 0 0112 5
-                        c4.477 0 8.268 2.943
-                        9.542 7a9.97 9.97 0 01-4.043 5.132"
-          />
-        </svg>
+        <Eye v-if="!isVisible" aria-hidden="true" />
+        <EyeOff v-else aria-hidden="true" />
       </button>
     </div>
 
@@ -113,6 +71,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { Eye, EyeOff } from '@lucide/vue'
 
 const props = defineProps({
   modelValue: {

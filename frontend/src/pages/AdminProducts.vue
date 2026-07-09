@@ -31,7 +31,10 @@
       class="bg-highlight-purple hover:bg-dark-purple text-white py-2 px-4 rounded-lg my-6 transition inline-block"
       aria-label="Ajouter un nouveau produit"
     >
-      + Ajouter un produit
+      <div class="flex gap-2">
+        <Plus />
+        Ajouter un produit
+      </div>
     </router-link>
 
     <!-- Products table (Desktop) -->
@@ -182,6 +185,7 @@ import {
   deleteProduct,
 } from '../api/products'
 import ButtonDark from '../components/ButtonDark.vue'
+import { Plus } from '@lucide/vue'
 
 const authStore = useAuthStore()
 const categoryStore = useCategoryStore()

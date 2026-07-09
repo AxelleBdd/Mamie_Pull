@@ -5,19 +5,7 @@
         <div
           class="flex mb-6 items-center gap-2 rounded-lg text-lg hover:bg-highlight-purple transition lg:w-auto bg-dark-purple hover:cursor-pointer text-white-purple py-2 px-4 mx-auto sg:w-30"
         >
-          <svg
-            class="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
+          <ChevronLeft />
           <p>Retour à la liste</p>
         </div>
       </router-link>
@@ -164,6 +152,7 @@ import { useAuthStore } from '../stores/authStore'
 import { useCategoryStore } from '../stores/categoryStore'
 import { getProductById, createProduct, updateProduct } from '../api/products'
 import ButtonDark from '../components/ButtonDark.vue'
+import { ChevronLeft } from '@lucide/vue'
 
 const router = useRouter()
 const route = useRoute()

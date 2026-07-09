@@ -35,19 +35,7 @@
             aria-label="Produit précédent"
             @click="previousSlide"
           >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
+            <ChevronLeft />
           </button>
 
           <!-- Image Container -->
@@ -81,19 +69,7 @@
             aria-label="Produit suivant"
             @click="nextSlide"
           >
-            <svg
-              class="w-6 h-6 text-dark-purple"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
+            <ChevronRight />
           </button>
         </div>
       </div>
@@ -166,6 +142,7 @@ import { storeToRefs } from 'pinia'
 import { useCategoryStore } from '../stores/categoryStore'
 import { getAllProducts } from '../api/products'
 import ButtonDark from '../components/ButtonDark.vue'
+import { ChevronLeft, ChevronRight } from '@lucide/vue'
 
 const router = useRouter()
 const products = ref([])
