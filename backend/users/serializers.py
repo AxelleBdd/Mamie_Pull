@@ -34,10 +34,10 @@ class RegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(list(e.messages))
         return value
 
-    def validate(self, data):
-        if data["password"] != data["password_confirm"]:
+    def validate(self, attrs):
+        if attrs["password"] != attrs["password_confirm"]:
             raise serializers.ValidationError("Les mots de passe ne correspondent pas")
-        return data
+        return attrs
 
     def create(self, validated_data):
         validated_data.pop("password_confirm")
