@@ -1,6 +1,6 @@
 # Framework Django
 asgiref==3.12.1
-Django==6.0.7
+Django==6.1
 sqlparse==0.5.5
 Pillow==12.3.0
 
@@ -8,7 +8,7 @@ Pillow==12.3.0
 drf-spectacular==0.30.0
 
 # API REST
-djangorestframework==3.17.1
+djangorestframework==3.18.0
 djangorestframework-simplejwt
 
 # CORS
@@ -22,8 +22,8 @@ python-decouple==3.8
 
 # Tests
 pytest==9.1.1
-pytest-django==4.12.0
-coverage==7.15.1
+pytest-django==4.13.0
+coverage==7.15.4
 
 #Linter
-ruff==0.15.21
+ruff==0.16.2
