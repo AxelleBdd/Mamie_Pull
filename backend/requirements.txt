@@ -2,7 +2,7 @@
 asgiref==3.12.1
 Django==6.0.7
 sqlparse==0.5.5
-Pillow==12.3.0
+Pillow==13.0.0
 
 #swagger
 drf-spectacular==0.30.0
